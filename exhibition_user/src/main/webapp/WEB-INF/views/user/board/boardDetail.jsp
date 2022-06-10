@@ -1,8 +1,4 @@
-<%@page import="VO.MemberVO"%>
-<%@page import="VO.LocalVO"%>
-<%@page import="VO.BoardrVO"%>
 <%@page import="java.util.List"%>
-<%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
   
@@ -88,7 +84,7 @@ a{
 
 					<!-- /.logo -->
 					<div class="logo wow fadeInDown" style="margin-top: 50px">
-						<a href="index.jsp">Exhibition</a>
+						<a href="index.do">Exhibition</a>
 					</div>
 
 
@@ -115,10 +111,10 @@ a{
 			<div id="navbar-scroll"
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
-					<li><a href="reservation.jsp">예약하기</a></li>
-					<li><a href="board.jsp">게시판</a></li>
+					<li><a href="list.do">전체 전시 보기</a></li>
+					<li><a href="loc.do">지역별 전시 보기</a></li>
+					<li><a href="reservation.do">예약하기</a></li>
+					<li><a href="board.do">게시판</a></li>
 
 				</ul>
 			</div>
@@ -141,38 +137,17 @@ a{
 					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
 				</div>
 				<div class="panel-heading">
-				  <%
-								BoardDAO bDAO=BoardDAO.getInstance();
-				  				BoardrVO bVO=new BoardrVO();
-				  				String bd_id=request.getParameter("value");
-				  				if (bd_id ==null){
-				  					%> 잘못된 접근입니다.  <%
-				  				}
-				  			
-								BoardrVO boardDetail=bDAO.selectBoardDetail(Integer.parseInt(bd_id));
-								List<BoardrVO> boardComment=bDAO.selectcomment(Integer.parseInt(bd_id));
-								
-								pageContext.setAttribute("boardComment", boardComment);
-								pageContext.setAttribute("boardDetail", boardDetail);
-				  				bDAO.updateView(Integer.parseInt(bd_id));
-								%>
 					<h3 class="panel-title">제목</h3>
 					<input class="form-control" type="text" readonly="readonly"
-						style="background: #ffffff" value="${boardDetail.title}" disabled="disabled"/>
+						style="background: #ffffff" value="${detailData.title}" disabled="disabled"/>
 						<div style="border: 1px solid #A5A5A5; margin-top: 10px">
-					 <img src="ImageFile/${boardDetail.imgfile }"/> 
+					 <img src="ImageFile/${detailData.img_file }"/> 
 					<textarea name="ta" readonly="readonly"  id="textDesc"
-						style="background: #ffffff;border: 0px ;resize: none; width: 100%; height1000px;margin-top: 10px;" disabled="disabled">${boardDetail.description}</textarea> 
+						style="background: #ffffff;border: 0px ;resize: none; width: 100%; height1000px;margin-top: 10px;" disabled="disabled">${detailData.description}</textarea> 
 						</div>
 				</div>
 				</div>
-				<%
-				String userid=boardDetail.getUserid();
-				MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
-				String sessionId=sessionMember.getUserId();
-					
-				pageContext.setAttribute("sessionId", sessionId);
-				pageContext.setAttribute("bd_id",bd_id);%>
+				
 					<i class="fa fa-comment fa" ></i> 댓글
 				<div class="card-body">
 					<ul class="list-group list-group-flush">
@@ -187,28 +162,30 @@ a{
 							<button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commentBtn">댓글 작성</button>
 					</form>
 						</li>
-						<c:forEach var="boardComment" items="${pageScope.boardComment }">
-						<li><div>
-						<input type="text" value="${boardComment.cm_userid }" style="border:none; text-align: center" readonly="readonly" disabled="disabled" />
-						<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.cm_description }"/>
-						<input type="text" value="${boardComment.cm_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
-							<c:if test="${sessionId eq boardComment.cm_userid}"> 
-							<a href="commentDelete.jsp?cm_id=${boardComment.cm_id  }&bd_id=${bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
-						</c:if> 
-							</div>
+						<c:forEach var="boardComment" items="${comList }">
+						<li>
+						<div>
+							<input type="text" value="${boardComment.reply_userid }" style="border:none; text-align: center" readonly="readonly" disabled="disabled" />
+							<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.reply_description }"/>
+							<input type="text" value="${boardComment.reply_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
+							
+							<c:if test="${sessionId eq boardComment.reply_userid}"> 
+								<a href="commentDelete.jsp?cm_id=${boardComment.reply_id  }&bd_id=${bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
+							</c:if> 
+						</div>
 						</li>
 						</c:forEach>
 					</ul>
 				</div>
 				<br />
-				<a href="board.jsp">
+				<a href="board.do">
 				<input type="button" value="확인" id="btn" class="btn btn-warning " style="width: 30%; margin-left: 30% "/>
 				</a>
-				<c:if test="${sessionId eq boardDetail.userid }">
-				<a href="boardDelete.jsp?bd_id=${bd_id }"><input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right; "/></a>
-				<a href="boardUpdate.jsp?bd_id=${bd_id }"><input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/></a>
-				</c:if>
-				
+					<a href="${flag eq true }? deleteBoard.do?bd_id=${bd_id }:#void"><input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right; "/></a>
+					<%-- <a href="${flag eq true }? modifyBoard.do?bd_id=${bd_id }:#void"><input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/></a> --%>
+					<form id="modifyFrm" action="${flag eq true }? modifyBoard.do?bd_id=${bd_id }:''" method="post">
+						<input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/>
+					</form>
 			</div>
 			
 

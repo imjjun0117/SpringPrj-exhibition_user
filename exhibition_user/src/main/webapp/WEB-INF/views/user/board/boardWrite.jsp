@@ -128,14 +128,6 @@ a{
 					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
 				</div>
 					<div class="panel-heading">
-                                     <%--        <%
-                                            
-                                           
-								BoardDAO bDAO=BoardDAO.getInstance();
-								List<BoardrVO> catList=bDAO.selectCategory();
-								
-								pageContext.setAttribute("catList", catList);
-								%> --%>
 						<h3 class="panel-title">제목</h3>
 						<input class="form-control" type="text" id="title" name="title" >
 					</div>

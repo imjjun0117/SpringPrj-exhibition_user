@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.board.dao.UserBoardDAO;
+import kr.co.sist.user.board.domain.UserBoardDomain;
 import kr.co.sist.user.board.vo.UserBoardVO;
 
 @Component
@@ -20,8 +21,8 @@ public class UserBoardService {
 	 * @param ubVO 寃��깋(�븘�씠�뵒, �젣紐�)
 	 * @return
 	 */
-	public List<UserBoardVO> searchBoard(UserBoardVO ubVO){
-		List<UserBoardVO> list=null;
+	public List<UserBoardDomain> searchBoard(UserBoardVO ubVO){
+		List<UserBoardDomain> list=null;
 		try {
 			list=ubDAO.selectBoard(ubVO);
 		}catch(PersistenceException pe) {
@@ -37,7 +38,7 @@ public class UserBoardService {
 	 * @param cat_num 移댄뀒怨좊━ 踰덊샇
 	 * @return �쟾泥� 寃뚯떆湲� �닔
 	 */
-	public void searchTotalCount(int cat_num) {
+	public int searchTotalCount(int cat_num) {
 		int cnt=0;
 		
 		try {
@@ -46,17 +47,15 @@ public class UserBoardService {
 			pe.printStackTrace();
 		}//end catch	
 		
-		UserBoardVO ubVO=new UserBoardVO();
-		ubVO.setTotalCnt(cnt);
+		return cnt;
 	}//searchTotalCount
 	
 	/**
 	 * �븳 �럹�씠吏��떦 蹂댁뿬以� 寃뚯떆湲� �닔
 	 * @return 10媛�
 	 */
-	public void pageScale() {
-		UserBoardVO ubVO=new UserBoardVO();
-		ubVO.setPageScale(10);
+	public int pageScale() {
+		return 10;
 	}//pageScale
 	
 
@@ -66,10 +65,10 @@ public class UserBoardService {
 	 * @param pageScale 10媛�
 	 * @return �븘�슂�븳 �럹�씠吏� �닔
 	 */
-	public void pageCnt(UserBoardVO ubVO) {
+	public int pageCnt(int cat_num) {
 		int pageCnt=0;
-		pageCnt=(int)Math.ceil((double)ubVO.getTotalCnt()/ubVO.getPageScale());
-		ubVO.setPageCnt(pageCnt);
+		pageCnt=(int)Math.ceil((double)searchTotalCount(cat_num)/pageScale());
+		return pageCnt;
 	}//end pageCnt
 	
 	
@@ -79,11 +78,12 @@ public class UserBoardService {
 	 * @param pageScale 10媛�
 	 * @return 
 	 */
-	public void startNum(UserBoardVO ubVO) {
+	public int startNum(int currentNum) {
 		int startNum=1;
-		
-		startNum=ubVO.getCurrentPage()*ubVO.getPageScale()-ubVO.getPageScale()+1;
-		ubVO.setStartNum(startNum);
+		if(currentNum!=0) {
+			startNum = currentNum*pageScale()-pageScale()+1;
+		}
+		return startNum;
 	}//startNum
 	
 	
@@ -93,14 +93,23 @@ public class UserBoardService {
 	 * @param pageScale 10媛�
 	 * @return 留덉�留� 寃뚯떆湲� 踰덊샇
 	 */
-	public void endNum(UserBoardVO ubVO) {
+	public int endNum(int currentNum) {
 		int endNum=0;
-		endNum=ubVO.getStartNum()+ubVO.getPageScale()-1;
-		ubVO.setEndNum(endNum);
+		endNum=startNum(currentNum)+pageScale()-1;
+		return endNum;
 	}//endNum
 	
+	
+	public int endPage(int cat_num) {
+		int endPage = searchTotalCount(cat_num) / pageScale();
+		if(searchTotalCount(cat_num) % pageScale()!=0) {
+			endPage +=1;
+		}
+		return endPage;
+	}
+	
 	/**
-	 * 寃뚯떆湲� �궘�젣
+	 * 게시글 삭제
 	 * @param bd_id
 	 * @return �궘�젣 �꽦怨� �뿬遺�
 	 */
@@ -117,21 +126,22 @@ public class UserBoardService {
 	}//removeBoard
 	
 	/**
-	 * 寃뚯떆湲� 異붽�
+	 * 게시글 추가
 	 * @param ubVO
 	 */
-	public void addBoard(UserBoardVO ubVO) {
-		
+	public int addBoard(UserBoardVO ubVO) {
+		int cnt = 0;
 		try {
-			ubDAO.insertBoard( ubVO );
+			cnt = ubDAO.insertBoard( ubVO );
+			
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
-		
+		return cnt;
 	}//addBoard
 	
 	/**
-	 * 寃뚯떆湲� �닔�젙
+	 * 게시글 수정
 	 * @param ubVO
 	 * @return �꽦怨� �뿬遺�
 	 */
@@ -148,24 +158,24 @@ public class UserBoardService {
 	}//addBoard
 	
 	/**
-	 * 寃뚯떆湲� �긽�꽭
+	 * 게시글 삭제
 	 * @param bd_id
 	 * @return
 	 */
-	public UserBoardVO boardDetail(int bd_id) {
-		UserBoardVO ubVO=new UserBoardVO();
+	public UserBoardDomain boardDetail(int bd_id) {
+		UserBoardDomain ubDomain=new UserBoardDomain();
 		
 		try {
-			ubVO=ubDAO.selectBoardDetail( bd_id );
+			ubDomain=ubDAO.selectBoardDetail( bd_id );
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
 		
-		return ubVO;
+		return ubDomain;
 	}//boardDetail
 	
 	/**
-	 * 移댄뀒怨좊━ 蹂댁뿬二쇨린
+	 * 카테고리 목록 가져오기
 	 * @return
 	 */
 	public List<UserBoardVO> category() {
@@ -180,7 +190,7 @@ public class UserBoardService {
 	}//category
 	
 	/**
-	 * 酉� �닔 �닔�젙
+	 * 수정
 	 * @param bd_id
 	 */
 	public void modifyView(int bd_id) {
@@ -193,7 +203,7 @@ public class UserBoardService {
 	}//modifyView
 	
 	/**
-	 * �뙎湲� 蹂댁뿬二쇨린
+	 *  댓글 select
 	 * @param bd_id
 	 * @return
 	 */

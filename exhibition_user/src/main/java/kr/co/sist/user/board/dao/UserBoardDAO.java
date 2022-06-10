@@ -6,6 +6,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 import kr.co.sist.user.mybatis.MyBatisFramework;
+import kr.co.sist.user.board.domain.UserBoardDomain;
 import kr.co.sist.user.board.vo.UserBoardVO;
 
 @Component
@@ -17,8 +18,8 @@ public class UserBoardDAO {
 	 * @return 게시글 리스트
 	 * @throws PersistenceException
 	 */
-	public List<UserBoardVO> selectBoard(UserBoardVO ubVO) throws PersistenceException{
-		List<UserBoardVO> list=null;
+	public List<UserBoardDomain> selectBoard(UserBoardVO ubVO) throws PersistenceException{
+		List<UserBoardDomain> list=null;
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		list=ss.selectList("kr.co.sist.user.board.selectBoard", ubVO);
@@ -60,14 +61,19 @@ public class UserBoardDAO {
 	 * 게시글 추가
 	 * @param ubVO
 	 */
-	public void insertBoard( UserBoardVO ubVO) {
+	public int insertBoard( UserBoardVO ubVO) {
+		int cnt = 0;
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		ss.selectOne("kr.co.sist.user.board.insertBoard", ubVO);
+		cnt = ss.insert("kr.co.sist.user.board.insertBoard", ubVO);
+		if(cnt>0) {
+			ss.commit();
+		}
 		if( ss !=null ) { ss.close(); }
+		return cnt;
 	}//insertBoard
 	
 	/**
-	 * 게시글
+	 * 게시글 수정
 	 * @param ubVO
 	 * @return 성공 여부
 	 */
@@ -77,8 +83,10 @@ public class UserBoardDAO {
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		success=ss.selectOne("kr.co.sist.user.board.insertupdateBoard", ubVO);
 		
+		if(success>0) {
+			ss.commit();
+		}
 		if( ss !=null ) { ss.close(); }
-		
 		return success;
 	}//updateBoard
 	
@@ -87,15 +95,15 @@ public class UserBoardDAO {
 	 * @param bd_id
 	 * @return
 	 */
-	public UserBoardVO selectBoardDetail( int bd_id) {
-		UserBoardVO ubVO=new UserBoardVO();
+	public UserBoardDomain selectBoardDetail( int bd_id) {
+		UserBoardDomain ubDomain=new UserBoardDomain();
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		ubVO=ss.selectOne("kr.co.sist.user.board.selectBoardDetail", bd_id);
+		ubDomain=ss.selectOne("kr.co.sist.user.board.selectBoardDetail", bd_id);
 		
 		if( ss !=null ) { ss.close(); }
 		
-		return ubVO;
+		return ubDomain;
 	}//selectBoardDetail
 	
 	/**
@@ -120,7 +128,7 @@ public class UserBoardDAO {
 	public void updateView( int bd_id) {
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		ss.selectOne("kr.co.sist.user.board.updateView");
+		ss.update("kr.co.sist.user.board.updateView", bd_id);
 		
 		if( ss !=null ) { ss.close(); }
 		
@@ -135,8 +143,7 @@ public class UserBoardDAO {
 		List<UserBoardVO> list=null;
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		list=ss.selectList("kr.co.sist.user.board.selectCom");
-		
+		list=ss.selectList("kr.co.sist.user.board.selectCom", bd_id);
 		if( ss !=null ) { ss.close(); }
 		
 		return list;
@@ -151,8 +158,10 @@ public class UserBoardDAO {
 		int success=0;
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		success=ss.selectOne("kr.co.sist.user.board.deleteCom");
-		
+		success=ss.delete("kr.co.sist.user.board.deleteCom", cm_id);
+		if(success>0) {
+			ss.commit();
+		}
 		if( ss !=null ) { ss.close(); }
 		
 		return success;
@@ -168,7 +177,9 @@ public class UserBoardDAO {
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		success=ss.selectOne("kr.co.sist.user.board.insertCom");
-		
+		if(success>0) {
+			ss.commit();
+		}
 		if( ss !=null ) { ss.close(); }
 		
 		return success;

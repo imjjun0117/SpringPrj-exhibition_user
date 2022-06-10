@@ -12,13 +12,13 @@
 
         <meta charset="UTF-8" />
         <!-- CSS Files -->
-        <link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
-        <link href="/sist/css/animate.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/owl.theme.css" rel="stylesheet">
-        <link href="/sist/css/owl.carousel.css" rel="stylesheet">
-        <link href="/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/exhibition_user/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="/exhibition_user/css/animate.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/owl.theme.css" rel="stylesheet">
+        <link href="/exhibition_user/css/owl.carousel.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
         <!-- Colors -->
         <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -56,7 +56,7 @@ $(function(){
 
 
         <!-- /.parallax full screen background image -->
-        <div class="fullscreen landing parallax blog-page" style="background-image:url('/sist/images/bg-baner.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
+        <div class="fullscreen landing parallax blog-page" style="background-image:url('/exhibition_user/images/bg-baner.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
 
             <div class="overlay">
                 <div class="container">
@@ -136,12 +136,6 @@ $(function(){
                             <form action="catBoard.do" method="get" id="boardcat" name="boardcat">
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                                <%--<%
-								UserBoardDAO bDAO=UserBoardDAO.getInstance();
-								List<BoardrV> catList=bDAO.selectCategory();
-								
-								pageContext.setAttribute("catList", catList);
-								%>--%>
                                    <li class="active" >  
                                     <select class="form-control input-lg" name="Exhibition" id="Exhibition">
 										<c:forEach var="catList" items="${catList }">
@@ -176,29 +170,15 @@ $(function(){
                                         
                                         
                                     </tr>
-                             <%-- <%
-                             
-                             
-                             BoardrVO bVO=new BoardrVO();
-                             bVO.setCat_num(Integer.parseInt(catNum));
-                             String pageNum=request.getParameter("pageNum");
-                             if(pageNum ==null){
-                            	 pageNum="1";
-                             }
-                             if(search != null){
-                            bVO.setUserid(search);
-                             bVO.setTitle(search);
-                             }
-                             bVO.setPageNum(Integer.parseInt(pageNum));
-								List<BoardrVO> boardList=bDAO.selectBoard(bVO);
-								
-								pageContext.setAttribute("boardList", boardList);
-								%> --%>
-							
-								<c:forEach var="boardList" items="${boardList }">
+								<c:forEach var="boardList" items="${boardList}">
                                     <tr>
-                                        <td>${boardList.rownum }</td>
-                                     <td style="text-align: center;">	<a href="boardDetail.jsp?value=${boardList.bd_id }" > <c:out value="${boardList.title }"/></a></td>
+                                        <td>${boardList.rnum }</td>
+                                     	<td style="text-align: center;">	
+                                     		<a href="boardDetail.do?value=${boardList.bd_id }" > 
+                                    			<c:out value="${boardList.title }"/>
+                                    			<c:out value="${boardList.bd_id }"/>
+                                   			</a>
+                               			</td>
                                         <td><c:out value="${boardList.userid }"/></td>
                                         <td>
                                             <c:out value="${boardList.input_date }"/>
@@ -206,7 +186,7 @@ $(function(){
                                         <td><c:out value="${boardList.recommend }"/></td>
                                         <td><c:out value="${boardList.views }"/></td> 
                                     </tr> 
-                                </c:forEach>
+                                </c:forEach> 
                                 </tbody>
                             </table>
                            <%--  <% 
@@ -218,10 +198,10 @@ $(function(){
 <div class="text-center">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a href="board.jsp?pageNum=${1}&Exhibition=${catNum}"><c:out value="${1 }"/></a></li>
-  <c:forEach var="i" begin="1" end="${endNum }" step="1">
-    <li class="page-item"><a href="board.jsp?pageNum=${i*10+1}&Exhibition=${catNum}"><c:out value="${i+1 }"/></a></li>
-    </c:forEach>
+    <li class="page-item"><a href="board.do?pageNum=${1}&Exhibition=${cat_num}"><c:out value="${1 }"/></a></li>
+  	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
+    	<li class="page-item"><a href="board.do?pageNum=${i}&Exhibition=${cat_num}"><c:out value="${i+1 }"/></a></li>
+    </c:forEach> 
   </ul>
 </nav>
 
@@ -276,13 +256,13 @@ $(function(){
 
         <!-- /.javascript files -->
  
-        <script src="/sist/js/bootstrap.min.js"></script>
-        <script src="/sist/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/sist/js/custom.js"></script>
-        <script src="/sist/js/jquery.sticky.js"></script>
-        <script src="/sist/js/wow.min.js"></script>
-        <script src="/sist/js/owl.carousel.min.js"></script> 
-            <script src="/sist/js/jquery.validate.min.js"></script> 
+        <script src="/exhibition_user/js/bootstrap.min.js"></script>
+        <script src="/exhibition_user/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/exhibition_user/js/custom.js"></script>
+        <script src="/exhibition_user/js/jquery.sticky.js"></script>
+        <script src="/exhibition_user/js/wow.min.js"></script>
+        <script src="/exhibition_user/js/owl.carousel.min.js"></script> 
+            <script src="/exhibition_user/js/jquery.validate.min.js"></script> 
 
         <script>
             new WOW().init();
