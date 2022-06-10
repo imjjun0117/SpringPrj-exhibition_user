@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<properties resource="properties/database.properties"/>
+<typeAliases>
+<typeAlias type="kr.co.sist.user.exhibition.vo.UserExhibitionVO"  alias="ue"/>
+<typeAlias type="kr.co.sist.user.exhibition.vo.UserExhibitionHallVO"  alias="ueh"/>
+<typeAlias type="kr.co.sist.user.account.vo.MemberVO"  alias="member"/>
+</typeAliases>
+  <environments  default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+  	<mapper resource="kr/co/sist/user/exhibition/mapper/userExDetailMapper.xml"/>
+  	<mapper resource="kr/co/sist/user/exhibition/mapper/userExListMapper.xml"/>
+  	<mapper resource="kr/co/sist/user/reservation/mapper/userReservationMapper.xml"/>
+  	<mapper resource="kr/co/sist/user/home/mapper/userMainMapper.xml"/>
+ 	<mapper resource="kr/co/sist/user/account/mapper/userJoinMapper.xml"/>
+ 	<mapper resource="kr/co/sist/user/board/mapper/userBoardMapper.xml"/>
+ 
+  </mappers>
+</configuration>

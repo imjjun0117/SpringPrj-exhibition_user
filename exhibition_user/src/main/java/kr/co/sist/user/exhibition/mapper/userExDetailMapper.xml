@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.dao.exdetail">
+	<select id="selectExhibition" resultType="ue">
+		select ex_num, ex_name,exhibition_poster,ex_intro,ex_info,add_img, ex_hall_num,cat_num
+		from exhibition
+		where ex_num like #{ ex_num }
+	</select>
+	
+<!-- 	<select id="selectRelBoard" resultType="ub">
+		select bd_id,title,recommend,views,input_date,userid,cat_num
+		from board
+		where cat_num=#{ cat_num }
+		order by bd_id desc
+	</select>
+	 -->
+	<select id="mapSelect" resultType="ueh">
+		select  ex_hall_name, ex_hall_num, longitude, latitude,address1,address2,zipcode
+		from exhibition_hall
+		where ex_hall_num like #{ ex_hall_num }
+	</select>
+	
+
+
+
+</mapper>
