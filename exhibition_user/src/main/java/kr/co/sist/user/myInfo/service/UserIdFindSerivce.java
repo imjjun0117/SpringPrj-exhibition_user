@@ -6,4 +6,6 @@ public interface UserIdFindSerivce {
 	MemberVO findId(MemberVO mVO);
 	
 	MemberVO findPassword(MemberVO mVO); 
+	
+	void updatePassword(MemberVO mVO);
 }

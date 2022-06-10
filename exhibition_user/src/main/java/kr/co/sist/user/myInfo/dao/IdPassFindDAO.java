@@ -1,5 +1,6 @@
 package kr.co.sist.user.myInfo.dao;
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -9,14 +10,26 @@ import kr.co.sist.user.mybatis.MyBatisFramework;
 @Repository
 public class IdPassFindDAO {
 	
-	//ï¿½ï¿½ï¿½Ìµï¿½Ã£ï¿½ï¿½
+	//¾ÆÀÌµðÃ£±â
 	public MemberVO findId(MemberVO mVO) {
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		return ss.selectOne("kr.co.sist.user.findId",mVO);
 	}
-	//ï¿½ï¿½Ð¹ï¿½È£Ã£ï¿½ï¿½
+	//ºñ¹Ð¹øÈ£Ã£±â
 	public MemberVO findPassword(MemberVO mVO) {
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		return ss.selectOne("kr.co.sist.user.findPassword",mVO);
+	}
+	//ºñ¹Ð¹øÈ£ ¼öÁ¤
+	public void updatePassword(MemberVO mVO) {
+		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
+		try {
+		ss.update("kr.co.sist.user.updatePassword",mVO);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}
+		ss.commit();
+		if(ss!=null) {ss.close();}		
+		
 	}
 }

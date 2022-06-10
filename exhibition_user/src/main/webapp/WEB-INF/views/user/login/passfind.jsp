@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    %>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    errorPage="/error.jsp"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-
 <html>
     <head>
 
@@ -55,7 +54,7 @@
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           로그인
+                           비밀번호 찾기
                         </h2>
 
                     </div>
@@ -65,71 +64,81 @@
         
         
             <!-- NAVIGATION -->
-        <div id="menu">
-               <div class="container"> 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
-                    </div>
-
-                    <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="reservation.jsp">예약하기</a></li>
-                                    <li><a href="board.jsp">게시판</a></li>
-                        
-                        </ul>
-                    </div>
-                 </div>  
-        </div>
+        
 
         <!-- /.Cars section -->
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">로그인</h2>
+                        <h2 class="wow fadeInLeft">비밀번호 찾기</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/sist/user/login/login.do" method="post" >
+                        <form action="http://localhost/sist/user/login/passfind.do" method="post" name="findform" id="findform" >
                             <div class="form-group">
-                                <label for="email">아이디</label>
-                                <input class="form-control" type="text" id="userId" name="userId" value="">
+                                <label for="name">이름</label>
+                                <input class="form-control" id="name" type="text" name="name" value="">
+                            </div>
+                             <div class="form-group">
+                                <label for="id">아이디</label>
+                                <input class="form-control" id="userId" name="userId" type="text" value="">
                             </div>
                             <div class="form-group">
-                                <label for="password">비밀번호</label>
-                                <input class="form-control"  type="password" id="password" name="password" value="">
+                                <label for="phone_num">휴대번호</label>
+                                <input class="form-control" id="tel" name="tel" type="text" value="">
                             </div>
-                            <div class="form-label-group">
-                            <c:if test="${check==1 }">
-                            <label>${message }</label>
-                            </c:if>
-                            </div>
+                            
                             <div class="text-center">
-                              <input type="submit"  id="login-button" class="btn btn-warning btn-block btn-lg" value="로그인">  
+                              <input type="submit" class="btn btn-warning btn-block btn-lg"  id="pass_find" value="check">
                             </div>
-                          
-                           
-                           
-                            <div class="form-group">
-                              
-                                
-                            </div>
-                        </form>
-                            <div>
-                            	<a href="terms.do">회원가입</a> 
-                            	<a href="idfind.do" style="margin-left: 30%">아이디 찾기</a> 
-                            	<a href="passfind.do" style="float: right;">비밀번호 찾기</a>
-                            </div>
-
+              				<!-- 정보가 일치하지 않을 때-->
+					<c:if test="${check == 1}">
+						<script>
+						opener.document.findform.userId.value = "";
+						opener.document.findform.name.value = "";
+						opener.document.findform.tel.value = "";
+						</script>
+			<label>일치하는 정보가 존재하지 않습니다.</label>
+		</c:if>
+		<!-- 이름과 비밀번호가 일치할때 -->
+		<c:if test="${check == 0 }">
+		<div>
+			<label>비밀번호를 변경해주세요.</label>
+		</div>
+		<div class="form-label-group">
+		<input type="hidden" id="id" name="updateid" value="${updateid }">
+		
+			<input type="password" id="password" name="password" class="form-control"/>
+			<label for="password">비밀번호</label>
+		</div>
+		
+		<div class="form-label-group">
+			<input type="password" id="confirmpassword" name="confirmpassword" class="form-control"/>
+			<label for="confirmpassword">비밀번호확인</label>
+		</div>
+		
+		<div class="form-label-group">
+				<input class="btn btn-lg btn-secondary btn-block text-uppercase"
+					type="button" value="비밀번호 변경하기" onclick="updatePassword()">
+			</div>
+		</c:if>
+         </form>
+			<script type="text/javascript">
+		function updatePassword(){
+			if(document.findform.password.value==""){
+				alert("비밀번호를 입력해주세요.");
+				document.findform.password.focus();
+			} else if(document.findform.password.value != document.findform.confirmpassword.value){
+				alert("비밀번호가 일치하지 않습니다.");
+				document.findform.confirmpassword.focus();
+			} else {
+				document.findform.action="passclear.do";
+				document.findform.submit();
+			}
+		}
+			</script>
                     </div>
                 </div>
             
@@ -187,29 +196,29 @@
             <script src="/sist/js/jquery.validate.min.js"></script> 
 
 
+
 <script type="text/javascript">
+
+
 /* $(function(){
-	$("#login-button").click(function(){
+	$("#pass_find").click(function(){
+		var name=$("#name").val();
 		var id=$("#userId").val();
-		var pass=$("#password").val();
+		var phone=$("#tel").val();
 		
-		if(userId==""){
-			alert("아이디를 입력해주세요.");
+		if(name==""){
+			alert("이름을 입력하세요.");
 			return;
-		}else if(pass==""){
-			alert("비밀번호를 입력해주세요.");
-			return;	
+		}else if(id==""){
+			alert("아이디를 입력하세요.");
+			return;
+		}else if(phone==""){
+			alert("휴대폰번호를 입력하세요.");
+			return;
 		}
-		location.href="index.jsp";
 		$("#frm").submit();
 	});
 }); */
-
-		
-	
-		
-	
-})//click
 </script>
         <script>
             new WOW().init();

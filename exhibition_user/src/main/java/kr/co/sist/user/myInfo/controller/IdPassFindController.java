@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.co.sist.user.account.vo.MemberVO;
@@ -15,13 +16,13 @@ public class IdPassFindController {
 	@Autowired(required = false)
 	private UserIdFindSerivce idfindService;
 	
-	//ï¿½ï¿½ï¿½Ìµï¿½Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ï¿½ï¿½
-		@RequestMapping(value ="/user/idfind.do",method =RequestMethod.GET)
+	//¾ÆÀÌµðÃ£±â ÆûÀ¸·Î µé¾î°¥¶§
+		@RequestMapping(value ="/user/login/idfind.do",method =RequestMethod.GET)
 		public void getIdFind()throws Exception{
 			
 		}//getIdFind
-	//ï¿½ï¿½ï¿½Ìµï¿½Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-		@RequestMapping(value ="/user/idfind.do",method =RequestMethod.POST)
+	//¾ÆÀÌµðÃ£±â ½ÇÇà
+		@RequestMapping(value ="/user/login/idfind.do",method =RequestMethod.POST)
 		public String FindId(MemberVO mVO,Model model)throws Exception{
 			MemberVO member=idfindService.findId(mVO);
 			if(member==null) {
@@ -31,7 +32,45 @@ public class IdPassFindController {
 				model.addAttribute("check",0);
 				model.addAttribute("id",member.getUserId());
 			}
-			return "user/myaccount/idfind";
+			return "user/login/idfind";
 		}//FindId
+		
+		//ºñ¹Ð¹øÈ£Ã£±âÈ­¸éÀ¸·Î ÀÌµ¿
+		@RequestMapping(value ="/user/login/passfind.do",method =RequestMethod.GET)
+		public void GetpassFind()throws Exception{
+			
+		}//getIdFind
+		
+		//ºñ¹Ð¹øÈ£Ã£±â
+		@RequestMapping(value ="/user/login/passfind.do",method =RequestMethod.POST)
+		public String PostpassFind(MemberVO mVO,Model model)throws Exception{
+			MemberVO member=idfindService.findPassword(mVO);
+			if(member==null) {
+				model.addAttribute("check",1);
+			}else {
+				model.addAttribute("check",0);
+				model.addAttribute("updateid",member.getUserId());
+			}
+			return "user/login/passfind";
+		}//getIdFind
+		//ºñ¹Ð¹øÈ£ ¹Ù²Ù±â ½ÇÇà
+		@RequestMapping(value="/user/login/passclear.do",method=RequestMethod.POST)
+		public String updatePasswordAction
+		(@RequestParam(value="updateid",defaultValue =" ",required = false )String userId,MemberVO mVO) {
+			
+			mVO.setUserId(userId);
+			System.out.println(mVO);
+			idfindService.updatePassword(mVO);
+			return "user/login/passclear";
+		}
+		/*
+		 * //ºñ¹Ð¹øÈ£ ¹Ù²Ù±â ¼º°øÇÏ¸é ³ª¿À´Â ÆäÀÌÁö
+		 * 
+		 * @RequestMapping(value="/user/passclear.do",method) public String
+		 * checkPassword(HttpSession session,Model model) { //MemberVO
+		 * memberUser=(MemberVO)session.getAttribute("memberUser");
+		 * 
+		 * return "user/passclear"; }
+		 */
 		
 }

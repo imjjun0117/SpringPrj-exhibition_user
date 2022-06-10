@@ -14,10 +14,15 @@ public class UserIdFindSerivceImpl implements UserIdFindSerivce{
 	@Override
 	public MemberVO findId(MemberVO mVO) {
 		return idFindDAO.findId(mVO);
+		
 	}
 	@Override
 	public MemberVO findPassword(MemberVO mVO) {
 		return idFindDAO.findPassword(mVO);
+	}
+	@Override
+	public void updatePassword(MemberVO mVO) {
+		idFindDAO.updatePassword(mVO);
 	}
 	
 }

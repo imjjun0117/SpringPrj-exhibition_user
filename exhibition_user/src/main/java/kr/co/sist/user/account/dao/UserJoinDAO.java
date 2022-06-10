@@ -8,16 +8,17 @@ import kr.co.sist.user.account.vo.MemberVO;
 import kr.co.sist.user.mybatis.MyBatisFramework;
 @Repository
 public class UserJoinDAO {
-	
+	//회원가입
 	public void joinUser(MemberVO mVO) {
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		ss.insert("kr.co.sist.user.memberInsert",mVO);
 		ss.commit();
 	}
-	public MemberVO idCheck(String userId) {
+	//아이이체크
+	public String idCheck(String userId) {
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		MemberVO member=ss.selectOne("kr.co.sist.user.idCheck",userId);
-		
-		return member;
+		String id=ss.selectOne("kr.co.sist.user.idCheck",userId);
+		System.out.println("idCheck dao"+id);
+		return id;
 	}
 }

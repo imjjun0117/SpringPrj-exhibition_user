@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
- 
 <!DOCTYPE html>
+
 <html>
 <head>
 <!-- /.website title -->
@@ -81,7 +81,7 @@
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
 					<li><a href="reservation.jsp">예약하기</a></li>
 					<li><a href="board.jsp">게시판</a></li>
 
@@ -95,16 +95,16 @@
 
 			<div class="col-sm-6">
 				<div class="text-center ">
-					<h2 class="wow fadeInLeft">회원가입 완료</h2>
+					<h2 class="wow fadeInLeft">비밀번호 찾기</h2>
 					<div class="title-line wow fadeInRight">
 					</div>
 					<div class="row register">
 					<div class="form-group" style="height: 150px; ">
-					<h2 style="margin-top: 50px">회원가입을 축하드립니다!</h2>
+					<h2 style="margin-top: 50px">회원님의 비밀번호가<br/>변경되었습니다.</h2>
 
 					</div>
-					<a href="http://localhost/sist/user/index.do"><input type="button" id="find_direction"
-						class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>
+					<a href="login.do"><input type="button" id="find_direction"
+						class="btn btn-warning btn-block btn-lg" value="로그인하러가기"></a>
 				</div>
 			</div>
 		</div>

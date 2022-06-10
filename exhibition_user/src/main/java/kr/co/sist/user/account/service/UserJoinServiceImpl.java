@@ -1,4 +1,5 @@
 package kr.co.sist.user.account.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,15 @@ public class UserJoinServiceImpl implements UserJoinService {
 	
 	@Override
 	public void joinUser(MemberVO mVO) {
+		
 		ujDAO.joinUser(mVO);
 	}
-	@Override
-	public MemberVO idCheck(String userId) {
-		return ujDAO.idCheck(userId);
-	}
+	//@Override
+//	public String idCheck(String userId) {
+//		System.out.println(userId);
+//		String id=ujDAO.idCheck(userId);
+//		System.out.println("service id"+id);
+//		return id;
+//	}
 	
 }

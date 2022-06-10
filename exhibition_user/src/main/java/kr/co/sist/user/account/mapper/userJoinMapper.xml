@@ -11,12 +11,14 @@ values(#{userId},#{password},#{name},#{tel},#{zipcode},#{address1},#{address2})
 </insert>
 <!-- 로그인 -->
 <select id="login" resultType="member">
-select userId,password
+select *
 from member
 where userId=#{userId,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}
 </select>
-<select id="idCheck" parameterType="String" resultType="member">
-		select * from users where userId=#{userId}
+<!-- 아이디 중복확인 -->
+<select id="idCheck" parameterType="member" resultType="String">
+		select userId from member
+		where userId=#{userId}
 	</select>
 	<!--아이디찾기  -->
 <select id="findId" resultType="member">
@@ -30,5 +32,16 @@ select *
 from member
 where userId=#{userId} and name=#{name} and tel=#{tel}
 </select>
-
+<!-- 비밀번호 수정 -->
+<update id="updatePassword" parameterType="member">
+	update member
+	set password=#{password}
+	where userId=#{userId}
+</update>
+<!-- 내 정보 페이지 비밀번호 체크 -->
+<select id="checkPw" parameterType="String" resultType="String">
+	select password
+	from member
+	where userId=#{id}
+</select>
 </mapper>

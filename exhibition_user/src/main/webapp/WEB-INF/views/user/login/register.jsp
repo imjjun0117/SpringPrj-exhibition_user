@@ -82,11 +82,26 @@ $(function(){
 		    }
 		}).open();
 	});
-	
-	$("#idCheck").click(function(){
-		window.open("emailCheck.jsp","emailCheck","width=500px, height=300px ");
-	});
 });
+
+function idcheck() {
+	var url = "idcheck.do?userId=" + document.pFrm.userId.value;
+	if (document.pFrm.userId.value == "") {
+		alert("아이디를 입력해주세요.");
+		document.pFrm.userId.focus();
+		return false;
+	}else{
+		$.ajax({
+			url : "idcheck.do",
+			type :"GET",
+    		data : {"userId": document.pFrm.userId.value},
+    		success : function(data){
+    			window.open(url, "_blank1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=500, height=300");
+    		}
+		});
+	}	
+}//end idcheck
+
 function check() {
 	var check=["userId","password",'password2','name','address1','address2'];
 	var name=["이메일","비밀번호","비밀번호","이름","주소","주소"];
@@ -100,8 +115,6 @@ if($("#password").val() != $("#password2").val()){
 	alert("비밀번호가 다릅니다.");
 	return;
 }//end if
-	//location.href="registerSucess.jsp";
-	//폼에 값을 넘길때에는 location아니에요 
 	 $("#pFrm").submit();//submit해야 넘어갑니다.
 }//end check
 
@@ -172,9 +185,10 @@ if($("#password").val() != $("#password2").val()){
 						
                         <form action="http://localhost/sist/user/login/register.do" method="post" name="pFrm"  id="pFrm">
                             <div class="form-group">
-                                <label for="email-login">이메일</label>
+                                <label for="email-login">아이디</label>
                                 <input class="form-control" id="userId" type="text" name="userId"   value="">
-                                <input type="button" id="checkmail" class="btn btn-warning btn-block btn-lg" value="중복확인">
+                                <!-- 아이디 체크 -->
+                                <input type="button" onclick="idcheck()" class="btn btn-warning btn-block btn-lg" value="중복확인">
                              	<font id="checkId" size="2"></font>
                             </div>
                          

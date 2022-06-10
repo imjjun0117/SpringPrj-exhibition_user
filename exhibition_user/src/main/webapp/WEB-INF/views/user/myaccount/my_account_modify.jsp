@@ -4,43 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
-<!DOCTYPE html>
-<%
-    /* request.setCharacterEncoding("UTF-8");
-    
-    String mVO=(String)session.getAttribute("mVO");
-    
-    /* String name=(String)session.getAttribute("name");
-    String tel=(String)session.getAttribute("tel");
-    String password=(String)session.getAttribute("password");
-    String address1=(String)session.getAttribute("address1");
-    String address2=(String)session.getAttribute("address2");
-    MemberVO mVO=new MemberVO(userId,tel,"",address1,address2,password,"",name,' ');
-    MyinfoDAO miDAO=MyinfoDAO.getInstance();
-    session.setAttribute("mVO",mVO); */
-    
-   // System.out.print("내정보 수정"+mVO); 
-    
-  //String userId, String tel, String zipcode, String address1, String ad dress2, String password,
-	//String isSubscribeDate, String name, char isDeleted
- session.getAttribute("mVO");
-request.setCharacterEncoding("UTF-8");
-String userId=request.getParameter("userId");
-String password=request.getParameter("password");
 
-//String userId, String tel, String zipcode, String address1, String ad dress2, String password,
-	//String isSubscribeDate, String name, char isDeleted
-MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
-UserLoginDAO ulDAO=UserLoginDAO.getInstance();
-int result = ulDAO.login( mVO );
-if( result == 1 ){
-	
- 
-
-}
-System.out.println("내정보수정"+session.getAttribute("mVO"));
-
-    %>
 <html>
     <head>
 
