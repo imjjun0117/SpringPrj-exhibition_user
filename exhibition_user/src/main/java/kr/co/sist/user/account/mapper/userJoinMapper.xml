@@ -44,4 +44,13 @@ where userId=#{userId} and name=#{name} and tel=#{tel}
 	from member
 	where userId=#{id}
 </select>
+
+<select id="checkPass" parameterType="member" resultType="int">
+	select count(*)
+	from member
+	where userid=#{userId} and password=#{password}
+
+</select>
+
+
 </mapper>

@@ -9,16 +9,20 @@ import kr.co.sist.user.myInfo.dao.IdPassFindDAO;
 import kr.co.sist.user.myInfo.dao.MyInfoDAO;
 
 @Service
-public class MyInfoServiceImpl implements MyInfoSerivce {
+public class MyInfoServiceImpl {
 	
 	@Autowired(required = false)
 	MyInfoDAO myInfoDAO;
 	
-	@Override
-	public String pwCheck(String userId)throws PersistenceException{
-		String password= myInfoDAO.pwCheck(userId);
-		System.out.println("¼­ºñ½º: "+password);
-		return password;
+	public int pwCheck(MemberVO mVO){
+		int cnt = 0;
+		try {
+			 cnt= myInfoDAO.pwCheck(mVO);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}//end catch
+		
+		return cnt;
 	}
 	
 	

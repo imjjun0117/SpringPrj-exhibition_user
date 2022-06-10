@@ -1,3 +1,6 @@
+<%-- <%@page import="VO.MemberVO"%>
+<%@page import="VO.MyReservationVO"%>
+<%@page import="DAO.MyReservationDAO"%> --%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -12,13 +15,13 @@
 
         <meta charset="UTF-8" />
         <!-- CSS Files -->
-        <link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
-        <link href="/sist/css/animate.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/owl.theme.css" rel="stylesheet">
-        <link href="/sist/css/owl.carousel.css" rel="stylesheet">
-        <link href="/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/exhibition_user/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="/exhibition_user/css/animate.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/owl.theme.css" rel="stylesheet">
+        <link href="/exhibition_user/css/owl.carousel.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
         <!-- Colors -->
         <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -26,8 +29,8 @@
         <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-        <link href="/sist/css/stacktable.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
+        <link href="/exhibition_user/css/stacktable.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
 
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
@@ -121,7 +124,7 @@
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
                             <h2 style="padding-bottom: 17px;">예약 상황</h2>
 
-								<form action="http://localhost/sist/user/myaccount/my-account_rez.do" name="frm" id="frm">
+								<form action="my-account_rez_child.jsp" name="frm" id="frm">
                             <table id="mybooking-list" class="table booking-list stacktable large-only">
                                 <tbody>
                                     <tr>
@@ -134,11 +137,21 @@
                                         <th>예약 상황</th> 
                                         
                                     </tr>
-                                  
-								<c:forEach var="rezList" items="${pageScope.rezList }">
+                               <%--       <%
+                             
+                                     MyReservationDAO mrDAO=MyReservationDAO.getInstance();
+                                     MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+                     				String userid=sessionMember.getUserId();
+     								List<MyReservationVO> rezList=mrDAO.selectAllReservation(userid);
+                             	
+								pageContext.setAttribute("rezList", rezList);
+								int num=0;
+								
+								%> --%>
+								<%-- <c:forEach var="rezList" items="${pageScope.rezList }">
 								<input type="hidden" value="${rezList.rez_num }" name="hid" id="hid" />
                                     <tr >
-                                        <td></td>
+                                        <td><%=num+=1 %></td>
                                         <td ><a href="#void" onclick="${rezList.rez_status eq 'f'?'':'detail()'}" > <input type="text" value="${rezList.ex_name}" style="color:${rezList.rez_status eq 'f'?'#A5A5A5':''}; border:0px" readonly="readonly" disabled="disabled"/></a></td>
                                         <td>${rezList.visit_date } </td>
                                         <td>${rezList.rez_count }</td>
@@ -149,7 +162,7 @@
                                         
                                     </tr> 
 
-</c:forEach>
+								</c:forEach> --%>
                                     
                                 </tbody>
                             </table>
@@ -210,14 +223,14 @@
         
 
         <!-- /.javascript files -->
-        <script src="/sist/js/jquery.js"></script>
-        <script src="/sist/js/bootstrap.min.js"></script>
-        <script src="/sist/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/sist/js/custom.js"></script>
-        <script src="/sist/js/jquery.sticky.js"></script>
-        <script src="/sist/js/wow.min.js"></script>
-        <script src="/sist/js/owl.carousel.min.js"></script> 
-            <script src="/sist/js/jquery.validate.min.js"></script> 
+        <script src="/exhibition_user/js/jquery.js"></script>
+        <script src="/exhibition_user/js/bootstrap.min.js"></script>
+        <script src="/exhibition_user/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/exhibition_user/js/custom.js"></script>
+        <script src="/exhibition_user/js/jquery.sticky.js"></script>
+        <script src="/exhibition_user/js/wow.min.js"></script>
+        <script src="/exhibition_user/js/owl.carousel.min.js"></script> 
+            <script src="/exhibition_user/js/jquery.validate.min.js"></script> 
 
         <script>
             new WOW().init();

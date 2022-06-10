@@ -11,11 +11,13 @@ import kr.co.sist.user.mybatis.MyBatisFramework;
 
 @Component
 public class MyInfoDAO {
-	//³»Á¤º¸È­¸é¿¡¼­ ºñ¹Ð¹øÈ£È®ÀÎ
-	public String pwCheck(String userId)throws PersistenceException{
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£È®ï¿½ï¿½
+	public int pwCheck(MemberVO mVO)throws PersistenceException{
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		String password= ss.selectOne("kr.co.sist.user.checkPw",userId);
-		System.out.println("-----------password-----------"+password);
-		return password;
+		int cnt= ss.selectOne("kr.co.sist.user.checkPass",mVO);
+		
+		if(ss!= null) {ss.close();}//end if
+		
+		return cnt;
 	}
 }
