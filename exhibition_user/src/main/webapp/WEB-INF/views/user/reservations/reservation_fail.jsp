@@ -6,7 +6,7 @@
     <head>
 
         <!-- /.website title -->
-        <title>예약 성공</title>
+        <title>예약 실패</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -53,7 +53,8 @@
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           예약완료
+                           죄송합니다. 
+                           다시 시도해주세요
                         </h2>
 
                     </div>
@@ -92,7 +93,6 @@
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">예약해주셔서 감사합니다.</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
                     <div class="row sign-in">

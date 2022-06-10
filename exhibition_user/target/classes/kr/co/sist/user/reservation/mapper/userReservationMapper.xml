@@ -7,8 +7,8 @@
 <!-- 전시 내용 보여주기 -->
 <select id="exInfo" resultType="kr.co.sist.user.reservation.vo.ReservationDomain" parameterType="int"> 
 	<if test="ex_num==0">
-		select ex_name, exhibition_poster, ex_info, ex_loc, address1, ex_status 
-		from (select row_number() over(order by ex.input_date)  rnum,ex.ex_name, ex.exhibition_poster, ex.ex_info, eh.ex_loc, eh.address1, ex.ex_status
+		select ex_name, exhibition_poster, ex_info, ex_loc, address1, ex_status, deadline
+		from (select row_number() over(order by ex.input_date)  rnum,ex.ex_name, ex.exhibition_poster, ex.ex_info, eh.ex_loc, eh.address1, ex.ex_status, ex.deadline
 			from 
 			exhibition ex, exhibition_hall eh
 			where ex.ex_hall_num = eh.ex_hall_num and ex.ex_status='p')

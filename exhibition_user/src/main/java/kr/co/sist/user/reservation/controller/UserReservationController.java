@@ -25,7 +25,7 @@ public class UserReservationController {
 	@Autowired(required = false)
 	private UserReservationService urs;
 	
-	@RequestMapping(value="/user/reservation.do", method= {GET, POST})
+	@RequestMapping(value="/reservation.do", method= {GET, POST})
 	public String reservation(ReservationDomain domain, Model model) {
 	
 		model.addAttribute("exInfo", urs.exList(domain.getEx_num()));
@@ -33,12 +33,13 @@ public class UserReservationController {
 		return "user/reservations/reservation";
 	}//Reservation
 	
-	@RequestMapping(value = "/user/rezProcess.do", method = POST)
-	public String rezProcess(UserReservationVO rvo) {
+	@RequestMapping(value = "/rezProcess.do", method = POST)
+	public String rezProcess(UserReservationVO rvo, Model model) {
 		int cnt = urs.makeRez(rvo);
 		String page = "user/reservations/reservation_clear";
+
 		if(cnt==0) {
-			page="redirect:user/reservation.do";
+			page="user/reservations/reservation_fail";
 		}
 		
 		return page;

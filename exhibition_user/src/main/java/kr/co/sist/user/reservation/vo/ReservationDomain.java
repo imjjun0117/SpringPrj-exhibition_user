@@ -1,10 +1,14 @@
 package kr.co.sist.user.reservation.vo;
 
+import java.sql.Date;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 public class ReservationDomain {
 	private int ex_num;
 	private String ex_name,ex_info,exhibition_poster, ex_loc, address1;
+	private Date deadline;
+	
 	public int getEx_num() {
 		return ex_num;
 	}
@@ -36,19 +40,24 @@ public class ReservationDomain {
 		this.ex_loc = ex_loc;
 	}
 	
-	
 	public String getAddress1() {
 		return address1;
 	}
 	public void setAddress1(String address1) {
 		this.address1 = address1;
 	}
+	public Date getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
 	@Override
 	public String toString() {
-		return "ReservationDamain [ex_num=" + ex_num + ", ex_name=" + ex_name + ", ex_info=" + ex_info
-				+ ", exhibition_poster=" + exhibition_poster + ", ex_loc=" + ex_loc + "]";
+		return "ReservationDomain [ex_num=" + ex_num + ", ex_name=" + ex_name + ", ex_info=" + ex_info
+				+ ", exhibition_poster=" + exhibition_poster + ", ex_loc=" + ex_loc + ", address1=" + address1
+				+ ", deadline=" + deadline + "]";
 	}
-	
 	
 	
 }

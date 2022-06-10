@@ -17,7 +17,6 @@ public class UserMainController {
 	
 	@RequestMapping(value="/index.do", method = GET)
 	public String userMain(Model model) {
-		System.out.println("--------dfgdfdsafsdafsafsadfsadfsdaf-----------");
 		model.addAttribute("exView",us.mainExView());
 		model.addAttribute("locView",us.locView());
 		model.addAttribute("listView",us.listView());

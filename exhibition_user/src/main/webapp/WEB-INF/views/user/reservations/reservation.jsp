@@ -12,14 +12,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta charset="UTF-8" />
         <!-- CSS Files -->
-        <link href="http://localhost/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="http://localhost/sist/css/font-awesome.min.css" rel="stylesheet">
-        <link href="http://localhost/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
-        <link href="http://localhost/sist/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
-        <link href="http://localhost/sist/css/animate.css" rel="stylesheet" media="screen">
-        <link href="http://localhost/sist/css/owl.theme.css" rel="stylesheet">
-        <link href="http://localhost/sist/css/owl.carousel.css" rel="stylesheet">
-        <link href="http://localhost/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="http://localhost/exhibition_user/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="http://localhost/exhibition_user/css/font-awesome.min.css" rel="stylesheet">
+        <link href="http://localhost/exhibition_user/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="http://localhost/exhibition_user/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
+        <link href="http://localhost/exhibition_user/css/animate.css" rel="stylesheet" media="screen">
+        <link href="http://localhost/exhibition_user/css/owl.theme.css" rel="stylesheet">
+        <link href="http://localhost/exhibition_user/css/owl.carousel.css" rel="stylesheet">
+        <link href="http://localhost/exhibition_user/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
         <!-- Colors -->
         <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -27,21 +27,17 @@
         <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-        <link href="http://localhost/sist/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
+        <link href="http://localhost/exhibition_user/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
 
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
-    
-
-
+ 
     <body data-spy="scroll" data-target="#navbar-scroll">
-
         <!-- /.preloader -->
         <div id="preloader"></div>
         <div id="top"></div>
-
 
         <!-- /.parallax full screen background image -->
         <div class="fullscreen landing parallax" >
@@ -67,7 +63,7 @@
                             <ul style="color:#FFFFFF">
                             <c:forEach var="exInfo" items="${exInfo}">
                                 <li><strong><c:out value="${exInfo.ex_name}"/></strong></li>
-                                <li><img src="http://localhost/sist/img/${exInfo.exhibition_poster}" style="width: 40%; align-content: c"/></li>
+                                <li><img src="http://localhost/exhibition_user/img/${exInfo.exhibition_poster}" style="width: 40%; align-content: c"/></li>
                                 <li><c:out value="${exInfo.ex_info}"/></li>
                             </c:forEach>
                             </ul>
@@ -100,6 +96,7 @@
       									  </c:forEach>
       									  <div class="form-group">
       									  <c:forEach var="exInfo" items="${exInfo}">
+      									  <input type="hidden" value="${exInfo.deadline}" id="chkDeadline"/>
 	      									  <input class="form-control input-lg" type="text" value="${exInfo.ex_loc} / ${exInfo.address1}" readonly="readonly"/>
       									  </c:forEach>
       									  </div>
@@ -151,8 +148,28 @@
                     </div>
                  </div>  
         </div>
+<!-- The Modal -->    
+<div id="myModal" class="modal">
+       <!-- Modal content -->     
+		<div class="modal-content">
+		<p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">공지</span></b></span></p>
+		<p style="text-align: center; line-height: 1.5;"><br />여기에 내용</p>
+		<p><br/></p>
+	<div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
+		<span class="pop_bt" style="font-size: 13pt;" > 닫기 </span>
+	</div>
+	</div>
+</div>
         
-
+        <c:if test="${msg eq 1}">
+		<script type="text/javascript">
+		 jQuery(document).ready(function() {$('#myModal').show(); });        //팝업 Close 기능 
+		  function close_pop(flag) { $('#myModal').hide();};
+		
+		</script>
+		</c:if>        
+	
+	  <!--End Modal-->
  <!-- /.footer -->
         <footer id="footer">
             <div class="footer-top">
@@ -194,21 +211,21 @@
 
 
         <!-- /.javascript files -->
-        <script src="http://localhost/sist/js/jquery.js"></script>
-        <script src="http://localhost/sist/js/bootstrap.min.js"></script>
-        <script src="http://localhost/sist/js/bootstrap-datetimepicker.min.js" ></script>
-        <script src="http://localhost/sist/js/bootstrap-datetimepicker.kr.js" charset="UTF-8"></script>
-        <script src="http://localhost/sist/js/custom.js"></script>
-        <script src="http://localhost/sist/js/jquery.sticky.js"></script>
-        <script src="http://localhost/sist/js/wow.min.js"></script>
-        <script src="http://localhost/sist/js/owl.carousel.min.js"></script>
+        <script src="http://localhost/exhibition_user/js/jquery.js"></script>
+        <script src="http://localhost/exhibition_user/js/bootstrap.min.js"></script>
+        <script src="http://localhost/exhibition_user/js/bootstrap-datetimepicker.min.js" ></script>
+        <script src="http://localhost/exhibition_user/js/bootstrap-datetimepicker.kr.js" charset="UTF-8"></script>
+        <script src="http://localhost/exhibition_user/js/custom.js"></script>
+        <script src="http://localhost/exhibition_user/js/jquery.sticky.js"></script>
+        <script src="http://localhost/exhibition_user/js/wow.min.js"></script>
+        <script src="http://localhost/exhibition_user/js/owl.carousel.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
-        <script src="http://localhost/sist/js/google.js"></script> 
-        <script src="http://localhost/sist/js/booking.js"></script> 
-        <script src="http://localhost/sist/js/bootstrap-hover-dropdown.js"></script> 
-        <script src="http://localhost/sist/js/jquery.validate.min.js"></script> 
-        <script type="text/javascript" src="http://localhost/sist/js/ko.js"></script>
-        <script src="http://localhost/sist/js/snap.svg-min.js"></script> 
+        <script src="http://localhost/exhibition_user/js/google.js"></script> 
+        <script src="http://localhost/exhibition_user/js/booking.js"></script> 
+        <script src="http://localhost/exhibition_user/js/bootstrap-hover-dropdown.js"></script> 
+        <script src="http://localhost/exhibition_user/js/jquery.validate.min.js"></script> 
+        <script type="text/javascript" src="http://localhost/exhibition_user/js/ko.js"></script>
+        <script src="http://localhost/exhibition_user/js/snap.svg-min.js"></script> 
 
         <script>
       
@@ -267,10 +284,17 @@
 
 	$("#rezBtn").click(function(){
 	var reser=document.getElementById("pick_up_date").value;
+	var chkDeadline = $("#chkDeadline").val();
+	if(chkDeadline < reser){
+		alert("전시는 "+chkDeadline+"까지입니다. \n다른날을 선택해 주세요");
+		return;
+	}
 	if(reser==""){
 		alert("날짜를 선택해주세요.");
 		return;
 	} 
+	
+	
    $("#rezFrm").submit();
 	});//click
 	
