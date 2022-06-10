@@ -64,28 +64,17 @@
 								<a href="user_index.do">Exhibition</a>
 							</div>
 							<div class="head-btn wow fadeInLeft" style="width: 1300px;">
-								<%
-								Object value = null;
-								if ((Object) session.getAttribute("mVO") != null) {
-									value = (Object) session.getAttribute("mVO");
-								}
-								%>
-								<%
-								if (value == null) {
-								%>
+								
+								<c:if test="${empty sessionScope.id}">
 								<a href="login.do" class="btn btn-default" id="login_btn"
 									style="float: right;">로그인/회원가입</a>
-								<%
-								} else {
-								%>
+								</c:if>
+								<c:if test="${not empty sessionScope.id}">
 								<a href="my_account_pass.do" class="btn btn-primary"
 									id="my_info_btn" style="float: right;">내 정보</a> <a
-									href="index_logout.do" class="btn btn-default" id="logout_btn"
+									href="logout.do" class="btn btn-default" id="logout_btn"
 									style="float: right">로그아웃</a>
-								<%
-								}
-								%>
-
+								</c:if>
 
 								<!-- /.main title -->
 								<h1 class="wow fadeInLeft">

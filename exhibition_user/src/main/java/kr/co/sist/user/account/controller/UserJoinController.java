@@ -20,7 +20,7 @@ public class UserJoinController {
 	UserJoinService ujService;
 	
 	//아이디체크
-	@RequestMapping(value="/user/login/idcheck.do")
+	@RequestMapping(value="/login/idcheck.do")
 	public String idCheck(@RequestParam(value="userId",defaultValue = " ",required = false)String userId,Model model) {
 		model.addAttribute("userId",userId);
 		System.out.println("uerId" +userId);
@@ -28,17 +28,17 @@ public class UserJoinController {
 	}
 	
 	//약관동의
-	@RequestMapping(value="/user/login/terms.do",method=RequestMethod.GET)
+	@RequestMapping(value="/login/terms.do",method=RequestMethod.GET)
 	public void JoinRequire() {
 		
 	}
 	//회원가입 get
-	@RequestMapping(value ="/user/login/register.do",method =RequestMethod.GET)
+	@RequestMapping(value ="/login/register.do",method =RequestMethod.GET)
 	public void getJoin()throws Exception{
 		Logger.info("get Join");
 	}
 	//회원가입 Post
-	@RequestMapping(value ="/user/login/register.do",method = RequestMethod.POST)
+	@RequestMapping(value ="/login/register.do",method = RequestMethod.POST)
 	public String postJoin(MemberVO mVO)throws PersistenceException{
 		
 		ujService.joinUser(mVO);

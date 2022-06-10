@@ -13,26 +13,32 @@
 
         <meta charset="UTF-8" />
         <!-- CSS Files -->
-        <link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
-        <link href="/sist/css/animate.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/owl.theme.css" rel="stylesheet">
-        <link href="/sist/css/owl.carousel.css" rel="stylesheet">
-        <link href="/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet" media="screen">
+        <link href="css/owl.theme.css" rel="stylesheet">
+        <link href="css/owl.carousel.css" rel="stylesheet">
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
         <!-- Colors -->
-        <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
-        <!-- <link href="css/css-index-green.css" rel="stylesheet" media="screen"> -->
-        <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
-        <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
-        <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-        <link href="/sist/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
+       
+        <link href="css/css-index-yellow.css" rel="stylesheet" media="screen"> 
 
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
-
+		<!-- jQeury CDN -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        
+		<script type="text/javascript">
+		$(function() {
+        	$("#loginBtn").click(function() {
+				$("#loginFrm").submit();
+			});
+		});//ready
+		
+		</script>
     </head>
 
     <body data-spy="scroll" data-target="#navbar-scroll">
@@ -50,7 +56,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.jsp">Exhibition</a>
+                            <a href="index.do">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
@@ -79,10 +85,10 @@
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="reservation.jsp">예약하기</a></li>
-                                    <li><a href="board.jsp">게시판</a></li>
+                            <li><a href="list.do">전체 전시 보기</a></li>
+                            <li><a href="loc.do">지역별 전시 보기</a></li>
+                            <li><a href="reservation.do">예약하기</a></li>
+                                    <li><a href="board.do">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -99,7 +105,7 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/sist/user/login/login.do" method="post" >
+                        <form action="http://localhost/exhibition_user/loginChk.do" method="post" id="loginFrm">
                             <div class="form-group">
                                 <label for="email">아이디</label>
                                 <input class="form-control" type="text" id="userId" name="userId" value="">
@@ -109,12 +115,10 @@
                                 <input class="form-control"  type="password" id="password" name="password" value="">
                             </div>
                             <div class="form-label-group">
-                            <c:if test="${check==1 }">
-                            <label>${message }</label>
-                            </c:if>
+                            
                             </div>
                             <div class="text-center">
-                              <input type="submit"  id="login-button" class="btn btn-warning btn-block btn-lg" value="로그인">  
+                              <input type="button"  id="loginBtn" class="btn btn-warning btn-block btn-lg" value="로그인">  
                             </div>
                           
                            
@@ -177,14 +181,14 @@
 
 
         <!-- /.javascript files -->
-        <script src="/sist/js/jquery.js"></script>
-        <script src="/sist/js/bootstrap.min.js"></script>
-        <script src="/sist/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/sist/js/custom.js"></script>
-        <script src="/sist/js/jquery.sticky.js"></script>
-        <script src="/sist/js/wow.min.js"></script>
-        <script src="/sist/js/owl.carousel.min.js"></script>
-            <script src="/sist/js/jquery.validate.min.js"></script> 
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.validate.min.js"></script> 
 
 
 <script type="text/javascript">
