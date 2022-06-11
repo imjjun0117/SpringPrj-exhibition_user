@@ -53,6 +53,15 @@ where userId=#{userId} and name=#{name} and tel=#{tel}
 	where userid=#{userId} and password=#{password}
 
 </select>
+<select id="memberList" parameterType="String" resultType="member">
+	select * from member
+	where userid=#{userId}
+</select>
 
-
+<update id="updateMember" parameterType="member">
+	update member 
+	set password=#{password}, name=#{name}, tel=#{tel}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}
+	where userid=#{userId}
+	
+</update>
 </mapper>

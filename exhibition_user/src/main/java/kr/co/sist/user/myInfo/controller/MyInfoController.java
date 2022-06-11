@@ -1,5 +1,7 @@
 package kr.co.sist.user.myInfo.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +69,25 @@ public class MyInfoController {
 			
 		//내정보 수정 페이지
 		@RequestMapping(value="/my_account_modify.do", method=RequestMethod.GET)
-		public String accountModify() {
+		public String accountModifyFrm(HttpSession session, Model model) {
+			String userId = (String)session.getAttribute("id");
+			List<MemberVO> list = serviceImpl.searchMember(userId);
+			
+			model.addAttribute("memberList", list);
+			
 			return "user/myaccount/my_account_modify";
 		}
+		
+		@RequestMapping(value="/my_account_modify_process.do", method=RequestMethod.POST)
+		public String accountModify(MemberVO member , Model model) {
+			int cnt = serviceImpl.updateMember(member);
+			String page= "user/myaccount/my_account_success";
+			if(cnt!=0) {
+				model.addAttribute("msg", 1);
+				page = "user/myaccount/my_account_modify";
+			}
+			
+			return page;
+		}
+		
 }//class

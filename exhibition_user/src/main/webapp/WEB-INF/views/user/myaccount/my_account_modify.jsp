@@ -1,8 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
     <head>
 
@@ -84,22 +83,31 @@ $(function(){
 	});
 	
 	$("#next").click(function(){
-		var check=["password",'name','address1','address2'];
-		var name=["비밀번호","이름","주소","주소"];
-	for(var i=0; i<check.length;i++){
-		if($("#"+check[i]).val() ==""){
-			alert(name[i]+"을/를 입력해주세요");
+		var password = $("#password").val();
+		var passwordChk = $("#passwordChk").val();
+		
+		if(password ==''){
+			alert("비밀번호를 입력해주세요!");
 			return;
-		}//end if 
-	}//end for
-	
-	$("#frm").submit();
+		}
+		
+		if(passwordChk!=''){
+			if(passwodChk != password){
+				alert("비밀번호가 일치하지 않습니다.");
+				return;
+			}
+		}
+		$("#modifyFrm").submit();
 	});//click
 });
 
 </script>
+	<c:if test="${msg eq 1}">
+	<script type="text/javascript">
+		alert("수정이 완료되지 못했습니다. 다시한번 시도해 주세요.");
+	</script>
+	</c:if>
     <body data-spy="scroll" data-target="#navbar-scroll">
-
         <!-- /.preloader -->
         <div id="preloader"></div>
         <div id="top"></div>
@@ -113,7 +121,7 @@ $(function(){
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.jsp">Exhibition</a>
+                            <a href="index.do">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
@@ -125,7 +133,6 @@ $(function(){
                 </div> 
             </div> 
         </div>
-        
         
              <!-- NAVIGATION -->
         <div id="menu">
@@ -142,10 +149,10 @@ $(function(){
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                               <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="reservation.jsp">예약하기</a></li>
-                                    <li><a href="board.jsp">게시판</a></li>
+                               <li><a href="list.do">전체 전시 보기</a></li>
+                            <li><a href="loc.do">지역별 전시 보기</a></li>
+                            <li><a href="reservation.do">예약하기</a></li>
+                                    <li><a href="board.do">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -170,9 +177,8 @@ $(function(){
                             </div>
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                                  <li ><a href="#void">비밀번호 입력</a></li>
-                                    <li ><a href="my-account_rez.jsp">예약상황</a></li>
-                                    <li class="active"><a href="my_account_modify.jsp">내 정보 수정</a></li>
+                                    <li ><a href="my-account_rez.do">예약상황</a></li>
+                                    <li class="active"><a href="my_account_modify.do">내 정보 수정</a></li>
                                     
                                 </ul>
                             </div>
@@ -185,29 +191,44 @@ $(function(){
                 <div class="col-sm-6"  >
                     
                     <div class="row register">
-
-                        <form action="my_account_modify_process.jsp" method="post" id="frm">
+						
+		        	<c:forEach var="memberList" items="${memberList}">
+		        	
+                        <form action="my_account_modify_process.do" method="post" id="modifyFrm">
                             <div class="form-group">
                                 <label for="email-login">이메일</label>
-                                <input class="form-control"  type="text" value="${mVO.userId }" id="userId" name="userId"><br/>
+                                <input class="form-control"  type="text" value="${memberList.userId}" id="userId" name="userId" readonly="readonly"><br/>
                             </div>
-                            
-                              <a href="newpass2.jsp"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
-                           <br/>
+                            <div class="form-group">
+                                <label for="password">비밀번호</label>
+                                <input class="form-control"  type="password" id="password" name="password" value="${memberList.password}"><br/>
+                                <label for="password">비밀번호 확인</label>
+                                <input class="form-control"  type="password" id="passwordChk"><br/>
+                            </div>
                             <div class="form-group">
                                 <label for="name-login">이름</label>
-                                <input class="form-control"  type="text" id="name" name="name" value="${mVO.name }">
+                                <input class="form-control"  type="text" id="name" name="name" value="${memberList.name }">
+                            </div>
+                            <div class="form-group">
+                                <label for="tel-login">전화번호</label>
+                                <input class="form-control"  type="text" id="tel" name="tel" value="${memberList.tel}">
                             </div>
                             <div class="form-group">
                                 <label for="addr-login">주소</label>
-                                <input class="form-control"  type="text" id="address1" name="address1" value="${mVO.address1 }"/>
-                                <input class="form-control"  type="text" id="address2" name="address2" value="${mVO.address2 }"><br/>
+                                <input class="form-control"  type="text" id="address1" name="address1" value="${memberList.address1 }"/>
+                                <input class="form-control"  type="text" id="address2" name="address2" value="${memberList.address2 }"><br/>
                         <input type="button"  class="btn btn-warning btn-block btn-lg" value="우편번호 찾기" id="find_addr">
+                            <div class="form-group">
+                                <label for="zipcode-login">우편번호</label>
+                                <input class="form-control"  type="text" id="zipcode" name="zipcode" value="${memberList.zipcode}">
+                            </div>
+                           
                             </div>
                                 <input type="button"  value="수정" id="next" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px">
-                                <a href="my_account_modify.jsp"><input type="button"   value="취소" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
+                                <input type="button" id="modifyBtn"  value="취소" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px">
                         </form>
                             
+		        	</c:forEach>
                     </div>
                 </div>
           </div>

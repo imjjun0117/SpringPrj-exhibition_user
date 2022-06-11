@@ -79,10 +79,10 @@
 			<div id="navbar-scroll"
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
-					<li><a href="reservation.jsp">예약하기</a></li>
-					<li><a href="board.jsp">게시판</a></li>
+					<li><a href="list.do">전체 전시 보기</a></li>
+					<li><a href="loc.do">지역별 전시 보기</a></li>
+					<li><a href="reservation.do">예약하기</a></li>
+					<li><a href="board.do">게시판</a></li>
 
 				</ul>
 			</div>
@@ -102,7 +102,7 @@
 					<h2 style="margin-top: 50px">회원님의 정보가<br/>정상적으로 수정되었습니다.</h2>
 
 					</div>
-					<a href="index.jsp"><input type="button" id="find_direction"
+					<a href="index.do"><input type="button" id="find_direction"
 						class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>
 				</div>
 			</div>

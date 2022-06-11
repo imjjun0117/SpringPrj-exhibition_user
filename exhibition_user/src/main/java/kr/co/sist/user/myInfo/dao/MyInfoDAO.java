@@ -65,4 +65,26 @@ public class MyInfoDAO {
 		if(ss != null) {ss.close();}//end if
 		return cnt;
 	}//deleteMyRezDetail
+	
+	public List<MemberVO> memberList(String userId) throws PersistenceException{
+		List<MemberVO> list=null;
+		SqlSession ss= MyBatisFramework.getInstance().getMyBatisHandler();
+		list=ss.selectList("kr.co.sist.user.memberList", userId);
+		
+		if(ss != null) {ss.close();}//end if
+		return list;
+		
+	}
+	
+	public int updateMember(MemberVO mvo) throws PersistenceException{
+		int cnt=0;
+		
+		SqlSession ss= MyBatisFramework.getInstance().getMyBatisHandler();
+		cnt=ss.update("kr.co.sist.user.updateMember", mvo);
+		
+		if(ss != null) {ss.close();}//end if
+		return cnt;
+		
+	}
+	
 }

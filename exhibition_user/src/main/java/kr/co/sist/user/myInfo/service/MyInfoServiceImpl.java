@@ -60,4 +60,24 @@ public class MyInfoServiceImpl {
 		return jsonObj.toJSONString();
 	}//calcelRez
 		
+	public List<MemberVO> searchMember(String userId){
+		List<MemberVO> list=null;
+		try {
+			list = myInfoDAO.memberList(userId);
+		}catch (PersistenceException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int updateMember(MemberVO mvo) {
+		int cnt=0;
+		try {
+			cnt= myInfoDAO.updateMember(mvo);
+		}catch (PersistenceException e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 }

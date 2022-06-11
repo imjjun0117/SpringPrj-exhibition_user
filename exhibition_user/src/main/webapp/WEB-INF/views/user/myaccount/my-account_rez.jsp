@@ -1,6 +1,4 @@
-<%-- <%@page import="VO.MemberVO"%>
-<%@page import="VO.MyReservationVO"%>
-<%@page import="DAO.MyReservationDAO"%> --%>
+
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -78,10 +76,10 @@
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                     <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="reservation.jsp">예약하기</a></li>
-                                    <li><a href="board.jsp">게시판</a></li>
+                     <li><a href="list.do">전체 전시 보기</a></li>
+                            <li><a href="loc.do">지역별 전시 보기</a></li>
+                            <li><a href="reservation.do">예약하기</a></li>
+                                    <li><a href="board.do">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -110,9 +108,8 @@
                             </div>
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                              		 <li> <a href="#void">비밀번호 입력</a></li>
                                     <li class="active"><a href="#void">예약상황</a></li>
-                                    <li><a href="my_account_modify.jsp">내 정보 수정</a></li>
+                                    <li><a href="my_account_modify.do">내 정보 수정</a></li>
                                     
                                     
                                 </ul>

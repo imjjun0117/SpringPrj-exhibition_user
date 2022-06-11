@@ -1,21 +1,7 @@
-<%@page import="DAO.IdPassFindDAO"%>
-<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     %>
 <!DOCTYPE html>
-<%
-String password = request.getParameter("password");
-String userId = request.getParameter("userId");
-
-MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
-//String userId, String tel, String zipcode, String address1, String address2, String password,
-//String isSubscribeDate, String name, char isDeleted
-//IdPassFindDAO ipfDAO=IdPassFindDAO.getInstance();
-//ipfDAO.updateNewPw(mVO);
-
-//System.out.println("비밀번호 변경----"+  mVO ); 
-%>  
 <html>
 <head>
 <!-- /.website title -->
@@ -66,7 +52,7 @@ MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
 
 					<!-- /.logo -->
 					<div class="logo wow fadeInDown" style="margin-top: 50px">
-						<a href="index.jsp">Exhibition</a>
+						<a href="index.do">Exhibition</a>
 					</div>
 
 
@@ -93,10 +79,10 @@ MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
 			<div id="navbar-scroll"
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="list.jsp">지역별 전시 보기</a></li>
-					<li><a href="reservation.jsp">예약하기</a></li>
-					<li><a href="board.jsp">게시판</a></li>
+					<li><a href="list.do">전체 전시 보기</a></li>
+					<li><a href="list.do">지역별 전시 보기</a></li>
+					<li><a href="reservation.do">예약하기</a></li>
+					<li><a href="board.do">게시판</a></li>
 
 				</ul>
 			</div>
@@ -116,7 +102,7 @@ MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
 					<h2 style="margin-top: 50px">회원님의 비밀번호가<br/>변경되었습니다.</h2>
 
 					</div>
-					<a href="login.jsp"><input type="button" id="find_direction"
+					<a href="logout.do"><input type="button" id="find_direction"
 						class="btn btn-warning btn-block btn-lg" value="로그인"></a>
 				</div>
 			</div>
