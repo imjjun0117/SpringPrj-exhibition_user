@@ -100,8 +100,8 @@
                         <c:if test="${check == 0 }">
 					<label>찾으시는 아이디는'${id}' 입니다.</label>
 					<div class="form-label-group">
-						<a href="http://localhost/sist/user/index.do" class="btn btn-default" id=""
-								style="float: right;">메인으로가기</a>
+						<a href="http://localhost/exhibition_user/login.do" class="btn btn-default" id=""
+								style="float: right;">로그인하러가기</a>
 			</div>
 		</c:if>
 

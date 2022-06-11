@@ -103,7 +103,7 @@
 					<h2 style="margin-top: 50px">회원가입을 축하드립니다!</h2>
 
 					</div>
-					<a href="http://localhost/sist/user/index.do"><input type="button" id="find_direction"
+					<a href="http://localhost/exhibition_user/index.do"><input type="button" id="find_direction"
 						class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>
 				</div>
 			</div>

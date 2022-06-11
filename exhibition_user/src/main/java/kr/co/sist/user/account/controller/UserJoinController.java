@@ -24,7 +24,7 @@ public class UserJoinController {
 		 int check=ujService.idCheck(userId); 
 		 
 		 System.out.println("controller id : "+check);
-		 String cnt=Integer.toString(check);
+		 String cnt=String.valueOf(check);
 		 System.out.println("controller String id : "+cnt);
 		 return cnt; 
 	 }

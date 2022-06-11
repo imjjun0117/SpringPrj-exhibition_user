@@ -40,7 +40,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	
+	$("#joinBtn").click(function(){
+		check();
+		$("#pFrm").submit();
+		})
 	$("#find_addr").click(function(){
 		new daum.Postcode({
 		    oncomplete: function(data) {
@@ -86,23 +89,6 @@ $(function(){
 	});
 });
 
-/* function idcheck() {
-	var url = "idcheck.do?userId=" + document.pFrm.userId.value;
-	if (document.pFrm.userId.value == "") {
-		alert("아이디를 입력해주세요.");
-		document.pFrm.userId.focus();
-		return false;
-	}else{
-		$.ajax({
-			url : "idcheck.do",
-			type :"GET",
-    		data : {"userId": document.pFrm.userId.value},
-    		success : function(data){
-    			window.open(url, "_blank1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=500, height=300");
-    		}
-		});
-	}	
-}//end idcheck */
 
 function check() {
 	var check=["userId","password",'password2','name','address1','address2'];
@@ -117,16 +103,11 @@ function check() {
 		alert("비밀번호가 다릅니다.");
 		return;
 	}//end if
-	$("#pFrm").submit();
+	//$("#pFrm").submit();
 }//end check
 
 </script>
-<c:if test="${message eq 1}">
-	<script type="text/javascript">
-		alert("회원가입 실패. 다시시도해 주세요");
-		return;
-	</script>
-</c:if>
+	
     <body data-spy="scroll" data-target="#navbar-scroll">
 
         <!-- /.preloader -->

@@ -49,7 +49,7 @@ public class MyInfoController {
 				}else {
 					model.addAttribute("check",1);
 					model.addAttribute("message","비밀번호를확인해주세요");
-					return "redirect:/user/myaccount/my-account_pass";
+					return "redirect:/user/myaccount/my_account_pass";
 				}//end else
 				
 			}
