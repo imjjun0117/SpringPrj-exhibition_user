@@ -40,10 +40,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("#joinBtn").click(function(){
-		check();
-		$("#pFrm").submit();
-	});//click
+	
 	$("#find_addr").click(function(){
 		new daum.Postcode({
 		    oncomplete: function(data) {
@@ -80,7 +77,7 @@ $(function(){
 	                }
 
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('address1').value = data.zonecode;
+	                document.getElementById('zipcode').value = data.zonecode;
 	                document.getElementById("address1").value = addr;
 	                // 커서를 상세주소 필드로 이동한다.
 	                document.getElementById("address2").focus();
@@ -120,12 +117,14 @@ function check() {
 		alert("비밀번호가 다릅니다.");
 		return;
 	}//end if
+	$("#pFrm").submit();
 }//end check
 
 </script>
 <c:if test="${message eq 1}">
 	<script type="text/javascript">
 		alert("회원가입 실패. 다시시도해 주세요");
+		return;
 	</script>
 </c:if>
     <body data-spy="scroll" data-target="#navbar-scroll">
@@ -194,7 +193,7 @@ function check() {
                         <form action="http://localhost/exhibition_user/registerChk.do" method="post" name="pFrm"  id="pFrm">
                             <div class="form-group">
                                 <label for="email-login">아이디</label>
-                                <input type="text" id = "userId" name="userId"  required oninput = "checkId()" />
+                                <input class="form-control"  type="text" id = "userId" name="userId"  required oninput = "checkId()" /><br/>
                                 <font id="checkId" size="2"></font> 
                             </div>
                          
@@ -217,15 +216,13 @@ function check() {
                             </div>
                             <div class="form-group">
                                 <label for="addr-login">주소</label>
+                                <input class="form-control" id="zipcode" type="text" name="zipcode" value="">
                                 <input class="form-control" id="address1" type="text" name="address1" value=""/>
                                 <input class="form-control" id="address2" type="text" name="address2" value=""><br/>
                             <a href="#void"><input type="button" id="find_addr" class="btn btn-warning btn-block btn-lg" value="우편번호 찾기"></a> 
                             </div>
                             <div class="text-center">
-                            <div class="form-group">
-                                <label for="name-login">우편번호</label>
-                                <input class="form-control" id="zipcode" type="text" name="zipcode" value="">
-                            </div>
+                           
                                 <input type="button" id="joinBtn" class="btn btn-warning btn-block btn-lg" value="다음">
                             </div>
                         </form>
