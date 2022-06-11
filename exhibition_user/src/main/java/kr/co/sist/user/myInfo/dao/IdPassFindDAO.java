@@ -23,13 +23,11 @@ public class IdPassFindDAO {
 		if(ss!=null) {ss.close();}
 		return cnt;
 	}
-	public void updatePassword(MemberVO mVO) throws PersistenceException{
+	public int updatePassword(MemberVO mVO) throws PersistenceException{
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		
-		ss.update("kr.co.sist.user.updatePassword",mVO);
-		
+		int cnt = ss.update("kr.co.sist.user.updatePassword",mVO);
 		ss.commit();
 		if(ss!=null) {ss.close();}		
-		
+		return cnt;
 	}
 }

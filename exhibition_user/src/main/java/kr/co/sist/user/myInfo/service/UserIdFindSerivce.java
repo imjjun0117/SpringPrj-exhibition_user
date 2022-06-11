@@ -25,8 +25,14 @@ public class UserIdFindSerivce{
 		}
 		return cnt;
 	}
-	public void updatePassword(MemberVO mVO) {
-		idFindDAO.updatePassword(mVO);
+	public int updatePassword(MemberVO mVO) {
+		int cnt=0;
+		try{
+			cnt = idFindDAO.updatePassword(mVO);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}
+		return cnt;
 	}
 	
 }

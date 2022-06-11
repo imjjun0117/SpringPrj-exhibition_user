@@ -42,32 +42,32 @@ public class IdPassFindController {
 		public String PostpassFind(MemberVO mVO,Model model)throws Exception{
 			int cnt=0;
 			cnt=idfindService.findPassword(mVO);
+			String page="";
+			
 			if(cnt!=1) {
 				model.addAttribute("check",0);
-				model.addAttribute("updateid",mVO.getUserId());
+				page="user/login/passfind";
 			}else {
-				model.addAttribute("check",1);
+				model.addAttribute("updateid",mVO.getUserId());
+				page="user/login/updatePass";
 			}
-			return "user/login/passfind";
+			return page;
 		}//getIdFind
-		//��й�ȣ �ٲٱ� ����
-		@RequestMapping(value="/user/login/passclear.do",method=RequestMethod.POST)
+		
+		//updatePassword
+		@RequestMapping(value="/updatePass.do",method=RequestMethod.POST)
 		public String updatePasswordAction
-		(@RequestParam(value="updateid",defaultValue =" ",required = false )String userId,MemberVO mVO) {
+				(@RequestParam(value="updateid",defaultValue =" ",required = false )String userId,MemberVO mVO, Model model) {
 			
 			mVO.setUserId(userId);
-			System.out.println(mVO);
-			idfindService.updatePassword(mVO);
-			return "user/login/passclear";
+			int cnt = idfindService.updatePassword(mVO);
+			String page = "user/login/passclear";
+			if(cnt<1) {
+				model.addAttribute("msg", 1);
+				page="user/login/updatePass";
+			}
+			return page;
 		}
-		/*
-		 * //��й�ȣ �ٲٱ� �����ϸ� ������ ������
-		 * 
-		 * @RequestMapping(value="/user/passclear.do",method) public String
-		 * checkPassword(HttpSession session,Model model) { //MemberVO
-		 * memberUser=(MemberVO)session.getAttribute("memberUser");
-		 * 
-		 * return "user/passclear"; }
-		 */
+		
 		
 }

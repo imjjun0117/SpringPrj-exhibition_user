@@ -31,7 +31,7 @@ public class UserLoginController {
 		
 		if(loginChk==0) {
 			model.addAttribute("check",1);
-		return "redirect: login.do";
+		return "user/login/login";
 		}else {
 			session.setAttribute("id", mVO.getUserId());
 			return "redirect: index.do";

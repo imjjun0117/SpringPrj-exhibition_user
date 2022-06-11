@@ -45,9 +45,11 @@ public class MyInfoController {
 				return "redirect:/user/myaccount/my-account_pass";
 			}//end else
 		}
-//	//내정보 메인화면
-//	@RequestMapping(value="/user/myaccount/my-account_rez.do",method=RequestMethod.GET)
-//	public void myInfoMain() {
-//		
-//	}
+		
+		
+		//내정보 수정 페이지
+		@RequestMapping(value="/my_account_modify.do", method=RequestMethod.GET)
+		public String accountModify() {
+			return "user/myaccount/my_account_modify";
+		}
 }//class

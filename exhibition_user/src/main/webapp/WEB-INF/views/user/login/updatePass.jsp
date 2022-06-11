@@ -33,6 +33,11 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
+<c:if test="${msg eq 1}">
+	<script type="text/javascript">
+		alert("죄송합니다. 다시 변경해주세요.");
+	</script>
+</c:if>
 
     <body data-spy="scroll" data-target="#navbar-scroll">
 
@@ -54,56 +59,59 @@
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           비밀번호 찾기
+                           비밀번호 재설정
                         </h2>
 
                     </div>
                 </div> 
             </div> 
         </div>
-        
-        
             <!-- NAVIGATION -->
-        
-
         <!-- /.Cars section -->
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">비밀번호 찾기</h2>
+                        <h2 class="wow fadeInLeft">비밀번호 수정</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/exhibition_user/passfind.do" method="post" name="findform" id="findform" >
-                            <div class="form-group">
-                                <label for="name">이름</label>
-                                <input class="form-control" id="name" type="text" name="name" value="">
-                            </div>
-                             <div class="form-group">
-                                <label for="id">아이디</label>
-                                <input class="form-control" id="userId" name="userId" type="text" value="">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone_num">휴대번호</label>
-                                <input class="form-control" id="tel" name="tel" type="text" value="">
-                            </div>
-                            
-                            <div class="text-center">
-                              <input type="submit" class="btn btn-warning btn-block btn-lg"  id="pass_find" value="check">
-                            </div>
-                            </form>
-              				<!-- 정보가 일치하지 않을 때-->
-					<c:if test="${check eq 0}">
-						<script>
-						opener.document.findform.userId.value = "";
-						opener.document.findform.name.value = "";
-						opener.document.findform.tel.value = "";
-						</script>
-			<label>일치하는 정보가 존재하지 않습니다.</label>
-		</c:if>
+                        <form action="http://localhost/exhibition_user/updatePass.do" method="post" name="findform" id="findform" >
+                         <div>
+							<label>비밀번호를 변경해주세요.</label>
+						</div>
+						<div class="form-label-group">
+						<input type="hidden" id="id" name="updateid" value="${updateid }">
+						
+							<input type="password" id="password" name="password" class="form-control"/>
+							<label for="password">비밀번호</label>
+						</div>
+						
+						<div class="form-label-group">
+							<input type="password" id="confirmpassword" name="confirmpassword" class="form-control"/>
+							<label for="confirmpassword">비밀번호확인</label>
+						</div>
+						
+						<div class="form-label-group">
+								<input class="btn btn-lg btn-secondary btn-block text-uppercase"
+									type="button" value="비밀번호 변경하기" onclick="updatePassword()">
+							</div>
+				         </form>
 		
+			<script type="text/javascript">
+		function updatePassword(){
+			if(document.findform.password.value==""){
+				alert("비밀번호를 입력해주세요.");
+				document.findform.password.focus();
+			} else if(document.findform.password.value != document.findform.confirmpassword.value){
+				alert("비밀번호가 일치하지 않습니다.");
+				document.findform.confirmpassword.focus();
+			} else {
+				document.findform.submit();
+			}
+		}
+			</script>
                     </div>
                 </div>
             
