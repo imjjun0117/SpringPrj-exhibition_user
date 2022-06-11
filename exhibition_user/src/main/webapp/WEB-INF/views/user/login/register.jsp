@@ -4,12 +4,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+		<style type="text/css">
+		 .id_ok{color:#fff; display: none;}
+		.id_already{color:#6A82FB; display: none;}
+		</style>
         <!-- /.website title -->
         <title>VTC Theme | Register Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
+       
         <!-- CSS Files -->
         <link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="/sist/css/font-awesome.min.css" rel="stylesheet">
@@ -85,7 +89,7 @@ $(function(){
 	});
 });
 
-function idcheck() {
+/* function idcheck() {
 	var url = "idcheck.do?userId=" + document.pFrm.userId.value;
 	if (document.pFrm.userId.value == "") {
 		alert("아이디를 입력해주세요.");
@@ -101,11 +105,11 @@ function idcheck() {
     		}
 		});
 	}	
-}//end idcheck
+}//end idcheck */
 
 function check() {
 	var check=["userId","password",'password2','name','address1','address2'];
-	var name=["이메일","비밀번호","비밀번호","이름","주소","주소"];
+	var name=["아이디","비밀번호","비밀번호","이름","주소","주소"];
 	for(var i=0; i<check.length;i++){
 		if($("#"+check[i]).val() ==""){
 			alert(name[i]+"을/를 입력해주세요");
@@ -190,10 +194,8 @@ function check() {
                         <form action="http://localhost/exhibition_user/registerChk.do" method="post" name="pFrm"  id="pFrm">
                             <div class="form-group">
                                 <label for="email-login">아이디</label>
-                                <input class="form-control" id="userId" type="text" name="userId"   value="">
-                                <!-- 아이디 체크 -->
-                                <input type="button" onclick="idcheck()" class="btn btn-warning btn-block btn-lg" value="중복확인">
-                             	<font id="checkId" size="2"></font>
+                                <input type="text" id = "userId" name="userId"  required oninput = "checkId()" />
+                                <font id="checkId" size="2"></font> 
                             </div>
                          
                             <div class="form-group">
@@ -282,32 +284,27 @@ function check() {
         <script src="/sist/js/wow.min.js"></script>
         <script src="/sist/js/owl.carousel.min.js"></script>
             <script src="/sist/js/jquery.validate.min.js"></script> 
-
 		<script type="text/javascript">
-		/* $("#checkmail").click(function(){
-			let userId =$("#id").val();
-			
-			$.ajax({
-				url : "emailCheck.jsp",
-				type : "post",
-				data: {userId:userId},
-				dataType : 'json',
-				success : function( data ){
-			
-					if(data.resultFlag==0){
-						$("#checkId").html("사용할수없습니다.");
-						$("#checkId").attr('color','red');
-					}else{
-						$("#checkId").html("사용할 수 있는 아이디입니다.");
-						$("#checkId").attr('color','green');
-					}
-				},
-				error :function( xhr ){
-					alert("서버요청실패. 다시시도해주세요");
-				}
-			})
-			
-		})//focusout */
+function checkId(){
+    var userId = $('#userId').val();
+$.ajax({
+    url:'http://localhost/exhibition_user/idCheck.do',
+    type:'post',
+    data:{userId:userId},
+    success:function(cnt){ //컨트롤러에서 넘어온  cnt
+        if(cnt != "1"){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+        	$("#checkId").html("사용할 수 있는 아이디입니다.");
+        	$("#checkId").attr('color','green');
+        } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+        	$("#checkId").html("사용할수없습니다.");
+        	$("#checkId").attr('color','red');
+        }
+    },
+    error:function(){
+        alert("에러입니다");
+    }
+});
+};
 		</script>
 
         <script>

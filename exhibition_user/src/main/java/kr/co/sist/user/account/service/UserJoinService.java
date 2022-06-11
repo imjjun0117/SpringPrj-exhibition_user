@@ -22,11 +22,15 @@ public class UserJoinService {
 		}
 		return cnt;
 	}
-//	public String idCheck(String userId) {
-//		System.out.println(userId);
-//		String id=ujDAO.idCheck(userId);
-//		System.out.println("service id"+id);
-//		return id;
-//	}
+	public int idCheck(String userId) {
+		System.out.println(userId);
+		/* try { */
+		int check=ujDAO.idCheck(userId);
+		/*}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}*/
+		System.out.println("service id : "+userId);
+		return check;
+	}
 	
 }

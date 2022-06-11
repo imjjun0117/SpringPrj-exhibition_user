@@ -1,5 +1,7 @@
 package kr.co.sist.user.account.controller;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,14 +18,16 @@ public class UserJoinController {
 	@Autowired(required = false)
 	UserJoinService ujService;
 	
-//	//아이디체크
-//	 @ResponseBody
-//	 @RequestMapping(value="/login/idCheck.do",method = RequestMethod.POST) public
-//	 int idCheck(@RequestParam("userId")String userId){ int
-//	 cnt=ujService.idCheck(userId); 
-//	 System.out.println(ujService.idCheck(userId));
-//	 return cnt; 
-//	 }
+	//아이디체크
+	 @RequestMapping(value="/idCheck.do",method = {RequestMethod.POST,RequestMethod.GET})
+	 	public @ResponseBody String idCheck(@RequestParam("userId")String userId){ 
+		 int check=ujService.idCheck(userId); 
+		 
+		 System.out.println("controller id : "+check);
+		 String cnt=Integer.toString(check);
+		 System.out.println("controller String id : "+cnt);
+		 return cnt; 
+	 }
 	 
 	//약관동의
 	@RequestMapping(value="/terms.do",method=RequestMethod.GET)

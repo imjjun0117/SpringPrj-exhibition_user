@@ -20,12 +20,12 @@ public class UserJoinDAO {
 		if(ss!=null) {ss.close();}
 		return cnt;
 	}
-	//������üũ
-	public String idCheck(String userId) throws PersistenceException{
+	
+	public int idCheck(String userId) throws PersistenceException{
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		String id=ss.selectOne("kr.co.sist.user.idCheck",userId);
-		System.out.println("idCheck dao"+id);
+		int check=ss.selectOne("kr.co.sist.user.idCheck",userId);
+		System.out.println("idCheck dao : "+userId);
 		if(ss!=null) {ss.close();}
-		return id;
+		return check;
 	}
 }
