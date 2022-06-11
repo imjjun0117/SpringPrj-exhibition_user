@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,9 +36,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("#next").click(function(){
+	$("#joinBtn").click(function(){
 		check();
-		$("#frm").submit();
+		$("#pFrm").submit();
 	});//click
 	$("#find_addr").click(function(){
 		new daum.Postcode({
@@ -105,21 +106,24 @@ function idcheck() {
 function check() {
 	var check=["userId","password",'password2','name','address1','address2'];
 	var name=["이메일","비밀번호","비밀번호","이름","주소","주소"];
-for(var i=0; i<check.length;i++){
-	if($("#"+check[i]).val() ==""){
-		alert(name[i]+"을/를 입력해주세요");
+	for(var i=0; i<check.length;i++){
+		if($("#"+check[i]).val() ==""){
+			alert(name[i]+"을/를 입력해주세요");
+			return;
+		}//end if 
+	}//end for
+	if($("#password").val() != $("#password2").val()){
+		alert("비밀번호가 다릅니다.");
 		return;
-	}//end if 
-}//end for
-if($("#password").val() != $("#password2").val()){
-	alert("비밀번호가 다릅니다.");
-	return;
-}//end if
-	 $("#pFrm").submit();//submit해야 넘어갑니다.
+	}//end if
 }//end check
 
 </script>
-
+<c:if test="${message eq 1}">
+	<script type="text/javascript">
+		alert("회원가입 실패. 다시시도해 주세요");
+	</script>
+</c:if>
     <body data-spy="scroll" data-target="#navbar-scroll">
 
         <!-- /.preloader -->
@@ -183,7 +187,7 @@ if($("#password").val() != $("#password2").val()){
                     </div>
                     <div class="row register">
 						
-                        <form action="http://localhost/sist/user/login/register.do" method="post" name="pFrm"  id="pFrm">
+                        <form action="http://localhost/exhibition_user/registerChk.do" method="post" name="pFrm"  id="pFrm">
                             <div class="form-group">
                                 <label for="email-login">아이디</label>
                                 <input class="form-control" id="userId" type="text" name="userId"   value="">
@@ -220,7 +224,7 @@ if($("#password").val() != $("#password2").val()){
                                 <label for="name-login">우편번호</label>
                                 <input class="form-control" id="zipcode" type="text" name="zipcode" value="">
                             </div>
-                                <input type="button" id="next" class="btn btn-warning btn-block btn-lg" value="다음">
+                                <input type="button" id="joinBtn" class="btn btn-warning btn-block btn-lg" value="다음">
                             </div>
                         </form>
                     </div>

@@ -33,10 +33,6 @@
 
 
     </head>
-<%-- <c:if test="${ loginUser==null }">
-<script type="text/javascript">
-</script>
-</c:if> --%>
     <body data-spy="scroll" data-target="#navbar-scroll">
         <!-- /.preloader -->
         <div id="preloader"></div>

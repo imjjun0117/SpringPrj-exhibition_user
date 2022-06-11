@@ -76,7 +76,7 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/sist/user/login/idfind.do" method="post" name="frm" id="frm">
+                        <form action="http://localhost/exhibition_user/idfind.do" method="post" name="frm" id="frm">
                             <div class="form-group">
                                 <label for="email">이름</label>
                                 <input class="form-control" id="name" type="text" name="name" value="">

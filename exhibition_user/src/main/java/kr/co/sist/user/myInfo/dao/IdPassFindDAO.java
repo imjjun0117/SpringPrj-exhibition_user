@@ -10,24 +10,24 @@ import kr.co.sist.user.mybatis.MyBatisFramework;
 @Repository
 public class IdPassFindDAO {
 	
-	//아이디찾기
 	public MemberVO findId(MemberVO mVO) {
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		return ss.selectOne("kr.co.sist.user.findId",mVO);
 	}
-	//비밀번호찾기
-	public MemberVO findPassword(MemberVO mVO) {
+	
+	public int findPassword(MemberVO mVO) throws PersistenceException {
+		int cnt=0;
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		return ss.selectOne("kr.co.sist.user.findPassword",mVO);
+		
+		cnt=ss.selectOne("kr.co.sist.user.findPassword",mVO);
+		if(ss!=null) {ss.close();}
+		return cnt;
 	}
-	//비밀번호 수정
-	public void updatePassword(MemberVO mVO) {
+	public void updatePassword(MemberVO mVO) throws PersistenceException{
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		try {
+		
 		ss.update("kr.co.sist.user.updatePassword",mVO);
-		}catch(PersistenceException pe) {
-			pe.printStackTrace();
-		}
+		
 		ss.commit();
 		if(ss!=null) {ss.close();}		
 		

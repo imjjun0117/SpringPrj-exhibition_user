@@ -31,12 +31,12 @@ public class MyInfoController {
 			return "user/myaccount/my_account_pass";
 		}//end else
 	}//startMyInfo
+	
 	//내정보 비밀번호 체크
 		@RequestMapping(value="/checkMyPass.do",method = RequestMethod.POST)
 		public String passChk(MemberVO mVO,Model model,HttpSession session) {
 			mVO.setUserId((String)session.getAttribute("id"));
 			int cnt = serviceImpl.pwCheck(mVO);
-			//System.out.println(cnt+" /  -------------------------"+mVO+"/");
 			if(cnt == 1) {
 				return "user/myaccount/my-account_rez";
 			}else {
@@ -44,7 +44,6 @@ public class MyInfoController {
 				model.addAttribute("message","비밀번호를확인해주세요");
 				return "redirect:/user/myaccount/my-account_pass";
 			}//end else
-			
 		}
 //	//내정보 메인화면
 //	@RequestMapping(value="/user/myaccount/my-account_rez.do",method=RequestMethod.GET)

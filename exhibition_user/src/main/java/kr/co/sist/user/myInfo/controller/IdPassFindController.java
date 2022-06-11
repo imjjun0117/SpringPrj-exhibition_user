@@ -16,18 +16,16 @@ public class IdPassFindController {
 	@Autowired(required = false)
 	private UserIdFindSerivce idfindService;
 	
-	//¾ÆÀÌµðÃ£±â ÆûÀ¸·Î µé¾î°¥¶§
-		@RequestMapping(value ="/user/login/idfind.do",method =RequestMethod.GET)
-		public void getIdFind()throws Exception{
+		@RequestMapping(value ="/idfind.do",method =RequestMethod.GET)
+		public String getIdFind()throws Exception{
 			
+			return "user/login/idfind";
 		}//getIdFind
-	//¾ÆÀÌµðÃ£±â ½ÇÇà
-		@RequestMapping(value ="/user/login/idfind.do",method =RequestMethod.POST)
+		@RequestMapping(value ="/idfind.do",method =RequestMethod.POST)
 		public String FindId(MemberVO mVO,Model model)throws Exception{
 			MemberVO member=idfindService.findId(mVO);
 			if(member==null) {
 				model.addAttribute("check",1);
-				
 			}else {
 				model.addAttribute("check",0);
 				model.addAttribute("id",member.getUserId());
@@ -35,25 +33,24 @@ public class IdPassFindController {
 			return "user/login/idfind";
 		}//FindId
 		
-		//ºñ¹Ð¹øÈ£Ã£±âÈ­¸éÀ¸·Î ÀÌµ¿
-		@RequestMapping(value ="/user/login/passfind.do",method =RequestMethod.GET)
-		public void GetpassFind()throws Exception{
-			
+		@RequestMapping(value ="/passfind.do",method =RequestMethod.GET)
+		public String GetpassFind()throws Exception{
+			return "user/login/passfind";
 		}//getIdFind
 		
-		//ºñ¹Ð¹øÈ£Ã£±â
-		@RequestMapping(value ="/user/login/passfind.do",method =RequestMethod.POST)
+		@RequestMapping(value ="/passfind.do",method =RequestMethod.POST)
 		public String PostpassFind(MemberVO mVO,Model model)throws Exception{
-			MemberVO member=idfindService.findPassword(mVO);
-			if(member==null) {
-				model.addAttribute("check",1);
-			}else {
+			int cnt=0;
+			cnt=idfindService.findPassword(mVO);
+			if(cnt!=1) {
 				model.addAttribute("check",0);
-				model.addAttribute("updateid",member.getUserId());
+				model.addAttribute("updateid",mVO.getUserId());
+			}else {
+				model.addAttribute("check",1);
 			}
 			return "user/login/passfind";
 		}//getIdFind
-		//ºñ¹Ð¹øÈ£ ¹Ù²Ù±â ½ÇÇà
+		//ï¿½ï¿½Ð¹ï¿½È£ ï¿½Ù²Ù±ï¿½ ï¿½ï¿½ï¿½ï¿½
 		@RequestMapping(value="/user/login/passclear.do",method=RequestMethod.POST)
 		public String updatePasswordAction
 		(@RequestParam(value="updateid",defaultValue =" ",required = false )String userId,MemberVO mVO) {
@@ -64,7 +61,7 @@ public class IdPassFindController {
 			return "user/login/passclear";
 		}
 		/*
-		 * //ºñ¹Ð¹øÈ£ ¹Ù²Ù±â ¼º°øÇÏ¸é ³ª¿À´Â ÆäÀÌÁö
+		 * //ï¿½ï¿½Ð¹ï¿½È£ ï¿½Ù²Ù±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		 * 
 		 * @RequestMapping(value="/user/passclear.do",method) public String
 		 * checkPassword(HttpSession session,Model model) { //MemberVO

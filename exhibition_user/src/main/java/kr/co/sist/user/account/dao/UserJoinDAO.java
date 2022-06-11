@@ -1,6 +1,7 @@
 package kr.co.sist.user.account.dao;
 
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -8,17 +9,23 @@ import kr.co.sist.user.account.vo.MemberVO;
 import kr.co.sist.user.mybatis.MyBatisFramework;
 @Repository
 public class UserJoinDAO {
-	//È¸¿ø°¡ÀÔ
-	public void joinUser(MemberVO mVO) {
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public int joinUser(MemberVO mVO) throws PersistenceException{
+		int cnt=0;
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		ss.insert("kr.co.sist.user.memberInsert",mVO);
+		
+		cnt =ss.insert("kr.co.sist.user.memberInsert",mVO);
+		System.out.println("dao: "+cnt);
 		ss.commit();
+		if(ss!=null) {ss.close();}
+		return cnt;
 	}
-	//¾ÆÀÌÀÌÃ¼Å©
-	public String idCheck(String userId) {
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼Å©
+	public String idCheck(String userId) throws PersistenceException{
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		String id=ss.selectOne("kr.co.sist.user.idCheck",userId);
 		System.out.println("idCheck dao"+id);
+		if(ss!=null) {ss.close();}
 		return id;
 	}
 }

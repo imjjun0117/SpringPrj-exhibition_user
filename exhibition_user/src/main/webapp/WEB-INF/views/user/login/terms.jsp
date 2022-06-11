@@ -80,7 +80,7 @@
  <h2 align="center">회원가입을 환영합니다.</h2><br/><br/>
  </div>
 <body>
-<form action="register.do" method="get" id="form1">
+<form action="http://localhost/exhibition_user/register.do" method="get" id="form1">
 <div id="d1">
   <tr>
   <br/>
