@@ -14,7 +14,7 @@ public class UserExhibitionDetailController {
 	@Autowired(required = false)
 	private UserExhibitionDetailService ueds;
 	
-	@RequestMapping(value="/user/exhibition_detail.do", method = GET)
+	@RequestMapping(value="/exhibition_detail.do", method = GET)
 	public String exhibitionView(Model model,int ex_num, int ex_hall_num) {
 		
 		model.addAttribute("exhibitionView",ueds.exhibitionView(ex_num));
@@ -22,10 +22,10 @@ public class UserExhibitionDetailController {
 		
 		return "user/exhibition/exhibition_detail";
 	}
-	//�Խ���
-//	@RequestMapping(value="/user/board.do", method =  {GET, POST})
+//	//�Խ���
+//	@RequestMapping(value="/board.do", method =  {GET, POST})
 //	public String relBoardView(Model model,int cat_num) {
-//		
+//	
 //		model.addAttribute("relBoardView",ueds.relBoard(cat_num));
 //		
 //		return "user/board";

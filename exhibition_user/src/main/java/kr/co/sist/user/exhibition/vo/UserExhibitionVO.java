@@ -1,18 +1,27 @@
 package kr.co.sist.user.exhibition.vo;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 public class UserExhibitionVO {
-	private String ex_name, exhibition_poster, ex_info, ex_intro, add_Img, exhibit_date, dead_line, input_date, ex_status;
-	private int ex_hall_num, ex_num, total_count, adult, teen, child, cat_num,sum,watch_count;
-
+	private String ex_name, exhibition_poster, ex_info, ex_intro, add_Img, exhibit_date, dead_line, input_date,
+			ex_status,keyword,field;
+	private int ex_hall_num, ex_num, total_count, adult, teen, child, cat_num, sum, watch_count, startNum, endNum,
+			currentPage;
 	public UserExhibitionVO() {
+		currentPage=1;
+	}
 
+
+
+	public int getStartNum() {
+		return startNum;
 	}
 
 	public UserExhibitionVO(String ex_name, String exhibition_poster, String ex_info, String ex_intro, String add_Img,
-			String exhibit_date, String dead_line, String input_date, String ex_status, int ex_hall_num, int ex_num,
-			int total_count, int adult, int teen, int child,int cat_num,int sum,int watch_count) {
+			String exhibit_date, String dead_line, String input_date, String ex_status, String keyword, String field,
+			int ex_hall_num, int ex_num, int total_count, int adult, int teen, int child, int cat_num, int sum,
+			int watch_count, int startNum, int endNum, int currentPage) {
 		super();
-		this.ex_hall_num = ex_hall_num;
 		this.ex_name = ex_name;
 		this.exhibition_poster = exhibition_poster;
 		this.ex_info = ex_info;
@@ -22,15 +31,66 @@ public class UserExhibitionVO {
 		this.dead_line = dead_line;
 		this.input_date = input_date;
 		this.ex_status = ex_status;
+		this.keyword = keyword;
+		this.field = field;
+		this.ex_hall_num = ex_hall_num;
 		this.ex_num = ex_num;
 		this.total_count = total_count;
 		this.adult = adult;
 		this.teen = teen;
 		this.child = child;
-		this.cat_num=cat_num;
-		this.sum=sum;
-		this.watch_count=watch_count;
-		
+		this.cat_num = cat_num;
+		this.sum = sum;
+		this.watch_count = watch_count;
+		this.startNum = startNum;
+		this.endNum = endNum;
+		this.currentPage = currentPage;
+	}
+
+
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+
+
+	public String getField() {
+		return field;
+	}
+
+
+
+	public void setField(String field) {
+		this.field = field;
+	}
+
+
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+	public int getEndNum() {
+		return endNum;
+	}
+
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(@RequestParam(defaultValue ="1" ) int currentPage) {
+		this.currentPage = currentPage;
 	}
 
 	public int getWatch_count() {
@@ -201,9 +261,9 @@ public class UserExhibitionVO {
 				+ ex_info + ", ex_intro=" + ex_intro + ", add_Img=" + add_Img + ", exhibit_date=" + exhibit_date
 				+ ", dead_line=" + dead_line + ", input_date=" + input_date + ", ex_status=" + ex_status
 				+ ", ex_hall_num=" + ex_hall_num + ", ex_num=" + ex_num + ", total_count=" + total_count + ", adult="
-				+ adult + ", teen=" + teen + ", child=" + child + ", cat_num=" + cat_num + "]";
+				+ adult + ", teen=" + teen + ", child=" + child + ", cat_num=" + cat_num + ", sum=" + sum
+				+ ", watch_count=" + watch_count + ", startNum=" + startNum + ", endNum=" + endNum + ", currentPage="
+				+ currentPage + "]";
 	}
-
-
 	
 }

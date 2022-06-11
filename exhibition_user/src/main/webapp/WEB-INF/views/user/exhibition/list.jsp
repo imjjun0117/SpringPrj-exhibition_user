@@ -151,14 +151,20 @@
 			<ul class="pagination">
 
 			
-			
-				<li class="page-item"><a class="page-link" href="list.do?pageNum="
-					aria-label="Previous"><span aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li class="page-item"><a class="page-link" href="list.jsp?pageNum="></a></li>
-				<li class="page-item"><a class="page-link" href="list.jsp?pageNum="
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
+<c:if test="${ex_hall_num!=0 }">
+
+    <li class="page-item"><a href="list.do?pageNum=${1}&ex_hall_num=${ex_hall_num}"><c:out value="${1 }"/></a></li>
+  	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
+    	<li class="page-item"><a href="list.do?pageNum=${i}&ex_hall_num=${ex_hall_num}"><c:out value="${i+1 }"/></a></li>
+    </c:forEach> 
+</c:if>
+<c:if test="${ex_hall_num==0 }">
+
+    <li class="page-item"><a href="list.do?pageNum=${1}"><c:out value="${1 }"/></a></li>
+  	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
+    	<li class="page-item"><a href="list.do?pageNum=${i}"><c:out value="${i+1 }"/></a></li>
+    </c:forEach> 
+</c:if>
 			</ul>
 		</nav>
 	</div>

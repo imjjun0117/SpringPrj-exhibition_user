@@ -3,29 +3,45 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.dao.userexlist">
-	
-	<select id="selectAllExList" resultType="ue" parameterType="int">
-		select row_number() over (ORDER BY watch_count) num,ex_num, ex_name, exhibition_poster,
-			ex_intro,ex_info,add_img,ex_hall_num,ex_status,ex_hall_num
-		from exhibition
+
+	<select id="selectAllExList" resultType="ue" parameterType="ue">
+		select rnum,ex_num, ex_name,
+		exhibition_poster,
+		ex_intro,ex_info,add_img,ex_hall_num,ex_status
+		from(select row_number() over (ORDER BY watch_count asc) rnum,e.ex_num, e.ex_name,
+		e.exhibition_poster,
+		e.ex_intro,e.ex_info,e.add_img,e.ex_hall_num,e.ex_status
+		from exhibition e
+		where	ex_status = 'p')
 		<where>
-		 ex_status like 'p'
-		<choose>
-			<when test="ex_name!=null and ex_name!=''">
-				and  ex_name like '%' || #{ ex_name } || '%'
-				</when>
-				<when test="ex_hall_num!=0">
-				and  ex_hall_num like #{ ex_hall_num }
-				</when>
-		</choose>
+			 rnum between #{startNum} and #{endNum}
+			 <choose>
+			 <when test="ex_name!=null and ex_name!=''">
+			 					and ex_name like '%' || #{ ex_name } || '%'
+			 					
+			 </when>
+			 <when test="ex_hall_num!=0">
+					and ex_hall_num = #{ ex_hall_num }
+			 </when>
+			 </choose>
 		</where>
 	</select>
-	
-	<select id="selectLocalExList" resultType="ueh" >
-			select  ex_hall_name, ex_hall_num, longitude, latitude,address1,address2,zipcode
-			from  exhibition_hall
-			
+
+	<select id="selectLocalExList" resultType="ueh">
+		select ex_hall_name, ex_hall_num, longitude,
+		latitude,address1,address2,zipcode
+		from exhibition_hall
+
 	</select>
-
-
+	<select id="selectEx" resultType="int" parameterType="int">
+		select count(*) ex_hall_num
+		from exhibition
+		
+		<where>
+		ex_status = 'p'
+				<if test="ex_hall_num!=0 ">
+					and ex_hall_num= #{ ex_hall_num }
+				</if>
+		</where>
+	</select>
 </mapper>

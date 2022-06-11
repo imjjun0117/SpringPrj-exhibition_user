@@ -6,7 +6,8 @@
 	<select id="selectExhibition" resultType="ue">
 		select ex_num, ex_name,exhibition_poster,ex_intro,ex_info,add_img, ex_hall_num,cat_num
 		from exhibition
-		where ex_num like #{ ex_num }
+		
+		where ex_num = #{ ex_num }
 	</select>
 	
 <!-- 	<select id="selectRelBoard" resultType="ub">
@@ -21,8 +22,5 @@
 		from exhibition_hall
 		where ex_hall_num like #{ ex_hall_num }
 	</select>
-	
-
-
 
 </mapper>
