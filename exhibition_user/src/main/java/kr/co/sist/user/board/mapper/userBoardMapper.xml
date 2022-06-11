@@ -7,7 +7,7 @@
 	<resultMap type="kr.co.sist.user.board.vo.UserBoardVO" id="bdResult">
 		<result column="BD_ID" property="bd_id"/>
 		<result column="TITLE" property="title"/>
-		<result column="VIEWS" property="views"/>
+		<result column="board_views" property="board_views"/>
 		<result column="INPUT_DATE" property="input_date"/>
 		<result column="USERID" property="userid"/>
 		<result column="CNT" property="cnt"/>
@@ -33,12 +33,12 @@
 		
 		parameterType="kr.co.sist.user.board.vo.UserBoardVO"-->
 	<select id="selectBoard" resultType="kr.co.sist.user.board.domain.UserBoardDomain" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
-	  	select rnum, title, views, input_date, userid, cnt, bd_id
+	  	select rnum, title, board_views, input_date, userid, cnt, bd_id
 		from (select row_number() over(order by b.input_date desc) rnum,
-						b.bd_id, b.title, b.views, b.input_date, b.userid, count(r.reply_id) cnt
+						b.bd_id, b.title, b.board_views, b.input_date, b.userid, count(r.reply_id) cnt
 			  	from board b, REPLY r
 			  	where b.bd_id=r.bd_id(+)
-			  	group by b.bd_id, b.title, b.views, b.input_date, b.userid)
+			  	group by b.bd_id, b.title, b.board_views, b.input_date, b.userid)
 		 where	rnum between #{startNum} and #{endNum}
 	</select>
 	
@@ -77,7 +77,7 @@
   <select id="selectBoardDetail" resultType="kr.co.sist.user.board.domain.UserBoardDomain" parameterType="int">
 	  	<if test="bd_id!=null">
 	  	select * 
-	  	from (select  ct.cat_name, b.title, b.userid, b.input_date,  b.img_file, 		
+	  	from (select  ct.cat_name, b.title, b.userid, b.input_date,  b.img_file, b.board_views,		
 	  				b.DESCRIPTION,  b.bd_id, ROW_NUMBER() OVER(order by b.bd_id) rnum
 			  from board b, reply r, CATEGORY ct
 			  where (b.bd_id=r.bd_id(+) and b.cat_num(+)=ct.cat_num) and b.bd_id=#{bd_id} )
@@ -97,7 +97,7 @@
 	
 	<!-- 게시글 클릭 할 때마다 view 수 수정 -->
 	<update id="updateView" parameterType="int">
-		update board set views =views+1 where bd_id=#{bd_id, jdbcType=NUMERIC}
+		update board set board_views =board_views+1 where bd_id=#{bd_id, jdbcType=NUMERIC}
 	</update>
 	
 	
@@ -107,11 +107,11 @@
 	
 	<!-- 댓글 삭제 -->
 	<delete id="deleteCom" parameterType="int">
-		delete from comment_table where cm_id=#{cm_id}
+		delete from reply where reply_id=#{reply_id}
 	</delete>
 	
 	<!-- 댓글 추가 -->
 	<insert id="insertCom" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
-		insert into comment_table(reply_id,reply_description,bd_id,userid) values(reply_seq.nextval,#{reply_description},#{bd_id},#{userid})
+		insert into reply(reply_id,reply_description,bd_id,reply_userid) values(BDCOM_SEQ.nextval,#{reply_description},#{bd_id, jdbcType=NUMERIC},#{reply_userid, jdbcType=VARCHAR})
 	</insert>
 </mapper> 

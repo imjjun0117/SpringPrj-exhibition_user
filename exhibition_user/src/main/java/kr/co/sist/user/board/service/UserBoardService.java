@@ -145,16 +145,15 @@ public class UserBoardService {
 	 * @param ubVO
 	 * @return �꽦怨� �뿬遺�
 	 */
-	public int modifyBoard(UserBoardVO ubVO) {
-		int success=0;
-		
+	public boolean modifyBoard(UserBoardVO ubVO) {
+		boolean flag = false;
 		try {
-			success=ubDAO.updateBoard( ubVO );
+			flag = ubDAO.updateBoard( ubVO )>0? true: false;
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
 		
-		return success;
+		return flag;
 	}//addBoard
 	
 	/**
@@ -190,16 +189,17 @@ public class UserBoardService {
 	}//category
 	
 	/**
-	 * 수정
+	 * view 수
 	 * @param bd_id
 	 */
-	public void modifyView(int bd_id) {
+	public int modifyView(int bd_id) {
+		int cnt =0;
 		try {
-			ubDAO.updateView(bd_id);
+			cnt=ubDAO.updateView(bd_id);
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
-		
+		return cnt;
 	}//modifyView
 	
 	/**

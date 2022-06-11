@@ -152,14 +152,15 @@ a{
 				<div class="card-body">
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
-					<form action="comment.jsp" method="get" id="commentFrm" name="commentFrm">
+					<form action="insertComm.do" method="post" id="commentFrm" name="commentFrm">
 							<div class="form-inline mb-2">
-								<label for="replyId"><i
-									class="fa fa-user-circle-o fa-2x"></i></label>
-							</div> <textarea class="form-control" id="ta" name="ta" style="width: 100%;resize: none;"
-								rows="3"></textarea>
-								<input type="hidden" value="${bd_id }" name="bd_id"/>
+								<label for="replyId"><i	class="fa fa-user-circle-o fa-2x"></i></label>
+							</div> 
+							<textarea class="form-control" id="ta" name="reply_description" style="width: 100%;resize: none;"
+								rows="3">
+							</textarea>
 							<button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commentBtn">댓글 작성</button>
+							<input type="hidden" value="${detailData.bd_id }" name="bd_id" id="bd_id"/>
 					</form>
 						</li>
 						<c:forEach var="boardComment" items="${comList }">
@@ -169,8 +170,8 @@ a{
 							<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.reply_description }"/>
 							<input type="text" value="${boardComment.reply_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
 							
-							<c:if test="${sessionId eq boardComment.reply_userid}"> 
-								<a href="commentDelete.jsp?cm_id=${boardComment.reply_id  }&bd_id=${bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
+							<c:if test="${sessionScope.id eq boardComment.reply_userid}"> 
+								<a href="deleteComm.do?reply_id=${boardComment.reply_id  }&bd_id=${detailData.bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
 							</c:if> 
 						</div>
 						</li>
@@ -181,11 +182,10 @@ a{
 				<a href="board.do">
 				<input type="button" value="확인" id="btn" class="btn btn-warning " style="width: 30%; margin-left: 30% "/>
 				</a>
-					<a href="${flag eq true }? deleteBoard.do?bd_id=${bd_id }:#void"><input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right; "/></a>
-					<%-- <a href="${flag eq true }? modifyBoard.do?bd_id=${bd_id }:#void"><input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/></a> --%>
-					<form id="modifyFrm" action="${flag eq true }? modifyBoard.do?bd_id=${bd_id }:''" method="post">
-						<input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/>
-					</form>
+					<c:if test="${sessionScope.id eq detailData.userid}">
+					 <a href="deleteBoard.do?bd_id=${bd_id}"><input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right; "/></a>
+					 <a href="modifyBoard.do?bd_id=${bd_id }"><input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/></a> 
+					</c:if>
 			</div>
 			
 
@@ -249,7 +249,6 @@ a{
 	</script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		
 		
 		$('#summernote1').summernote({
 			height : 400

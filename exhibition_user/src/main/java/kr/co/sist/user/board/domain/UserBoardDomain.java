@@ -2,7 +2,13 @@ package kr.co.sist.user.board.domain;
 
 public class UserBoardDomain {
 	private String title, userid, input_date, cat_name, reply_input_date,img_file, reply_userid, description, reply_description;
-	private int bd_id, cat_num, recommend, views, reply_id, rnum, totalCnt,pageScale,currentPage,pageCnt,startNum,endNum ;
+	private int bd_id, cat_num, recommend, board_views, reply_id, rnum, cnt,pageScale,currentPage,pageCnt,startNum,endNum ;
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public int getRnum() {
 		return rnum;
 	}
@@ -82,23 +88,17 @@ public class UserBoardDomain {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
-	public int getViews() {
-		return views;
+	public int getboard_views() {
+		return board_views;
 	}
-	public void setViews(int views) {
-		this.views = views;
+	public void setboard_views(int board_views) {
+		this.board_views = board_views;
 	}
 	public int getReply_id() {
 		return reply_id;
 	}
 	public void setReply_id(int reply_id) {
 		this.reply_id = reply_id;
-	}
-	public int getTotalCnt() {
-		return totalCnt;
-	}
-	public void setTotalCnt(int totalCnt) {
-		this.totalCnt = totalCnt;
 	}
 	public int getPageScale() {
 		return pageScale;
@@ -141,10 +141,16 @@ public class UserBoardDomain {
 		return "UserBoardDomain [title=" + title + ", userid=" + userid + ", input_date=" + input_date + ", cat_name="
 				+ cat_name + ", reply_input_date=" + reply_input_date + ", img_file=" + img_file + ", reply_userid="
 				+ reply_userid + ", description=" + description + ", reply_description=" + reply_description
-				+ ", bd_id=" + bd_id + ", cat_num=" + cat_num + ", recommend=" + recommend + ", views=" + views
-				+ ", reply_id=" + reply_id + ", rnum=" + rnum + ", totalCnt=" + totalCnt + ", pageScale=" + pageScale
-				+ ", currentPage=" + currentPage + ", pageCnt=" + pageCnt + ", startNum=" + startNum + ", endNum="
-				+ endNum + ", isdeleted=" + isdeleted + "]";
+				+ ", bd_id=" + bd_id + ", cat_num=" + cat_num + ", recommend=" + recommend + ", board_views="
+				+ board_views + ", reply_id=" + reply_id + ", rnum=" + rnum + ", cnt=" + cnt + ", pageScale="
+				+ pageScale + ", currentPage=" + currentPage + ", pageCnt=" + pageCnt + ", startNum=" + startNum
+				+ ", endNum=" + endNum + ", isdeleted=" + isdeleted + "]";
+	}
+	public int getBoard_views() {
+		return board_views;
+	}
+	public void setBoard_views(int board_views) {
+		this.board_views = board_views;
 	}
 	
 	

@@ -1,8 +1,29 @@
 package kr.co.sist.user.board.vo;
 
 public class UserBoardVO {
-	private String title, userid, input_date, cat_name, reply_input_date,img_file, reply_userid, description, reply_description;
-	private int bd_id, cat_num, recommend, views, reply_id, rownum, totalCnt,pageScale,currentPage,pageCnt,startNum,endNum ;
+	private String title, userid, input_date, cat_name, reply_input_date,img_file, reply_userid, description, reply_description, reply_id;
+	private int bd_id, cat_num, recommend, board_views,  rownum, totalCnt,pageScale,currentPage,pageCnt,startNum,endNum , cnt;
+	public int getTotalCnt() {
+		return totalCnt;
+	}
+	public void setTotalCnt(int totalCnt) {
+		this.totalCnt = totalCnt;
+	}
+	public void setReply_id(String reply_id) {
+		this.reply_id = reply_id;
+	}
+	public int getBoard_views() {
+		return board_views;
+	}
+	public void setBoard_views(int board_views) {
+		this.board_views = board_views;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	private char isdeleted;
 	public String getTitle() {
 		return title;
@@ -76,29 +97,11 @@ public class UserBoardVO {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
-	public int getViews() {
-		return views;
-	}
-	public void setViews(int views) {
-		this.views = views;
-	}
-	public int getReply_id() {
-		return reply_id;
-	}
-	public void setReply_id(int reply_id) {
-		this.reply_id = reply_id;
-	}
 	public int getRownum() {
 		return rownum;
 	}
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
-	}
-	public int getTotalCnt() {
-		return totalCnt;
-	}
-	public void setTotalCnt(int totalCnt) {
-		this.totalCnt = totalCnt;
 	}
 	public int getPageScale() {
 		return pageScale;
@@ -141,10 +144,10 @@ public class UserBoardVO {
 		return "UserBoardVO [title=" + title + ", userid=" + userid + ", input_date=" + input_date + ", cat_name="
 				+ cat_name + ", reply_input_date=" + reply_input_date + ", img_file=" + img_file + ", reply_userid="
 				+ reply_userid + ", description=" + description + ", reply_description=" + reply_description
-				+ ", bd_id=" + bd_id + ", cat_num=" + cat_num + ", recommend=" + recommend + ", views=" + views
-				+ ", reply_id=" + reply_id + ", rownum=" + rownum + ", totalCnt=" + totalCnt + ", pageScale="
+				+ ", reply_id=" + reply_id + ", bd_id=" + bd_id + ", cat_num=" + cat_num + ", recommend=" + recommend
+				+ ", board_views=" + board_views + ", rownum=" + rownum + ", totalCnt=" + totalCnt + ", pageScale="
 				+ pageScale + ", currentPage=" + currentPage + ", pageCnt=" + pageCnt + ", startNum=" + startNum
-				+ ", endNum=" + endNum + ", isdeleted=" + isdeleted + "]";
+				+ ", endNum=" + endNum + ", cnt=" + cnt + ", isdeleted=" + isdeleted + "]";
 	}
 	
 	

@@ -81,7 +81,7 @@ public class UserBoardDAO {
 		int success=0;
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		success=ss.selectOne("kr.co.sist.user.board.insertupdateBoard", ubVO);
+		success=ss.update("kr.co.sist.user.board.insertupdateBoard", ubVO);
 		
 		if(success>0) {
 			ss.commit();
@@ -125,13 +125,15 @@ public class UserBoardDAO {
 	 * view 수 수정
 	 * @param bd_id
 	 */
-	public void updateView( int bd_id) {
-		
+	public int updateView( int bd_id) {
+		int success=0;
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		ss.update("kr.co.sist.user.board.updateView", bd_id);
-		
+		if(success>0) {
+			ss.commit();
+		}
 		if( ss !=null ) { ss.close(); }
-		
+		return success;
 	}//updateView
 	
 	/**
@@ -159,6 +161,7 @@ public class UserBoardDAO {
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		success=ss.delete("kr.co.sist.user.board.deleteCom", cm_id);
+		System.out.println(success);
 		if(success>0) {
 			ss.commit();
 		}
@@ -176,7 +179,7 @@ public class UserBoardDAO {
 		int success=0;
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		success=ss.selectOne("kr.co.sist.user.board.insertCom");
+		success=ss.insert("kr.co.sist.user.board.insertCom", ubVO);
 		if(success>0) {
 			ss.commit();
 		}

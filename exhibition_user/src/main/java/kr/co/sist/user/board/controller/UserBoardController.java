@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartRequest;
 
 import kr.co.sist.user.account.vo.MemberVO;
+import kr.co.sist.user.board.domain.UserBoardDomain;
 import kr.co.sist.user.board.service.UserBoardService;
 import kr.co.sist.user.board.vo.UserBoardVO;
 
@@ -41,7 +42,6 @@ public class UserBoardController {
 		
 		ubVO.setStartNum(ubs.startNum(currentNum));
 		ubVO.setEndNum(ubs.endNum(currentNum));
-		
 		model.addAttribute("catList",ubs.category());
 		model.addAttribute("totalCnt", ubs.searchTotalCount(cat_num));
 		model.addAttribute("pageScale", ubs.pageScale() );
@@ -140,9 +140,17 @@ public class UserBoardController {
 	public String boardDetail(HttpSession session, Model model,@RequestParam(defaultValue = "0") int bd_id, HttpServletRequest request) {
 		
 		bd_id = Integer.parseInt(request.getParameter("value")) ;
+		UserBoardVO ubVO = null;
+		UserBoardDomain ubDomain = null;
 		
 		if(bd_id != 0) {
-			model.addAttribute("detailData",ubs.boardDetail(bd_id));
+			ubDomain = ubs.boardDetail(bd_id);
+			ubVO = new UserBoardVO();
+			
+			ubs.modifyView(bd_id);
+			ubVO.setBoard_views(ubDomain.getboard_views());
+			
+			model.addAttribute("detailData", ubDomain);
 			model.addAttribute("comList",ubs.comment(bd_id));
 		}//end if
 		
@@ -157,17 +165,13 @@ public class UserBoardController {
 	 * @param session �옉�꽦�옄�� �닔�젙�븯�젮�뒗 �옄 �븘�씠�뵒 ��議�
 	 * @return
 	 */
-	@RequestMapping(value="/modifyBoard.do", method=POST)
+	@RequestMapping(value="/modifyBoard.do", method=GET)
 	public String modifyBoard(Model model, UserBoardVO ubVO, HttpSession session, HttpServletRequest request) {
-		boolean flag = false;
-		System.out.println("컨");
+		request.getParameter("bd_id");
 		System.out.println(ubVO.getUserid());
 		System.out.println(session.getAttribute("id"));
-		if(ubVO.getUserid() == session.getAttribute("id")) {
-			flag=true;
-			model.addAttribute("modifyResult",ubs.modifyBoard(ubVO));
-			model.addAttribute("flag",flag);
-			
+		if(ubVO.getUserid() == String.valueOf(session.getAttribute("id")).trim()) {
+			model.addAttribute("flag",ubs.modifyBoard(ubVO));
 		}//end if
 		
 		return "user/board/modifyBoard";
@@ -181,25 +185,25 @@ public class UserBoardController {
 	 * @param session �뙎湲� �벖 �궗�슜�옄�� �쁽�옱 �젒�냽 以� �궗�슜�옄媛� 媛숈쓣 寃쎌슦
 	 * @return
 	 */
-	@RequestMapping(value="/deleteComm.do", method=POST)
-	public String removeCom(Model model,@RequestParam(defaultValue = "0") int cm_id, HttpSession session) {
+	@RequestMapping(value="/deleteComm.do", method={POST,GET})
+	public String removeCom(Model model,@RequestParam(defaultValue = "0") int reply_id, HttpServletRequest request) {
 		
-		UserBoardVO ubVO=new UserBoardVO();
+		reply_id=Integer.parseInt(request.getParameter("reply_id")) ;
+		ubs.removeCom(reply_id);
 		
-		if(cm_id != 0 && session.getId() == ubVO.getReply_userid()) {
-			model.addAttribute("deleteComResult",ubs.removeCom(cm_id));	
-		}//end if
+		model.addAttribute("value",request.getParameter("bd_id"));
 		
-		return "user/board/deleteComm";
+		return "redirect:boardDetail.do";
 	}//removeCom
 	
-	@RequestMapping(value="/user/insertComm.do", method=POST)
-	public String addCom(Model model,UserBoardVO ubVO, HttpSession session) {
-		
-			ubVO.setUserid(session.getId());
-			model.addAttribute("deleteComResult",ubs.addCom(ubVO));	
-		
-		return "user/board/insertComm";
+	@RequestMapping(value="/insertComm.do", method= {POST,GET})
+	public String addCom(Model model,UserBoardVO ubVO, HttpSession session, HttpServletRequest request) {
+			ubVO.setReply_userid(String.valueOf(session.getAttribute("id")) );
+		    ubVO.setReply_description(ubVO.getReply_description());
+			ubVO.setBd_id(ubVO.getBd_id());
+			ubs.addCom(ubVO);
+			model.addAttribute("value", ubVO.getBd_id() );
+		return "redirect:boardDetail.do";
 	}//addCom
 	
 	

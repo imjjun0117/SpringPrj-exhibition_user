@@ -108,15 +108,6 @@ $(function(){
                     <h2 class="wow fadeInLeft">게시판</h2>
                     <div class="title-line wow fadeInRight"></div>
                 </div>
-<%
-   String catNum=request.getParameter("Exhibition");
-   if(catNum == null){
-   	catNum="5";
-   }
-   pageContext.setAttribute("catNum", catNum);
-   String search=request.getParameter("searchDescription");
-   %>
-      	<div >
 	      <form class="d-flex" id="search" name="search" action="catBoard.do" method="get">
 	        <input class="btn btn-outline-success" type="button" style="float: right; height: 35px" 
 	        	value="검색" id="searchBtn"/>
@@ -183,18 +174,12 @@ $(function(){
                                         <td>
                                             <c:out value="${boardList.input_date }"/>
                                         </td>
-                                        <td><c:out value="${boardList.recommend }"/></td>
-                                        <td><c:out value="${boardList.views }"/></td> 
+                                        <td><c:out value="${boardList.cnt }"/></td>
+                                        <td><c:out value="${boardList.board_views }"/></td> 
                                     </tr> 
                                 </c:forEach> 
                                 </tbody>
                             </table>
-                           <%--  <% 
-                            	int total=bDAO.selectTotalBoard(Integer.parseInt(catNum));
-                            	int end=total/10;
-                            	pageContext.setAttribute("end", end);
-                            %> --%>
-                            
 <div class="text-center">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
