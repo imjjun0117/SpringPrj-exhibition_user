@@ -1,6 +1,3 @@
-<%@page import="VO.MemberVO"%>
-<%@page import="DAO.MyReservationDAO"%>
-<%@page import="VO.MyReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
        %>
@@ -14,7 +11,7 @@
          <style type="text/css">
 #total{
 	position:absolute;
-	width:500px; height:400px; background:#FFFFFF;   background-color: #F0AD4E ;
+	width:600px; height:500px; background:#FFFFFF;   background-color: #F0AD4E ;
 	color: #ffffff; text-align: center;
 }
 .content{background-color: #ffffff; color: #000000;}
@@ -29,58 +26,59 @@ table{margin-left: 80px}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-
-});//ready
+function cancelRez(rez_num){
+	$.ajax({
+		url:"cancelRez.do",
+		data:{rez_num:rez_num},
+		type:"post",
+		dataType:"json",
+		success:function(json){
+			if(json.cnt > 0){
+				alert("예약을 취소했습니다.");
+				self.close();
+			}else{
+				alert("오류가 발생했습니다.")
+			}//end else
+		},
+		error:function(xhr){
+			alert(xhr.status);
+		}//error
+	});//ajax
+}//cancelRez
 
 </script>
 </head>
 <body>
 
-<div id="total" >
+<div id="total" style="margin:0 auto;">
 <h2><strong>예약 상세 페이지</strong></h2>
 <div class="content">
 <div id="header">
 </div>
 <br/>
-<%
-MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
-String userid=sessionMember.getUserId();
-
-MyReservationVO mrVO=new MyReservationVO();
-MyReservationDAO mrDAO=MyReservationDAO.getInstance();
-String rezNum=request.getParameter("hid");
-
-mrVO.setRez_num(Integer.parseInt(rezNum));
-mrVO.setUserid(userid);
-MyReservationVO rezDetail=mrDAO.selectReservationDetail(mrVO);
-
-pageContext.setAttribute("rezDetail", rezDetail);
-%> 
-<table>
+<table style="margin:0 auto;">
 <tr>
-	<th>사용자: </th><td>${rezDetail.userid }</td>
+	<th>사용자: </th><td>${myRezDetail.userid }</td>
 </tr>
 <tr>
-	<th>예약 번호: </th><td>${rezDetail.rez_num }</td>
+	<th>예약 번호: </th><td>${myRezDetail.rez_num }</td>
 </tr>
 <tr>
-	<th>전시 명: </th><td>${rezDetail.ex_name }</td>
+	<th>전시 명: </th><td>${myRezDetail.ex_name }</td>
 </tr>
 <tr>
-	<th>전시 장: </th><td>${rezDetail.ex_hall_name }</td>
+	<th>전시 장: </th><td>${myRezDetail.ex_hall_name }</td>
 </tr>
 <tr>
-	<th>방문 날짜: </th><td>${rezDetail.visit_date }</td>
+	<th>방문 날짜: </th><td>${myRezDetail.visit_date }</td>
 </tr>
 <tr>
-	<th>관람 인원: </th><td>${rezDetail.rez_count }</td>
+	<th>관람 인원: </th><td>${myRezDetail.rez_count }</td>
 </tr>
-
-
 </table>
 <br/>
-	<a href="reservation_cancel.jsp?rez_num=${rezDetail.rez_num }"><input type="button"  value="예약 취소" style="margin-left: 50px;"  class="btn btn-light"></a>
-    <input type="button"   value="닫기" onclick="self.close()" class="btn btn-outline-danger">
+	<input type="button"  value="예약 취소" class="btn btn-light" onclick="cancelRez('${myRezDetail.rez_num}')"/>
+    <input type="button" value="닫기" onclick="self.close()" class="btn btn-outline-danger">
     <br/><br/>
 </div>
 </div>

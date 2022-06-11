@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.co.sist.user.account.vo.MemberVO;
@@ -51,13 +52,19 @@ public class MyInfoController {
 				
 			}
 			
-			@RequestMapping(value="")
+			@RequestMapping(value="/myRezDetail.do")
 			public String myRezDetailInfo(@RequestParam(defaultValue = "-1")int rez_num,Model model) {
 				
 				model.addAttribute("myRezDetail",serviceImpl.searchMyRezDetail(rez_num));
 				return "user/myaccount/my-account_rez_child";
 			}//myRezDetailInfo
 		
+			@ResponseBody
+			@RequestMapping(value="/cancelRez.do",method=RequestMethod.POST)
+			public String cancelRez(int rez_num) {
+				return serviceImpl.cancelRez(rez_num);
+			}//myRezDetail
+			
 		//내정보 수정 페이지
 		@RequestMapping(value="/my_account_modify.do", method=RequestMethod.GET)
 		public String accountModify() {

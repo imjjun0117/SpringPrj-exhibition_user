@@ -52,7 +52,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.jsp">Exhibition</a>
+                            <a href="index.do">Exhibition</a>
                         </div>
 
                        
@@ -73,7 +73,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.do">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
@@ -139,21 +139,39 @@
                                     </tr>
                                     <c:if test="${not empty myRezList }">
 								<c:forEach var="rez" items="${myRezList }">
-                                    <tr >
+                                    <tr style="cursor:pointer" onclick="detail('${rez.rez_num}','${rez.rez_status }')" >
                                         <td>${rez.rez_num }</td>
-                                        <td ><a href="#void" onclick="${rezList.rez_status eq 'f'?'':'detail()'}" > <input type="text" value="${rez.ex_name}" style="color:${rez.rez_status eq 'f'?'#A5A5A5':''}; border:0px" readonly="readonly" disabled="disabled"/></a></td>
+                                        <td  style="color:${rez.rez_status eq 'f'?'#A5A5A5':''}">${rez.ex_name}</td>
                                         <td>${rez.visit_date } </td>
                                         <td>${rez.rez_count }</td>
                                         <td>
                                             ${rez.rez_date }
                                         </td>
-                                        <td style="width:100px"><input type="text" value="${rez.rez_status eq 'f'?'예약 취소':'예약 완료'}" style="border:0px"/> </td>
+                                        <td style="width:120px">
+                                        <c:choose>
+                                        <c:when test="${rez.rez_status eq 'f' }">
+                                        예약 취소
+                                        </c:when>
+                                        <c:when test="${rez.rez_status eq 't' }">
+                                        예약 완료
+                                        </c:when>
+                                        <c:otherwise>
+                                        오류
+                                        </c:otherwise>
+                                        </c:choose>
+                                        </td>
                                         
                                     </tr> 
 
 								</c:forEach> 
                                     </c:if>
-                                    
+                                    <c:if test="${empty myRezList }">
+                                    <tr>
+										<td colspan="6">
+										
+										</td>              
+                                    </tr>
+                                    </c:if>
                                 </tbody>
                             </table>
                             </form>
@@ -229,10 +247,14 @@
 	<script type="text/javascript">
 
    
-    function detail(){
-    		var rezNum=
-    		"my-account_rez_child.jsp?hid="+$("#hid").val();
-    		window.open(rezNum,"detail","width=600px, height=500px");
+    function detail(rezNum,rezStatus){
+    		if(rezStatus == 'f'){
+    			alert("취소된 예약입니다.");
+    			return;
+    		}//end if
+    		var uri=
+    		"myRezDetail.do?rez_num="+rezNum;
+    		window.open(uri,"detail","width=600px, height=500px");
     }
     </script>
 

@@ -53,4 +53,16 @@ public class MyInfoDAO {
 		if(ss != null) {ss.close();}//end if
 		return md;
 	}//selectMyRezDetail
+	
+	public int updateMyRezDetail(int rez_num)throws PersistenceException{
+		int cnt = 0;
+		SqlSession ss= MyBatisFramework.getInstance().getMyBatisHandler();
+		cnt=ss.update("kr.co.sist.user.myinfo.myRezMapper.deleteRez", rez_num);
+		
+		if(cnt > 0) {
+			ss.commit();
+		}//end if
+		if(ss != null) {ss.close();}//end if
+		return cnt;
+	}//deleteMyRezDetail
 }

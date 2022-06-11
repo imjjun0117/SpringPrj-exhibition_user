@@ -3,6 +3,7 @@ package kr.co.sist.user.myInfo.service;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,16 @@ public class MyInfoServiceImpl {
 		return md;
 	}//searchMyRezDetail
 	
-	
+	public String cancelRez(int rez_num) {
+		int cnt=0;
+		JSONObject jsonObj = new JSONObject();
+		try {
+			cnt=myInfoDAO.updateMyRezDetail(rez_num);
+			jsonObj.put("cnt",cnt);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}//end catch
+		return jsonObj.toJSONString();
+	}//calcelRez
 		
 }
