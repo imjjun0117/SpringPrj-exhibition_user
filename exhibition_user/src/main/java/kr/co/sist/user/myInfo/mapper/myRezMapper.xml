@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.myinfo.myRezMapper">
+
+<!-- 나의 예약 리스트 조회 -->
+<select id="selectMyRez" parameterType="String" resultType="kr.co.sist.user.myInfo.vo.MyReservationDomain">
+		select rez_num,rez_date,rez_status,ex_name,rez_count,visit_date
+		from reservation r, exhibition ex
+		where (r.ex_num = ex.ex_num) and 
+		userid=#{userId}
+		order by visit_date desc
+</select>
+
+<!-- 예약상세조회 -->
+<select id="selectMyRezDetail" parameterType="int" resultType="kr.co.sist.user.myInfo.vo.MyReservationDomain">
+	select userid,rez_num,ex.ex_name,exh.ex_hall_name,
+		visit_date,rez_count
+	from exhibition ex, reservation r , exhibition_hall exh
+	where (ex.ex_hall_num=exh.ex_hall_num) and
+		(r.ex_num=ex.ex_num) and rez_num=#{rez_num}
+</select>
+
+	<insert id="insertRez" parameterType="kr.co.sist.user.reservation.vo.UserReservationVO">
+		insert into reservation(rez_num, rez_count, visit_date, ex_num, userid)
+			values(rez_num_seq.nextval,#{rez_count},#{visit_date},#{ex_num},#{userid})
+	</insert> 
+</mapper>

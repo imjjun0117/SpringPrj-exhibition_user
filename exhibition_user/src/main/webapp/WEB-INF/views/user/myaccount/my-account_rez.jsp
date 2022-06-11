@@ -112,7 +112,7 @@
                                 <ul class="nav nav-pills nav-stacked">
                               		 <li> <a href="#void">비밀번호 입력</a></li>
                                     <li class="active"><a href="#void">예약상황</a></li>
-                                    <li><a href="my_account_modify.do">내 정보 수정</a></li>
+                                    <li><a href="my_account_modify.jsp">내 정보 수정</a></li>
                                     
                                     
                                 </ul>
@@ -137,32 +137,22 @@
                                         <th>예약 상황</th> 
                                         
                                     </tr>
-                               <%--       <%
-                             
-                                     MyReservationDAO mrDAO=MyReservationDAO.getInstance();
-                                     MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
-                     				String userid=sessionMember.getUserId();
-     								List<MyReservationVO> rezList=mrDAO.selectAllReservation(userid);
-                             	
-								pageContext.setAttribute("rezList", rezList);
-								int num=0;
-								
-								%> --%>
-								<%-- <c:forEach var="rezList" items="${pageScope.rezList }">
-								<input type="hidden" value="${rezList.rez_num }" name="hid" id="hid" />
+                                    <c:if test="${not empty myRezList }">
+								<c:forEach var="rez" items="${myRezList }">
                                     <tr >
-                                        <td><%=num+=1 %></td>
-                                        <td ><a href="#void" onclick="${rezList.rez_status eq 'f'?'':'detail()'}" > <input type="text" value="${rezList.ex_name}" style="color:${rezList.rez_status eq 'f'?'#A5A5A5':''}; border:0px" readonly="readonly" disabled="disabled"/></a></td>
-                                        <td>${rezList.visit_date } </td>
-                                        <td>${rezList.rez_count }</td>
+                                        <td>${rez.rez_num }</td>
+                                        <td ><a href="#void" onclick="${rezList.rez_status eq 'f'?'':'detail()'}" > <input type="text" value="${rez.ex_name}" style="color:${rez.rez_status eq 'f'?'#A5A5A5':''}; border:0px" readonly="readonly" disabled="disabled"/></a></td>
+                                        <td>${rez.visit_date } </td>
+                                        <td>${rez.rez_count }</td>
                                         <td>
-                                            ${rezList.rez_date }
+                                            ${rez.rez_date }
                                         </td>
-                                        <td style="width:100px"><input type="text" value="${rezList.rez_status eq 'f'?'예약 취소':'예약 완료'}" style="border:0px"/> </td>
+                                        <td style="width:100px"><input type="text" value="${rez.rez_status eq 'f'?'예약 취소':'예약 완료'}" style="border:0px"/> </td>
                                         
                                     </tr> 
 
-								</c:forEach> --%>
+								</c:forEach> 
+                                    </c:if>
                                     
                                 </tbody>
                             </table>

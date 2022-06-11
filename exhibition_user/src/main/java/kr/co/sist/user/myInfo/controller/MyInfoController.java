@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.co.sist.user.account.vo.MemberVO;
@@ -22,30 +23,40 @@ public class MyInfoController {
 	
 	
 	//내정보로 들어가는 get
-	@RequestMapping(value="/my_account_pass.do",method = RequestMethod.GET)
-	public String startMyinfo(HttpSession session) {
-		//System.out.println(session.getAttribute("id"));
-		if(session.getAttribute("id")==null) {
-			return"redirect:login.do";
-		}else {
-			return "user/myaccount/my_account_pass";
-		}//end else
-	}//startMyInfo
-	
-	//내정보 비밀번호 체크
-		@RequestMapping(value="/checkMyPass.do",method = RequestMethod.POST)
-		public String passChk(MemberVO mVO,Model model,HttpSession session) {
-			mVO.setUserId((String)session.getAttribute("id"));
-			int cnt = serviceImpl.pwCheck(mVO);
-			if(cnt == 1) {
-				return "user/myaccount/my-account_rez";
+		@RequestMapping(value="/my_account_pass.do",method = RequestMethod.GET)
+		public String startMyinfo(HttpSession session) {
+			//System.out.println(session.getAttribute("id"));
+			if(session.getAttribute("id")==null) {
+				return"redirect:login.do";
 			}else {
-				model.addAttribute("check",1);
-				model.addAttribute("message","비밀번호를확인해주세요");
-				return "redirect:/user/myaccount/my-account_pass";
+				return "user/myaccount/my_account_pass";
 			}//end else
-		}
+		}//startMyInfo
 		
+		//내정보 비밀번호 체크
+			@RequestMapping(value="/checkMyPass.do",method = RequestMethod.POST)
+			public String passChk(MemberVO mVO,Model model,HttpSession session) {
+				String userid =(String)session.getAttribute("id"); 
+				mVO.setUserId(userid);
+				int cnt = serviceImpl.pwCheck(mVO);
+				//System.out.println(cnt+" /  -------------------------"+mVO+"/");
+				if(cnt == 1) {
+					model.addAttribute("myRezList",serviceImpl.searchMyReservation(userid));
+					return "user/myaccount/my-account_rez";
+				}else {
+					model.addAttribute("check",1);
+					model.addAttribute("message","비밀번호를확인해주세요");
+					return "redirect:/user/myaccount/my-account_pass";
+				}//end else
+				
+			}
+			
+			@RequestMapping(value="")
+			public String myRezDetailInfo(@RequestParam(defaultValue = "-1")int rez_num,Model model) {
+				
+				model.addAttribute("myRezDetail",serviceImpl.searchMyRezDetail(rez_num));
+				return "user/myaccount/my-account_rez_child";
+			}//myRezDetailInfo
 		
 		//내정보 수정 페이지
 		@RequestMapping(value="/my_account_modify.do", method=RequestMethod.GET)
