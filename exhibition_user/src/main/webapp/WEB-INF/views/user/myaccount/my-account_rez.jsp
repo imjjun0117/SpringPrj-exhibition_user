@@ -71,7 +71,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.do">Exhibition</a>
+                        <a class="navbar-brand site-name" href="#op">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
@@ -174,7 +174,7 @@
                             </form>
                          
                             <div class="text-center">
-							<a href="my-account_rez.jsp"><input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
+							<a href="index.do"><input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
 							</div>	                        
                         </div>
                     </div>

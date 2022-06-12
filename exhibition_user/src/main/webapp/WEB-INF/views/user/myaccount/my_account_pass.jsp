@@ -48,7 +48,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.jsp">Exhibition</a>
+                            <a href="index.do">Exhibition</a>
                         </div>
 
                        
@@ -69,7 +69,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.do">Exhibition</a>
+                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
