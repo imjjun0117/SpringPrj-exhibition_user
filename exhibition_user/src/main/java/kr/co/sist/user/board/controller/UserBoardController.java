@@ -36,9 +36,6 @@ public class UserBoardController {
 		int cat_num= request.getParameter("cat_num")==null?0:Integer.parseInt(request.getParameter("cat_num"));
 		int currentNum = request.getParameter("pageNum")==null?1:Integer.parseInt(request.getParameter("pageNum"));
 		
-		if(ubVO.getCat_num() != 0) {
-			ubVO.setCat_num(1);
-		}//end if
 		
 		ubVO.setStartNum(ubs.startNum(currentNum));
 		ubVO.setEndNum(ubs.endNum(currentNum));

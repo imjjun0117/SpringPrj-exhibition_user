@@ -15,14 +15,14 @@
 
 <meta charset="UTF-8" />
 <!-- CSS Files -->
-<link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="/sist/css/font-awesome.min.css" rel="stylesheet">
-<link href="/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css"
+<link href="/exhibition_user/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="/exhibition_user/css/font-awesome.min.css" rel="stylesheet">
+<link href="/exhibition_user/fonts/icon-7-stroke/css/pe-icon-7-stroke.css"
 	rel="stylesheet">
-<link href="/sist/css/animate.css" rel="stylesheet" media="screen">
-<link href="/sist/css/owl.theme.css" rel="stylesheet">
-<link href="/sist/css/owl.carousel.css" rel="stylesheet">
-<link href="/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="/exhibition_user/css/animate.css" rel="stylesheet" media="screen">
+<link href="/exhibition_user/css/owl.theme.css" rel="stylesheet">
+<link href="/exhibition_user/css/owl.carousel.css" rel="stylesheet">
+<link href="/exhibition_user/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
 <!-- Colors -->
 <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -30,8 +30,8 @@
 <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
 <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
 <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-<link href="/sist/css/stacktable.css" rel="stylesheet" media="screen">
-<link href="/sist/css/css-index-yellow.css" rel="stylesheet" media="screen">
+<link href="/exhibition_user/css/stacktable.css" rel="stylesheet" media="screen">
+<link href="/exhibition_user/css/css-index-yellow.css" rel="stylesheet" media="screen">
 
 <!-- Google Fonts -->
 <link rel="stylesheet"
@@ -47,7 +47,7 @@
 
 	<!-- /.parallax full screen background image -->
 	<div class="fullscreen landing parallax blog-page"
-		style="background-image: url('/sist/images/bg-baner.jpg');"
+		style="background-image: url('/exhibition_user/images/bg-baner.jpg');"
 		data-img-width="2000" data-img-height="1333" data-diff="100">
 
 		<div class="overlay">
@@ -131,7 +131,7 @@
 											<strong>${ exListView.ex_name }</strong><br/>${ exListView.ex_intro }
 										</div>
 										<a href="exhibition_detail.do?ex_num=${ exListView.ex_num }&ex_hall_num=${ exListView.ex_hall_num }">
-										<img src="http://localhost/sist/img/${ exListView.exhibition_poster }" style="width: 300px"/></a>
+										<img src="http://localhost/exhibition_user/img/${ exListView.exhibition_poster }" style="width: 300px"/></a>
 											 
 									</figure>
 								</div>
@@ -151,20 +151,12 @@
 			<ul class="pagination">
 
 			
-<c:if test="${ex_hall_num!=0 }">
 
-    <li class="page-item"><a href="list.do?pageNum=${1}&ex_hall_num=${ex_hall_num}"><c:out value="${1 }"/></a></li>
-  	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
-    	<li class="page-item"><a href="list.do?pageNum=${i}&ex_hall_num=${ex_hall_num}"><c:out value="${i+1 }"/></a></li>
-    </c:forEach> 
-</c:if>
-<c:if test="${ex_hall_num==0 }">
 
-    <li class="page-item"><a href="list.do?pageNum=${1}"><c:out value="${1 }"/></a></li>
+    <li class="page-item"><a href="list.do?pageNum=${1}&ex_hall_num=${ ex_hall_num }"><c:out value="${1 }"/></a></li>
   	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
-    	<li class="page-item"><a href="list.do?pageNum=${i}"><c:out value="${i+1 }"/></a></li>
+    	<li class="page-item"><a href="list.do?pageNum=${i+1}&ex_hall_num=${ex_hall_num}"><c:out value="${i+1 }"/></a></li>
     </c:forEach> 
-</c:if>
 			</ul>
 		</nav>
 	</div>
@@ -211,14 +203,14 @@
 
 
 	<!-- /.javascript files -->
-	<script src="/sist/js/jquery.js"></script>
-	<script src="/sist/js/bootstrap.min.js"></script>
-	<script src="/sist/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="/sist/js/custom.js"></script>
-	<script src="/sist/js/jquery.sticky.js"></script>
-	<script src="/sist/js/wow.min.js"></script>
-	<script src="/sist/js/owl.carousel.min.js"></script>
-	<script src="/sist/js/jquery.validate.min.js"></script>
+	<script src="/exhibition_user/js/jquery.js"></script>
+	<script src="/exhibition_user/js/bootstrap.min.js"></script>
+	<script src="/exhibition_user/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="/exhibition_user/js/custom.js"></script>
+	<script src="/exhibition_user/js/jquery.sticky.js"></script>
+	<script src="/exhibition_user/js/wow.min.js"></script>
+	<script src="/exhibition_user/js/owl.carousel.min.js"></script>
+	<script src="/exhibition_user/js/jquery.validate.min.js"></script>
 
 	<script>
 		new WOW().init();

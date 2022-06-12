@@ -35,7 +35,6 @@ public class UserExhibitionController {
 			model.addAttribute("startNum", us.startNum(currentNum)); 
 			model.addAttribute("endNum", us.endNum(currentNum)); 
 			model.addAttribute("exListView",us.exListView(ueVO));
-			System.out.println(ex_hall_num);
 		return "user/exhibition/list";
 	}
 	

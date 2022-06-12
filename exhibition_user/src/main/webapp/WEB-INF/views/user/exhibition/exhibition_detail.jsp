@@ -20,14 +20,14 @@
 
         <meta charset="UTF-8" />
         <!-- CSS Files -->
-        <link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
-        <link href="/sist/css/animate.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/owl.theme.css" rel="stylesheet">
-        <link href="/sist/css/owl.carousel.css" rel="stylesheet">
-        <link href="/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/exhibition_user/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="/exhibition_user/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
+        <link href="/exhibition_user/css/animate.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/owl.theme.css" rel="stylesheet">
+        <link href="/exhibition_user/css/owl.carousel.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
         <!-- Colors -->
         <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -35,7 +35,7 @@
         <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-        <link href="/sist/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
+        <link href="/exhibition_user/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
 
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
@@ -65,7 +65,7 @@
         <div id="top"></div>
 
         <!-- /.parallax full screen background image -->
-        <div class="fullscreen landing parallax blog-page" style="background-image:url('http://localhost/sist/images/bg-baner.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
+        <div class="fullscreen landing parallax blog-page" style="background-image:url('http://localhost/exhibition_user/images/bg-baner.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
 
             <div class="overlay">
                 <div class="container">
@@ -117,10 +117,10 @@
                         <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure >
                                 <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong>${ exhibitionView.ex_num }. ${ exhibitionView.ex_name}</strong><br/>${ exhibitionView.ex_intro }</div>
-                                <img src="http://localhost/sist/img/${ exhibitionView.exhibition_poster }" style="width:300px"/>
+                                <img src="http://localhost/exhibition_user/img/${ exhibitionView.exhibition_poster }" style="width:300px"/>
                              <a href="list.do"><input type="button"  value="예약" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px ;margin-left: 500px"></a> 
                                <%--  <a href="catBoard.do?cat_num=${ exhibitionView.cat_num }"> --%>
-                               <a href="list.do"><input type="button"   value="후기" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
+                               <a href="catBoard.do?pageNum=1&cat_num=${ exhibitionView.cat_num }"><input type="button"   value="후기" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
                             
                             </figure>
                         </div>   
@@ -130,7 +130,7 @@
                         <!-- 전시 상세 -->
              	<div class="container" style="width: 1200px; height: 1500px; background-color: #ffffff ;border:1px solid #E5E5E5">
              	
-             	<img src="http://localhost/sist/img/${ exhibitionView.add_Img }" style="width:100%; height:500px; "/><br/><br/>
+             	<img src="http://localhost/exhibition_user/img/${ exhibitionView.add_Img }" style="width:100%; height:500px; "/><br/><br/>
              	<div id="output"></div>${ exhibitionView.ex_info }
 
              	<div id="map" style="width:70%;height:350px; margin-left: 150px; margin-top: 100px"></div>
@@ -177,14 +177,14 @@
 
 
         <!-- /.javascript files -->
-        <script src="/sist/js/jquery.js"></script>
-        <script src="/sist/js/bootstrap.min.js"></script>
-        <script src="/sist/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/sist/js/custom.js"></script>
-        <script src="/sist/js/jquery.sticky.js"></script>
-        <script src="/sist/js/wow.min.js"></script>
-        <script src="/sist/js/owl.carousel.min.js"></script>
-           <script src="/sist/js/jquery.validate.min.js"></script> 
+        <script src="/exhibition_user/js/jquery.js"></script>
+        <script src="/exhibition_user/js/bootstrap.min.js"></script>
+        <script src="/exhibition_user/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/exhibition_user/js/custom.js"></script>
+        <script src="/exhibition_user/js/jquery.sticky.js"></script>
+        <script src="/exhibition_user/js/wow.min.js"></script>
+        <script src="/exhibition_user/js/owl.carousel.min.js"></script>
+           <script src="/exhibition_user/js/jquery.validate.min.js"></script> 
 
 
 
