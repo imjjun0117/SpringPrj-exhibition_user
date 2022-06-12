@@ -150,14 +150,14 @@ a{
 					<div class="panel-body">
 						<ul class="nav nav-pills nav-stacked">
 						<li>카테고리</li>
-                                    <li>  <select class="form-control input-lg" name="Exhibition" id="Exhibition">
+                         <li>  
+                         <select class="form-control input-lg" name="Exhibition" id="Exhibition">
 								<c:forEach var="catList" items="${pageScope.catList }">
 								<option value="${ catList.cat_num}" ${catList.cat_num eq param.Exhibition?" selected='selected'":""}><c:out value="${catList.cat_name }"/></option>
 								</c:forEach>
-                                            </select></li>
-                                    
-                                    
-                                </ul>
+                          </select>
+                          </li>
+                         </ul>
 					</div>
 					<textarea id="summernote1" name="ta" >${detail.description }</textarea>
 					<input type="file" name="img" id="img" />

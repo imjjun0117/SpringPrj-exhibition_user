@@ -33,13 +33,19 @@
 		
 		parameterType="kr.co.sist.user.board.vo.UserBoardVO"-->
 	<select id="selectBoard" resultType="kr.co.sist.user.board.domain.UserBoardDomain" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
-	  	select rnum, title, board_views, input_date, userid, cnt, bd_id
-		from (select row_number() over(order by b.input_date desc) rnum,
-						b.bd_id, b.title, b.board_views, b.input_date, b.userid, count(r.reply_id) cnt
-			  	from board b, REPLY r
-			  	where b.bd_id=r.bd_id(+)
-			  	group by b.bd_id, b.title, b.board_views, b.input_date, b.userid)
-		 where	rnum between #{startNum} and #{endNum}
+	  	    select rnum, title, board_views, input_date, userid, cnt, bd_id ,cat_num
+      from (select row_number() over(order by b.input_date desc) rnum,
+               b.cat_num,   b.bd_id, b.title, b.board_views, b.input_date, b.userid, count(r.reply_id) cnt
+              from board b, REPLY r
+              where b.bd_id=r.bd_id(+) and isdeleted='n' 
+              <if test="keyword != null and keyword != ''">
+              and ${field}=#{keyword}
+              </if>
+              group by b.bd_id, b.title, b.board_views, b.input_date, b.userid,b.cat_num)
+       where   rnum between #{startNum} and #{endNum}
+       <if test="cat_num!=0">
+       and cat_num = #{cat_num}
+       </if>
 	</select>
 	
 <!--  페이징을 위한 게시글 전체 건수 조회 -->
@@ -53,31 +59,36 @@
    		</if>
    </select>
    
-   <!-- 게시글 삭제 -->
-   <delete id="deleteBoard" parameterType="int">
-   		delete from board where bd_id=#{bd_id}
-   </delete>
-   
    <!-- 게시글 추가 -->
   <insert id="insertBoard" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
   	insert into board(bd_id,title,description,cat_num,userid,img_file) 
-  		values(bdid_seq.nextval,#{title, jdbcType=VARCHAR},#{description, jdbcType=CLOB},#{cat_num},#{userid},#{img_file, jdbcType=VARCHAR})
+  		values(bdid_seq.nextval,#{title},#{description},#{cat_num},#{userid},#{img_file})
   </insert>
   
   <!-- 게시글 수정 -->
   <update id="updateBoard" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
-  	update board set title=#{title, jdbcType=VARCHAR}, description=#{description, jdbcType=CLOB}, cat_num=#{cat_num}
-  	<if test="kr.co.sist.user.board.vo.UserBoardVO.getImg_file() != null">
-  		, img_file= #{img_file}
-  	</if> 
-		where bd_id=#{bd_id, jdbcType=NUMERIC} and userid=#{userid}
+  	update board 
+  	<set>
+  	<choose>
+	  	<when test="isdeleted != null and isdeleted != ''">
+	  		isdeleted=#{isdeleted},
+	  	</when>
+	  	<otherwise>
+	  		title=#{title}, description=#{description}, cat_num=#{cat_num}
+	  	<if test="img_file != null and img_file != ''">
+	  		, img_file= #{img_file}
+	  	</if> 
+	  	</otherwise>
+  	</choose>
+  	</set> 
+		where bd_id=#{bd_id} and userid=#{userid}
   </update>
   
   <!-- 게시글 상세 출력 -->
   <select id="selectBoardDetail" resultType="kr.co.sist.user.board.domain.UserBoardDomain" parameterType="int">
 	  	<if test="bd_id!=null">
 	  	select * 
-	  	from (select  ct.cat_name, b.title, b.userid, b.input_date,  b.img_file, b.board_views,		
+	  	from (select  ct.cat_name,b.cat_num, b.title, b.userid, b.input_date,  b.img_file, b.board_views,		
 	  				b.DESCRIPTION,  b.bd_id, ROW_NUMBER() OVER(order by b.bd_id) rnum
 			  from board b, reply r, CATEGORY ct
 			  where (b.bd_id=r.bd_id(+) and b.cat_num(+)=ct.cat_num) and b.bd_id=#{bd_id} )
@@ -96,13 +107,13 @@
 	</select>
 	
 	<!-- 게시글 클릭 할 때마다 view 수 수정 -->
-	<update id="updateView" parameterType="int">
-		update board set board_views =board_views+1 where bd_id=#{bd_id, jdbcType=NUMERIC}
+	<update id="updateView" parameterType="kr.co.sist.user.board.vo.UserBoardVO" >
+		update board set board_views=#{board_views} where bd_id=#{bd_id}
 	</update>
 	
 	
 	<select id="selectCom" resultType="kr.co.sist.user.board.domain.UserBoardDomain" parameterType="int">
-		select reply_description,reply_input_date ,reply_id,reply_userid from reply where bd_id=#{bd_id}
+		select reply_description,reply_input_date ,reply_id,reply_userid from reply where bd_id=#{bd_id} order by reply_input_date desc
 	</select>
 	
 	<!-- 댓글 삭제 -->
@@ -111,7 +122,14 @@
 	</delete>
 	
 	<!-- 댓글 추가 -->
-	<insert id="insertCom" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
-		insert into reply(reply_id,reply_description,bd_id,reply_userid) values(BDCOM_SEQ.nextval,#{reply_description},#{bd_id, jdbcType=NUMERIC},#{reply_userid, jdbcType=VARCHAR})
+	<insert id="insertCom" parameterType="kr.co.sist.user.board.vo.ReplyVO">
+		insert into reply(reply_id,reply_description,bd_id,reply_userid) values(BDCOM_SEQ.nextval,#{reply_description},#{bd_id},#{reply_userid})
 	</insert>
+	<!-- 관리자 파악 -->
+	<select id="selectAdmin" parameterType="String" resultType="String">
+		select manager
+		from member
+		where userid=#{userid}
+	</select>
+	
 </mapper> 

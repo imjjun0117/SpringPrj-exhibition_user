@@ -1,5 +1,6 @@
 package kr.co.sist.user.board.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -8,14 +9,17 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.board.dao.UserBoardDAO;
 import kr.co.sist.user.board.domain.UserBoardDomain;
+import kr.co.sist.user.board.vo.ReplyVO;
 import kr.co.sist.user.board.vo.UserBoardVO;
+import kr.co.sist.user.s3.FileManagement;
 
 @Component
 public class UserBoardService {
 	
 	@Autowired(required = false)
 	private UserBoardDAO ubDAO;
-	
+	@Autowired(required = false)
+	private FileManagement fm;
 	/**
 	 * 移댄뀒怨좊━�뿉 �뵲�씪 �쟾泥� 寃뚯떆湲� 由ъ뒪�듃 異쒕젰
 	 * @param ubVO 寃��깋(�븘�씠�뵒, �젣紐�)
@@ -108,22 +112,6 @@ public class UserBoardService {
 		return endPage;
 	}
 	
-	/**
-	 * 게시글 삭제
-	 * @param bd_id
-	 * @return �궘�젣 �꽦怨� �뿬遺�
-	 */
-	public int removeBoard(int bd_id) {
-		int success=0;
-		
-		try {
-			success=ubDAO.deleteBoard( bd_id );
-		}catch (PersistenceException pe) {
-			pe.printStackTrace();
-		}//end catch	
-		
-		return success;
-	}//removeBoard
 	
 	/**
 	 * 게시글 추가
@@ -133,10 +121,12 @@ public class UserBoardService {
 		int cnt = 0;
 		try {
 			cnt = ubDAO.insertBoard( ubVO );
-			
+			fm.FileUploader(ubVO.getImg_s3());
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
-		}//end catch	
+		}catch (IOException e) {
+			e.printStackTrace();
+		}	
 		return cnt;
 	}//addBoard
 	
@@ -145,15 +135,21 @@ public class UserBoardService {
 	 * @param ubVO
 	 * @return �꽦怨� �뿬遺�
 	 */
-	public boolean modifyBoard(UserBoardVO ubVO) {
-		boolean flag = false;
+	public String modifyBoard(UserBoardVO ubVO) {
+		int cnt = 0;
 		try {
-			flag = ubDAO.updateBoard( ubVO )>0? true: false;
+			if(ubVO.getImg_s3() != null) {
+				fm.FileUploader(ubVO.getImg_s3());
+				ubVO.setImg_file(ubVO.getImg_file().substring(ubVO.getImg_file().lastIndexOf("\\")+1));
+			}//end if
+			cnt = ubDAO.updateBoard( ubVO );
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
-		}//end catch	
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		return flag;
+		return String.valueOf(cnt);
 	}//addBoard
 	
 	/**
@@ -166,6 +162,10 @@ public class UserBoardService {
 		
 		try {
 			ubDomain=ubDAO.selectBoardDetail( bd_id );
+			String filePath = ubDomain.getImg_file();
+			if(filePath != null && !"".equals(filePath)) {
+				ubDomain.setImg_file(fm.getFileUrl(ubDomain.getImg_file()));
+			}
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
@@ -192,10 +192,11 @@ public class UserBoardService {
 	 * view 수
 	 * @param bd_id
 	 */
-	public int modifyView(int bd_id) {
+	public int modifyView(UserBoardVO uVO) {
 		int cnt =0;
 		try {
-			cnt=ubDAO.updateView(bd_id);
+			uVO.setBoard_views(uVO.getBoard_views()+1);
+			cnt=ubDAO.updateView(uVO);
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
@@ -241,16 +242,26 @@ public class UserBoardService {
 	 * @param ubVO
 	 * @return
 	 */
-	public int addCom (UserBoardVO ubVO) {
+	public String addCom (ReplyVO rVO) {
 		int success=0;
 		
 		try {
-			success=ubDAO.insertCom(ubVO);
+			success=ubDAO.insertCom(rVO);
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
 		
-		return success;
+		return String.valueOf(success);
 	}//addCom
+	
+	public String findMgr(String userid) {
+		String mgr = "";
+		try {
+			mgr = ubDAO.selectManager(userid);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}//end catch
+		return mgr;
+	}
 	
 }//class

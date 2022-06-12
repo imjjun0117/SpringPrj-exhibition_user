@@ -64,7 +64,7 @@ $(function(){
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="user_index.do">Exhibition</a>
+                            <a href="index.do">Exhibition</a>
                         </div>
 
                        
@@ -85,7 +85,7 @@ $(function(){
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="user_index.do">Exhibition</a>
+                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
@@ -108,14 +108,20 @@ $(function(){
                     <h2 class="wow fadeInLeft">게시판</h2>
                     <div class="title-line wow fadeInRight"></div>
                 </div>
-	      <form class="d-flex" id="search" name="search" action="catBoard.do" method="get">
-	        <input class="btn btn-outline-success" type="button" style="float: right; height: 35px" 
-	        	value="검색" id="searchBtn"/>
-	        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" 
-	        	style="float: right; width: 200px" name="searchDescription">
-	        <input type="hidden" name="Exhibition" value="${catNum}"/>
-	      </form>
-		</div>
+			      <form class="d-flex" id="search" name="search" action="catBoard.do" method="get">
+                	<%-- <div class="input-group mb-3" style="width:350px;float:right;">
+					<select class="form-select" style="height:48px;" name="field" >
+						<option ${(param.dataSearchItem=="1")?"selected":""} value="1">제목</option>
+						<option ${(param.dataSearchItem=="2")?"selected":""} value="2">작성자</option>
+					</select> --%>
+			        <input class="btn btn-outline-success" type="button" style="float: right; height: 35px" 
+			        	value="검색" id="searchBtn"/>
+			        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" 
+			        	style="float: right; width: 200px" name="keyword">
+			        <input type="hidden" name="Exhibition" value="${catNum}"/>
+					<!-- </div> -->
+			      </form>
+				</div>
 		
                <div class="row account-details">
                     <!-- /.account-control -->
@@ -165,7 +171,7 @@ $(function(){
                                     <tr>
                                         <td>${boardList.rnum }</td>
                                      	<td style="text-align: center;">	
-                                     		<a href="boardDetail.do?value=${boardList.bd_id }" > 
+                                     		<a href="boardDetail.do?bd_id=${boardList.bd_id }&board_views=${boardList.board_views}" > 
                                     			<c:out value="${boardList.title }"/>
                                     			<c:out value="${boardList.bd_id }"/>
                                    			</a>
@@ -180,17 +186,15 @@ $(function(){
                                 </c:forEach> 
                                 </tbody>
                             </table>
-<div class="text-center">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a href="board.do?pageNum=${1}&Exhibition=${cat_num}"><c:out value="${1 }"/></a></li>
-  	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
-    	<li class="page-item"><a href="board.do?pageNum=${i}&Exhibition=${cat_num}"><c:out value="${i+1 }"/></a></li>
-    </c:forEach> 
-  </ul>
-</nav>
-
-
+						<div class="text-center">
+							<nav aria-label="Page navigation example">
+							  <ul class="pagination">
+							    <li class="page-item"><a href="board.do?pageNum=${1}&Exhibition=${cat_num}"><c:out value="${1 }"/></a></li>
+							  	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
+							    	<li class="page-item"><a href="board.do?pageNum=${i+1}&Exhibition=${cat_num}"><c:out value="${i+1 }"/></a></li>
+							    </c:forEach> 
+							  </ul>
+							</nav>
                         </div>
                     </div>
                 </div>

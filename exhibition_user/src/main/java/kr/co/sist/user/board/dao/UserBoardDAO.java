@@ -5,9 +5,11 @@ import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
-import kr.co.sist.user.mybatis.MyBatisFramework;
+
 import kr.co.sist.user.board.domain.UserBoardDomain;
+import kr.co.sist.user.board.vo.ReplyVO;
 import kr.co.sist.user.board.vo.UserBoardVO;
+import kr.co.sist.user.mybatis.MyBatisFramework;
 
 @Component
 public class UserBoardDAO {
@@ -81,7 +83,7 @@ public class UserBoardDAO {
 		int success=0;
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		success=ss.update("kr.co.sist.user.board.insertupdateBoard", ubVO);
+		success=ss.update("kr.co.sist.user.board.updateBoard", ubVO);
 		
 		if(success>0) {
 			ss.commit();
@@ -125,10 +127,10 @@ public class UserBoardDAO {
 	 * view 수 수정
 	 * @param bd_id
 	 */
-	public int updateView( int bd_id) {
+	public int updateView(UserBoardVO uVO) {
 		int success=0;
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		ss.update("kr.co.sist.user.board.updateView", bd_id);
+		success = ss.update("kr.co.sist.user.board.updateView", uVO);
 		if(success>0) {
 			ss.commit();
 		}
@@ -161,7 +163,6 @@ public class UserBoardDAO {
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
 		success=ss.delete("kr.co.sist.user.board.deleteCom", cm_id);
-		System.out.println(success);
 		if(success>0) {
 			ss.commit();
 		}
@@ -175,11 +176,11 @@ public class UserBoardDAO {
 	 * @param ubVO
 	 * @return
 	 */
-	public int insertCom(UserBoardVO ubVO) {
+	public int insertCom(ReplyVO rVO) {
 		int success=0;
 		
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		success=ss.insert("kr.co.sist.user.board.insertCom", ubVO);
+		success=ss.insert("kr.co.sist.user.board.insertCom", rVO);
 		if(success>0) {
 			ss.commit();
 		}
@@ -188,6 +189,13 @@ public class UserBoardDAO {
 		return success;
 	}//insertCom
 	
+	public String selectManager(String userid)throws PersistenceException {
+		SqlSession ss = MyBatisFramework.getInstance().getMyBatisHandler();
+		String mgr = ss.selectOne("kr.co.sist.user.board.selectAdmin",userid);
+		
+		if(ss != null) {ss.close();}//end if
+		return mgr;
+	}
 	
 	
 	

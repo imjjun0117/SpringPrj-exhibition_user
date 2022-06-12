@@ -54,7 +54,6 @@ a{
 } 
 </style>
 
-
 </head>
 
 <body data-spy="scroll" data-target="#navbar-scroll">
@@ -74,7 +73,7 @@ a{
 
 					<!-- /.logo -->
 					<div class="logo wow fadeInDown" style="margin-top: 50px">
-						<a href="index.jsp">Exhibition</a>
+						<a href="index.do">Exhibition</a>
 					</div>
 
 
@@ -101,10 +100,10 @@ a{
 			<div id="navbar-scroll"
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
-					<li><a href="reservation.jsp">예약하기</a></li>
-					<li><a href="board.jsp">게시판</a></li>
+					<li><a href="list.do">전체 전시 보기</a></li>
+					<li><a href="loc.do">지역별 전시 보기</a></li>
+					<li><a href="reservation.do">예약하기</a></li>
+					<li><a href="board.do">게시판</a></li>
 
 				</ul>
 			</div>
@@ -123,7 +122,6 @@ a{
 			<div class="row account-details">
 
 				<!-- /.account-control -->
-				<form action="addBoard.do" method="post"  id="frm" name="frm"  enctype="multipart/form-data">
 				<div
 					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
 				</div>
@@ -135,7 +133,7 @@ a{
 						<ul class="nav nav-pills nav-stacked">
 							<li>카테고리</li>
                             <li>  
-                           	 	<select class="form-control input-lg" name="Exhibition" id="Exhibition">
+                           	 	<select class="form-control input-lg" name="category" id="category">
 									<c:forEach var="catList" items="${catList }">
 									<option value="${ catList.cat_num}" ${catList.cat_num eq param.Exhibition?" selected='selected'":""}><c:out value="${catList.cat_name }"/></option>
 									</c:forEach>
@@ -143,18 +141,16 @@ a{
                				</li>
                           </ul>
 					</div>
-					<textarea id="summernote1" name="ta"></textarea>
-					<input type="file" name="img" id="img"/>
-					</form>
-					<br /> <input type="button" value="전송" id="btn" class="btn btn-warning btn-block btn-lg" />
+					<div style="border: 1px solid #A5A5A5; margin-top: 10px">
+					 <img id="thumbnail"/> 
+					<textarea id="summernote1" name="ta" style="background: #ffffff;border: 3px ;resize: none; width: 100%; height:1000px;margin-top: 10px;"> </textarea>
+					</div>
+					<input type="file" name="img" id="img"accept="image/jpg,image/jpeg,image/png" onchange="setThumbnail(event)"/>
+					<br /> <input type="button" value="전송" id="btn" class="btn btn-warning btn-block btn-lg" onclick="addBoard()" />
 						
 			</div>
 		</div>
 	</div>
-
-
-
-
 
 	<!-- /.footer -->
 	<footer id="footer">
@@ -207,66 +203,68 @@ a{
 
 	<script>
 		new WOW().init();
-		
-		
 	</script>
 <script type="text/javascript">
-$(document).ready(function() {
-	$('#summernote1').summernote({
-		  height: 400,                 // 에디터 높이
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '내용을 작성해주세요',	//placeholder 설정
-		  
-		  toolbar: [
-			    // 글꼴 설정
-			    ['fontname', ['fontname']],
-			    // 글자 크기 설정
-			    ['fontsize', ['fontsize']],
-			    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
-			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			    // 글자색
-			    ['color', ['forecolor','color']],
-			    // 표만들기
-			    ['table', ['table']],
-			    // 글머리 기호, 번호매기기, 문단정렬
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    // 줄간격
-			    ['height', ['height']],
-			  
-			  ],
-	});
-	});
-	
-	   $("#btn").click(function(){
-		  if($("#title").val()==""){
-			  alert("제목 입력은 필수입니다.");
-			  return;
-		  }
-		  if($("#summernote1").val()==""){
-			  alert("내용을 입력해 주세요.");
-			  return;
-		  }
-		  if($("#img").val() != ""){
-		  var fileName=$("#img").val();
-			let ext=fileName.toLowerCase().substring(fileName.lastIndexOf(".")+1);
-			var compareExt="png,jpg,gif,bmp".split(",");
-			var flag=false;
-			for(var i=0; i<compareExt.length; i++){
-				if(compareExt[i] == ext){
-					flag=true;
-					break;
+	   function addBoard(){
+			if(confirm("게시글을 추가하시겠습니까?")){
+				if($("#title").val()==""){
+					  alert("제목 입력은 필수입니다.");
+					  return;
+				  }
+				 if($("#summernote1").val()==""){
+					  alert("내용을 입력해 주세요.");
+					  return;
+				  }
+				var formData = new FormData();
+				  
+				formData.append("title",$("#title").val());
+				formData.append("description",$("#summernote1").summernote('code'));
+				formData.append("userid",'${sessionScope.id}');
+				formData.append("cat_num",$("#category").val());
+				if($("#img").get(0).files[0] != null){//파일 수정이 있을 경우 
+					formData.append("img_s3",$("#img").get(0).files[0]);
+					formData.append("img_file",$("#img").val());
 				}//end if
-			}//end for
-				if(!flag){
-					alert(fileName+"은 업로드 불가능 합니다.\n이미지만 업로드 가능합니다. \n 가능 확장자 png,jpg,gif,bmp");
-					return;
-				}//end if
-		  }
-		  $("#frm").submit();
-	   });
+			$.ajax({
+				url:"addBoard.do",
+				type:"post",
+				processData:false,
+				contentType: false,
+				dataType:"text",
+				data:formData,
+				success:function(msg){
+					if(msg == 1){
+						alert("게시글 추가가 완료되었습니다.");
+						location.href="board.do";
+					}else if(msg >1 || msg < 0){
+						alert("게시글 추가 중 오류 발생");
+					}else{
+						alert(msg);
+					}
+				},
+				error:function(xhr){
+					alert(xhr.status);
+				}
+			});//ajax
+				
+			}//end if
+		}
 
-
-	
+function setThumbnail(event){//미리보기
+    let file = event.target.files[0];
+    if (!file.type.match("image.png")&&!file.type.match("image.jpg")&&!file.type.match("image.jpeg")) {
+        alert("jpg/jpeg/png 이미지 파일만 업로드 가능합니다.");
+        $(inputId).val("");
+        return;
+    }//end if
+	if(file){
+		var reader = new FileReader();
+		reader.onload = function(event){
+			$("#thumbnail").attr("src",event.target.result);//포스터 보이기
+		}//onload
+		reader.readAsDataURL(file);
+	}//end if
+}//setThumbnail
 </script>
 
 </body>

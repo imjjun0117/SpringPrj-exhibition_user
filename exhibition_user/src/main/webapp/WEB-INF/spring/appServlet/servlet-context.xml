@@ -22,7 +22,12 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="kr.co.sist" />
-	
+	<!-- 파일업로드 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <beans:property name="maxUploadSize" value="200000000" />
+	    <beans:property name="maxInMemorySize" value="200000000" />
+	</beans:bean>
+	<context:component-scan base-package="kr.co.sist" />
 	
 	
 </beans:beans>

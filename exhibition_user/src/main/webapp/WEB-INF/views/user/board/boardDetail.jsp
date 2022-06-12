@@ -34,7 +34,6 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
-</style>
 <!-- jQuery CDN -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -64,7 +63,141 @@ a{
 } 
 </style>
 
+<script type="text/javascript">
+function setThumbnail(event){//미리보기
+    let file = event.target.files[0];
+    if (!file.type.match("image.png")&&!file.type.match("image.jpg")&&!file.type.match("image.jpeg")) {
+        alert("jpg/jpeg/png 이미지 파일만 업로드 가능합니다.");
+        $(inputId).val("");
+        return;
+    }//end if
+	if(file){
+		var reader = new FileReader();
+		reader.onload = function(event){
+			$("#thumbnail").attr("src",event.target.result);//포스터 보이기
+		}//onload
+		reader.readAsDataURL(file);
+	}//end if
+}//setThumbnail
 
+function modifyBoard(){
+	if($("#bdTitle").val()==""){
+		alert("제목을 입력해주세요");
+		$("#bdTitle").focus();
+		return;
+	}
+	if($("#textDesc").val()==""){
+		alert("본문을 입력해주세요");
+		$("#textDesc").focus();
+		return;
+	}
+	if(confirm("게시글을 수정하시겠습니까?")){
+	
+		var formData = new FormData();
+		  
+		formData.append("bd_id",${detailData.bd_id});
+		formData.append("title",$("#bdTitle").val());
+		formData.append("description",$("#textDesc").val());
+		formData.append("userid",'${detailData.userid}');
+		formData.append("cat_num",${detailData.cat_num})
+		if($("#img").get(0).files[0] != null){//파일 수정이 있을 경우 
+			formData.append("img_s3",$("#img").get(0).files[0]);
+			formData.append("img_file",$("#img").val());
+		}//end if
+	$.ajax({
+		url:"modifyBoard.do",
+		type:"post",
+		processData:false,
+		contentType: false,
+		dataType:"text",
+		data:formData,
+		success:function(msg){
+			if(msg == 1){
+				alert("게시글 수정이 완료되었습니다.");
+				location.reload();
+			}else if(msg >1 || msg < 0){
+				alert("게시글 수정 중 오류 발생");
+			}else{
+				alert(msg);
+			}
+		},
+		error:function(xhr){
+			alert(xhr.status);
+		}
+	});//ajax
+		
+	}//end if
+	
+}//modifyBoard
+
+function deleteBoard(){
+	if(confirm("게시글을 삭제하시겠습니까?")){
+		
+		var formData = new FormData();
+		  
+		formData.append("bd_id",${detailData.bd_id});
+		formData.append("userid",'${detailData.userid}');
+		formData.append("img_file",$("#hidImg").val());
+		formData.append("isdeleted",'y');
+		
+	$.ajax({
+		url:"modifyBoard.do",
+		type:"post",
+		processData:false,
+		contentType: false,
+		dataType:"text",
+		data:formData,
+		success:function(msg){
+			if(msg == 1){
+				alert("게시글 삭제가 완료되었습니다.");
+				location.href="board.do";
+			}else if(msg >1 || msg < 0){
+				alert("게시글 삭제 중 오류 발생");
+			}else{
+				alert(msg);
+			}
+		},
+		error:function(xhr){
+			alert(xhr.status);
+		}
+	});//ajax
+		
+	}//end if
+}
+function addComm(){
+	if(confirm("댓글을 추가하시겠습니까?")){
+		
+		var formData = new FormData();
+		  
+		formData.append("bd_id",${detailData.bd_id});
+		formData.append("reply_userid",'${detailData.userid}');
+		formData.append("reply_description",$("#reply_description").val());
+		
+	$.ajax({
+		url:"insertComm.do",
+		type:"post",
+		processData:false,
+		contentType: false,
+		dataType:"text",
+		data:formData,
+		success:function(msg){
+			if(msg == 1){
+				alert("댓글 추가가 완료되었습니다.");
+				location.reload();
+			}else if(msg >1 || msg < 0){
+				alert("댓글 추가 중 오류 발생");
+			}else{
+				alert(msg);
+			}
+		},
+		error:function(xhr){
+			alert(xhr.status);
+		}
+	});//ajax
+		
+	}//end if
+}
+</script>
 </head>
 
 <body data-spy="scroll" data-target="#navbar-scroll">
@@ -138,13 +271,18 @@ a{
 				</div>
 				<div class="panel-heading">
 					<h3 class="panel-title">제목</h3>
-					<input class="form-control" type="text" readonly="readonly"
-						style="background: #ffffff" value="${detailData.title}" disabled="disabled"/>
+					<input class="form-control" type="text" ${(sessionScope.id eq detailData.userid or sessionScope.mgr == 'y')? "":"readonly"}
+						style="background: #ffffff" value="${detailData.title}" id="bdTitle"/>
 						<div style="border: 1px solid #A5A5A5; margin-top: 10px">
-					 <img src="ImageFile/${detailData.img_file }"/> 
-					<textarea name="ta" readonly="readonly"  id="textDesc"
-						style="background: #ffffff;border: 0px ;resize: none; width: 100%; height1000px;margin-top: 10px;" disabled="disabled">${detailData.description}</textarea> 
+					<%--  <input type="hidden" value="${detailData.img_file}" id="hidImg"/> --%>
+					 
+					 <img id="thumbnail" <c:if test="${not empty detailData.img_file}">src='${detailData.img_file}'</c:if>/> 
+					<textarea name="ta" ${(sessionScope.id eq detailData.userid) or (sessionScope.mgr == 'y')? "":"readonly"} id="textDesc"
+						style="background: #ffffff;border: 0px ;resize: none; width: 100%; height1000px;margin-top: 10px;" >${detailData.description}</textarea> 
 						</div>
+					<c:if test="${(sessionScope.mgr == 'y')}">
+						<input type="file" name="img" id="img" accept="image/jpg,image/jpeg,image/png" onchange="setThumbnail(event)"/>
+					</c:if>
 				</div>
 				</div>
 				
@@ -152,16 +290,19 @@ a{
 				<div class="card-body">
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
-					<form action="insertComm.do" method="post" id="commentFrm" name="commentFrm">
 							<div class="form-inline mb-2">
 								<label for="replyId"><i	class="fa fa-user-circle-o fa-2x"></i></label>
 							</div> 
-							<textarea class="form-control" id="ta" name="reply_description" style="width: 100%;resize: none;"
-								rows="3">
+							<c:if test="${not empty sessionScope.id }">
+							<textarea class="form-control" id="reply_description" name="reply_description" style="width: 100%;resize: none;"
+								rows="3"></textarea>
+							<button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commentBtn" onclick="addComm()">댓글 작성</button>
+							</c:if>
+							<c:if test="${empty sessionScope.id }">
+							<textarea class="form-control" id="ta"  readonly name="reply_description" style="width: 100%;resize: none;"
+								rows="3">로그인 후에 이용 가능 합니다.
 							</textarea>
-							<button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commentBtn">댓글 작성</button>
-							<input type="hidden" value="${detailData.bd_id }" name="bd_id" id="bd_id"/>
-					</form>
+							</c:if>
 						</li>
 						<c:forEach var="boardComment" items="${comList }">
 						<li>
@@ -170,7 +311,7 @@ a{
 							<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.reply_description }"/>
 							<input type="text" value="${boardComment.reply_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
 							
-							<c:if test="${sessionScope.id eq boardComment.reply_userid}"> 
+							<c:if test="${(sessionScope.id eq boardComment.reply_userid ||sessionScope.mgr == 'y')}"> 
 								<a href="deleteComm.do?reply_id=${boardComment.reply_id  }&bd_id=${detailData.bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
 							</c:if> 
 						</div>
@@ -179,12 +320,21 @@ a{
 					</ul>
 				</div>
 				<br />
+				<div>
 				<a href="board.do">
-				<input type="button" value="확인" id="btn" class="btn btn-warning " style="width: 30%; margin-left: 30% "/>
+				<input type="button" value="확인" id="btn" class="btn btn-warnil;;;;;;;;;hgng " style="width: 30%;margin-left:35% "/>
 				</a>
-					<c:if test="${sessionScope.id eq detailData.userid}">
-					 <a href="deleteBoard.do?bd_id=${bd_id}"><input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right; "/></a>
-					 <a href="modifyBoard.do?bd_id=${bd_id }"><input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/></a> 
+				</div>
+				
+					<c:if test="${sessionScope.id eq detailData.userid or sessionScope.mgr == 'y'}">
+					<div>
+					 <div style="float:right;">
+					 <input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width:100% " onclick='deleteBoard()'/>
+					 </div>
+					 <div style="float:right;margin-right:20px;">
+					<input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style=" width:100%;" onclick='modifyBoard()'/>
+					 </div>
+					</div>
 					</c:if>
 			</div>
 			
@@ -250,9 +400,6 @@ a{
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		$('#summernote1').summernote({
-			height : 400
-		});
 		$("#btn").click(function() {
 			$("#frm").submit();
 		});
