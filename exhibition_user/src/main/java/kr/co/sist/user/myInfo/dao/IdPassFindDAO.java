@@ -10,9 +10,13 @@ import kr.co.sist.user.mybatis.MyBatisFramework;
 @Repository
 public class IdPassFindDAO {
 	
-	public MemberVO findId(MemberVO mVO) {
+	public String findId(MemberVO mVO) throws PersistenceException{
+		String userId = "";
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		return ss.selectOne("kr.co.sist.user.findId",mVO);
+		userId = ss.selectOne("kr.co.sist.user.findId",mVO);
+		
+		if(ss!=null) {ss.close();}
+		return userId;
 	}
 	
 	public int findPassword(MemberVO mVO) throws PersistenceException {

@@ -28,14 +28,35 @@
         <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
         <link href="/exhibition_user/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
-
+        
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#updatePass").click(function() {
+		if($("#password").val() =="" || $("#confirmpassword").val()==""){
+			alert("비밀번호를 입력해주세요.");
+			$("#password").focus();
+			return;
+		} 
+		if($("#password").val()!= $("#confirmpassword").val()){
+			alert("비밀번호가 일치하지 않습니다.");
+			$("#confirmpassword").focus();
+			return;
+		} 
+		
+		$("#findform").submit();
+	})
+});
+
+</script>
     </head>
 <c:if test="${msg eq 1}">
 	<script type="text/javascript">
 		alert("죄송합니다. 다시 변경해주세요.");
+		location.href="http://localhost/exhibition_user/passfind.do";
 	</script>
 </c:if>
 
@@ -54,7 +75,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.jsp">Exhibition</a>
+                            <a href="index.do">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
@@ -82,34 +103,26 @@
 							<label>비밀번호를 변경해주세요.</label>
 						</div>
 						<div class="form-label-group">
-						<input type="hidden" id="id" name="updateid" value="${updateid }">
+						<input type="hidden" id="id" name="userId" value="${updateid}">
 						
 							<input type="password" id="password" name="password" class="form-control"/>
 							<label for="password">비밀번호</label>
 						</div>
 						
 						<div class="form-label-group">
-							<input type="password" id="confirmpassword" name="confirmpassword" class="form-control"/>
+							<input type="password" id="confirmpassword" class="form-control"/>
 							<label for="confirmpassword">비밀번호확인</label>
 						</div>
 						
 						<div class="form-label-group">
 								<input class="btn btn-lg btn-secondary btn-block text-uppercase"
-									type="button" value="비밀번호 변경하기" onclick="updatePassword()">
+									type="button" value="비밀번호 변경하기" id="updatePass">
 							</div>
 				         </form>
 		
 			<script type="text/javascript">
 		function updatePassword(){
-			if(document.findform.password.value==""){
-				alert("비밀번호를 입력해주세요.");
-				document.findform.password.focus();
-			} else if(document.findform.password.value != document.findform.confirmpassword.value){
-				alert("비밀번호가 일치하지 않습니다.");
-				document.findform.confirmpassword.focus();
-			} else {
-				document.findform.submit();
-			}
+			
 		}
 			</script>
                     </div>

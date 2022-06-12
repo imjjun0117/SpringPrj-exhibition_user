@@ -39,17 +39,15 @@ public class MyInfoController {
 		//내정보 비밀번호 체크
 			@RequestMapping(value="/checkMyPass.do",method = RequestMethod.POST)
 			public String passChk(MemberVO mVO,Model model,HttpSession session) {
-				String userid =(String)session.getAttribute("id"); 
-				mVO.setUserId(userid);
 				int cnt = serviceImpl.pwCheck(mVO);
 				//System.out.println(cnt+" /  -------------------------"+mVO+"/");
 				if(cnt == 1) {
-					model.addAttribute("myRezList",serviceImpl.searchMyReservation(userid));
+					model.addAttribute("myRezList",serviceImpl.searchMyReservation(mVO.getUserId()));
 					return "user/myaccount/my-account_rez";
 				}else {
 					model.addAttribute("check",1);
 					model.addAttribute("message","비밀번호를확인해주세요");
-					return "redirect:/user/myaccount/my_account_pass";
+					return "user/myaccount/my_account_pass";
 				}//end else
 				
 			}
@@ -80,12 +78,8 @@ public class MyInfoController {
 		
 		@RequestMapping(value="/my_account_modify_process.do", method=RequestMethod.POST)
 		public String accountModify(MemberVO member , Model model) {
-			int cnt = serviceImpl.updateMember(member);
-			String page= "user/myaccount/my_account_success";
-			if(cnt!=0) {
-				model.addAttribute("msg", 1);
-				page = "user/myaccount/my_account_modify";
-			}
+			serviceImpl.updateMember(member);
+			String page= "user/myaccount/my_account_modify_success";
 			
 			return page;
 		}

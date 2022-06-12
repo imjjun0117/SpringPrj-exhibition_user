@@ -69,7 +69,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.do">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
@@ -115,6 +115,7 @@
 								<br/>
 							<form action="checkMyPass.do" id="frm" method="post">	
                            	<div class="form-group" style="width:500px; margin-left: 150px">
+                                <input type="hidden" name="userId" value="${sessionScope.id}">
                                 <input class="form-control" id="password" type="password" name="password">
                             </div>
 								<br/>

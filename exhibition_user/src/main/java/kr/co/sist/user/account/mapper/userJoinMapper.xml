@@ -9,11 +9,12 @@ insert into member
 (userId,password,name,tel,zipcode,address1,address2)
 values(#{userId},#{password},#{name},#{tel},#{zipcode},#{address1},#{address2})
 </insert>
+
 <!-- 로그인 -->
-<select id="login" resultType="int" parameterType="member">
-select count(*)
+<select id="login" resultType="String" parameterType="String">
+select password
 from member
-where userId=#{userId} and password=#{password}
+where userId=#{userId}
 </select>
 
 <!-- 아이디 중복확인 -->
@@ -23,8 +24,8 @@ where userId=#{userId} and password=#{password}
 		where userId=#{userId}
 </select>
 <!--아이디찾기  -->
-<select id="findId" resultType="member">
-	select *
+<select id="findId" resultType="String" parameterType="member">
+	select userid
 	from member
 	where name=#{name} and tel=#{tel}
 </select>
@@ -40,19 +41,14 @@ where userId=#{userId} and name=#{name} and tel=#{tel}
 	set password=#{password}
 	where userId=#{userId}
 </update>
+
 <!-- 내 정보 페이지 비밀번호 체크 -->
-<select id="checkPw" parameterType="String" resultType="String">
+<select id="checkPass" parameterType="String" resultType="String">
 	select password
 	from member
 	where userId=#{id}
 </select>
 
-<select id="checkPass" parameterType="member" resultType="int">
-	select count(*)
-	from member
-	where userid=#{userId} and password=#{password}
-
-</select>
 <select id="memberList" parameterType="String" resultType="member">
 	select * from member
 	where userid=#{userId}
@@ -60,7 +56,7 @@ where userId=#{userId} and name=#{name} and tel=#{tel}
 
 <update id="updateMember" parameterType="member">
 	update member 
-	set password=#{password}, name=#{name}, tel=#{tel}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}
+	set name=#{name}, tel=#{tel}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}
 	where userid=#{userId}
 	
 </update>

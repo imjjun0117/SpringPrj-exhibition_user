@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class UserLoginController {
 	@Autowired(required = false)
 	private UserLoginService userLoginService;
 	
+	
 	@RequestMapping(value="/login.do", method= {RequestMethod.POST,RequestMethod.GET} )
 	public String login() {
 		return "user/login/login";
@@ -27,7 +29,7 @@ public class UserLoginController {
 	
 	@RequestMapping(value="/loginChk.do", method=RequestMethod.POST )
 	public String loginAction( MemberVO mVO,Model model, HttpSession session) {
-		int loginChk=userLoginService.Login(mVO);
+		int loginChk=userLoginService.login(mVO);
 		
 		if(loginChk==0) {
 			model.addAttribute("check",1);

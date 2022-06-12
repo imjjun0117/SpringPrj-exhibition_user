@@ -14,13 +14,13 @@ import kr.co.sist.user.mybatis.MyBatisFramework;
 @Component
 public class MyInfoDAO {
 	//������ȭ�鿡�� ��й�ȣȮ��
-	public int pwCheck(MemberVO mVO)throws PersistenceException{
+	public String pwCheck(String userId)throws PersistenceException{
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		int cnt= ss.selectOne("kr.co.sist.user.checkPass",mVO);
+		String password= ss.selectOne("kr.co.sist.user.checkPass", userId);
 		
 		if(ss!= null) {ss.close();}//end if
 		
-		return cnt;
+		return password;
 	}
 	/**
 	 * 나의 예약정보를 조회하는 dao
@@ -76,14 +76,11 @@ public class MyInfoDAO {
 		
 	}
 	
-	public int updateMember(MemberVO mvo) throws PersistenceException{
-		int cnt=0;
-		
+	public void updateMember(MemberVO mvo) throws PersistenceException{
 		SqlSession ss= MyBatisFramework.getInstance().getMyBatisHandler();
-		cnt=ss.update("kr.co.sist.user.updateMember", mvo);
-		
+		ss.update("kr.co.sist.user.updateMember", mvo);
+		ss.commit();
 		if(ss != null) {ss.close();}//end if
-		return cnt;
 		
 	}
 	

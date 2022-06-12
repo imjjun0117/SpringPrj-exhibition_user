@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.sist.user.account.vo.MemberVO;
@@ -16,12 +17,20 @@ import kr.co.sist.user.myInfo.vo.MyReservationDomain;
 public class MyInfoServiceImpl {
 	
 	@Autowired(required = false)
-	MyInfoDAO myInfoDAO;
+	private MyInfoDAO myInfoDAO;
+	
+	BCryptPasswordEncoder encoder;
 	
 	public int pwCheck(MemberVO mVO){
 		int cnt = 0;
+		String pass="";
 		try {
-			 cnt= myInfoDAO.pwCheck(mVO);
+			encoder=new BCryptPasswordEncoder();
+			pass = myInfoDAO.pwCheck(mVO.getUserId());
+			
+			if(encoder.matches(mVO.getPassword(), pass)) {
+				cnt= 1;
+			}
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch
@@ -70,14 +79,12 @@ public class MyInfoServiceImpl {
 		return list;
 	}
 	
-	public int updateMember(MemberVO mvo) {
-		int cnt=0;
+	public void updateMember(MemberVO mvo) {
 		try {
-			cnt= myInfoDAO.updateMember(mvo);
+			myInfoDAO.updateMember(mvo);
 		}catch (PersistenceException e) {
 			e.printStackTrace();
 		}
-		return cnt;
 	}
 	
 }

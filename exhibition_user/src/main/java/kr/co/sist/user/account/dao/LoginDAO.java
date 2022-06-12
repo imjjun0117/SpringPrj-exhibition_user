@@ -12,10 +12,10 @@ import kr.co.sist.user.mybatis.MyBatisFramework;
 @Repository
 public class LoginDAO {
 	
-public int Login(MemberVO mVO) throws PersistenceException{
+public String login(String userId) throws PersistenceException{
 	SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-	int cnt = ss.selectOne("kr.co.sist.user.login",mVO);
+	String password = ss.selectOne("kr.co.sist.user.login",userId);
 	if(ss != null) {ss.close();}//end if
-    return cnt;
+    return password;
 	}
 }

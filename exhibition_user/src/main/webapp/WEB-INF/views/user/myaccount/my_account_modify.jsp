@@ -38,6 +38,10 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	$("#passModify").click(function() {
+		location.href="http://localhost/exhibition_user/passfind.do";
+	})
+	
 	$("#find_addr").click(function(){
 		new daum.Postcode({
 		    oncomplete: function(data) {
@@ -82,23 +86,10 @@ $(function(){
 		}).open();
 	});
 	
-	$("#next").click(function(){
-		var password = $("#password").val();
-		var passwordChk = $("#passwordChk").val();
-		
-		if(password ==''){
-			alert("비밀번호를 입력해주세요!");
-			return;
-		}
-		
-		if(passwordChk!=''){
-			if(passwodChk != password){
-				alert("비밀번호가 일치하지 않습니다.");
-				return;
-			}
-		}
+	$("#next").click(function() {
 		$("#modifyFrm").submit();
-	});//click
+	});
+	
 });
 
 </script>
@@ -200,10 +191,7 @@ $(function(){
                                 <input class="form-control"  type="text" value="${memberList.userId}" id="userId" name="userId" readonly="readonly"><br/>
                             </div>
                             <div class="form-group">
-                                <label for="password">비밀번호</label>
-                                <input class="form-control"  type="password" id="password" name="password" value="${memberList.password}"><br/>
-                                <label for="password">비밀번호 확인</label>
-                                <input class="form-control"  type="password" id="passwordChk"><br/>
+                                <input class="form-control" type="button" value="비밀번호 수정하기" id="passModify">
                             </div>
                             <div class="form-group">
                                 <label for="name-login">이름</label>

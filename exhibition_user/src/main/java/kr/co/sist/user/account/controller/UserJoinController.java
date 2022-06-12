@@ -3,6 +3,7 @@ package kr.co.sist.user.account.controller;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +18,13 @@ public class UserJoinController {
 	
 	@Autowired(required = false)
 	UserJoinService ujService;
-	
+	BCryptPasswordEncoder encoder;
 	//아이디체크
 	 @RequestMapping(value="/idCheck.do",method = {RequestMethod.POST,RequestMethod.GET})
 	 	public @ResponseBody String idCheck(@RequestParam("userId")String userId){ 
 		 int check=ujService.idCheck(userId); 
 		 
-		 System.out.println("controller id : "+check);
 		 String cnt=String.valueOf(check);
-		 System.out.println("controller String id : "+cnt);
 		 return cnt; 
 	 }
 	 
@@ -43,6 +42,9 @@ public class UserJoinController {
 	@RequestMapping(value ="/registerChk.do",method = RequestMethod.POST)
 	public String postJoin(MemberVO mVO,Model model ){
 		int cnt=0;
+		encoder = new BCryptPasswordEncoder();
+		mVO.setPassword(encoder.encode(mVO.getPassword()));
+		
 		cnt=ujService.joinUser(mVO);
 		if(cnt==1) {
 			return "user/login/registerSucess";

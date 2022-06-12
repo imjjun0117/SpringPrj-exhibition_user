@@ -15,14 +15,14 @@
         <meta charset="UTF-8" />
        
         <!-- CSS Files -->
-        <link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
-        <link href="/sist/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
-        <link href="/sist/css/animate.css" rel="stylesheet" media="screen">
-        <link href="/sist/css/owl.theme.css" rel="stylesheet">
-        <link href="/sist/css/owl.carousel.css" rel="stylesheet">
-        <link href="/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/exhibition_user/fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="/exhibition_user/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
+        <link href="/exhibition_user/css/animate.css" rel="stylesheet" media="screen">
+        <link href="/exhibition_user/css/owl.theme.css" rel="stylesheet">
+        <link href="/exhibition_user/css/owl.carousel.css" rel="stylesheet">
+        <link href="/exhibition_user/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
         <!-- Colors -->
         <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -30,7 +30,7 @@
         <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-        <link href="/sist/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
+        <link href="/exhibition_user/css/css-index-yellow.css" rel="stylesheet" media="screen"> 
 
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
@@ -254,14 +254,14 @@ function check() {
 
 
         <!-- /.javascript files -->
-        <script src="/sist/js/jquery.js"></script>
-        <script src="/sist/js/bootstrap.min.js"></script>
-        <script src="/sist/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/sist/js/custom.js"></script>
-        <script src="/sist/js/jquery.sticky.js"></script>
-        <script src="/sist/js/wow.min.js"></script>
-        <script src="/sist/js/owl.carousel.min.js"></script>
-            <script src="/sist/js/jquery.validate.min.js"></script> 
+        <script src="/exhibition_user/js/jquery.js"></script>
+        <script src="/exhibition_user/js/bootstrap.min.js"></script>
+        <script src="/exhibition_user/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/exhibition_user/js/custom.js"></script>
+        <script src="/exhibition_user/js/jquery.sticky.js"></script>
+        <script src="/exhibition_user/js/wow.min.js"></script>
+        <script src="/exhibition_user/js/owl.carousel.min.js"></script>
+            <script src="/exhibition_user/js/jquery.validate.min.js"></script> 
 		<script type="text/javascript">
 function checkId(){
     var userId = $('#userId').val();

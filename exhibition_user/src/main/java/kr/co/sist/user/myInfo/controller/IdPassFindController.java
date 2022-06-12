@@ -18,28 +18,30 @@ public class IdPassFindController {
 	
 		@RequestMapping(value ="/idfind.do",method =RequestMethod.GET)
 		public String getIdFind()throws Exception{
-			
 			return "user/login/idfind";
 		}//getIdFind
-		@RequestMapping(value ="/idfind.do",method =RequestMethod.POST)
-		public String FindId(MemberVO mVO,Model model)throws Exception{
-			MemberVO member=idfindService.findId(mVO);
-			if(member==null) {
+		@RequestMapping(value ="/idfindChk.do",method =RequestMethod.POST)
+		public String FindId(MemberVO mVO, Model model)throws Exception{
+			String userId=idfindService.findId(mVO);
+			String page="";
+			
+			if(userId=="" || userId==null) {
 				model.addAttribute("check",1);
+				page = "user/login/idfind";
 			}else {
-				model.addAttribute("check",0);
-				model.addAttribute("id",member.getUserId());
+				model.addAttribute("id",userId);
+				page="user/login/idfinded";
 			}
-			return "user/login/idfind";
+			return page;
 		}//FindId
 		
 		@RequestMapping(value ="/passfind.do",method =RequestMethod.GET)
-		public String GetpassFind()throws Exception{
+		public String GetpassFind(){
 			return "user/login/passfind";
 		}//getIdFind
 		
 		@RequestMapping(value ="/passfind.do",method =RequestMethod.POST)
-		public String PostpassFind(MemberVO mVO,Model model)throws Exception{
+		public String PostpassFind(MemberVO mVO,Model model){
 			int cnt=0;
 			cnt=idfindService.findPassword(mVO);
 			String page="";
@@ -56,13 +58,13 @@ public class IdPassFindController {
 		
 		//updatePassword
 		@RequestMapping(value="/updatePass.do",method=RequestMethod.POST)
-		public String updatePasswordAction
-				(@RequestParam(value="updateid",defaultValue =" ",required = false )String userId,MemberVO mVO, Model model) {
+		public String updatePasswordAction (MemberVO mVO, Model model) {
 			
-			mVO.setUserId(userId);
 			int cnt = idfindService.updatePassword(mVO);
 			String page = "user/login/passclear";
-			if(cnt<1) {
+			
+			System.out.println(cnt);
+			if(cnt!=1) {
 				model.addAttribute("msg", 1);
 				page="user/login/updatePass";
 			}

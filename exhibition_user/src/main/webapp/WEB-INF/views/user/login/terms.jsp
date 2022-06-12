@@ -27,15 +27,15 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <!-- CSS Files -->
-<link href="/sist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="/sist/css/font-awesome.min.css" rel="stylesheet">
-<link href="/sist/fonts/icon-7-stroke/css/pe-icon-7-stroke.css"
+<link href="/exhibition_user/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="/exhibition_user/css/font-awesome.min.css" rel="stylesheet">
+<link href="/exhibition_user/fonts/icon-7-stroke/css/pe-icon-7-stroke.css"
 	rel="stylesheet">
-<link href="/sist/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
-<link href="/sist/css/animate.css" rel="stylesheet" media="screen">
-<link href="/sist/css/owl.theme.css" rel="stylesheet">
-<link href="/sist/css/owl.carousel.css" rel="stylesheet">
-<link href="/sist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="/exhibition_user/fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
+<link href="/exhibition_user/css/animate.css" rel="stylesheet" media="screen">
+<link href="/exhibition_user/css/owl.theme.css" rel="stylesheet">
+<link href="/exhibition_user/css/owl.carousel.css" rel="stylesheet">
+<link href="/exhibition_user/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
 <!-- Colors -->
 <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -43,15 +43,14 @@
 <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
 <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
 <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-<link href="/sist/css/css-index-yellow.css" rel="stylesheet" media="screen">
+<link href="/exhibition_user/css/css-index-yellow.css" rel="stylesheet" media="screen">
 
 <!-- Google Fonts -->
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
-  
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="</script'>http://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="</script'>http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
    <style type="text/css">
     #d1{

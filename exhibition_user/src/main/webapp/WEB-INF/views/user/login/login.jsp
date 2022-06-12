@@ -40,7 +40,11 @@
 		
 		</script>
     </head>
-
+<c:if test="${check==1}">
+	<script type="text/javascript">
+		alert("아이디나 비밀번호가 맞지 않습니다.");
+	</script>
+</c:if>
     <body data-spy="scroll" data-target="#navbar-scroll">
 
         <!-- /.preloader -->
