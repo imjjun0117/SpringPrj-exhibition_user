@@ -52,7 +52,7 @@
 		<div class="fullscreen landing parallax" data-img-width="2000"
 			data-img-height="1333" data-diff="100">
 			
-			<div style="background-image: url('http://localhost/exhibition_user/img/${ exView.exhibition_poster }')">
+			<div style="background-image: url('${ exView.exhibition_poster }')">
 				<div class="container">
 				
 					<div class="row">
@@ -119,7 +119,6 @@
 					<li><a href="loc.do">지역별 전시 보기</a></li>
 					<li><a href="reservation.do">예약하기</a></li>
 					<li><a href="board.do">게시판</a></li>
-
 				</ul>
 			</div>
 		</div>
@@ -156,7 +155,7 @@
 								<a
 									href="exhibition_detail.do?ex_num=${ exList.ex_num }&ex_hall_num=${ exList.ex_hall_num }">
 									<img
-									src="http://localhost/exhibition_user/img/${ exList.exhibition_poster }" />
+									src="${ exList.exhibition_poster }" />
 
 								</a>
 							</figure>
@@ -198,7 +197,7 @@
 									style="width: 100%, height:30%">
 									<td><c:out value="${ status.count }" /></td>
 									<td><img
-										src="http://localhost/exhibition_user/img/${ exGraph.exhibition_poster }"
+										src="${ exGraph.exhibition_poster }"
 										style="width: 50px; height: 50px;" /></td>
 
 									<td><c:out value="${ exGraph.ex_num }" /></td>

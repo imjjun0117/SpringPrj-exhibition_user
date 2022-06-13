@@ -62,11 +62,10 @@
 		data-img-width="2000"
 		data-img-height="1333" data-diff="100">
 		<c:forEach var="exView" items="${ exView }">
-		<div class="overlay"  style="background-image:url('http://localhost/exhibition_user/img/${ exView.exhibition_poster }')">
+		<div class="overlay"  style="background-image:url(''${ exView.exhibition_poster }')">
 			<div class="container"  >
 				<div class="row">
 					<div class="col-md-7" >
-
 						<!-- /.logo -->
 						<div class="logo wow fadeInDown" >
 							<a href="index.do">Exhibition</a>
@@ -117,7 +116,7 @@
 					<li><a href="list.do">전체 전시 보기</a></li>
 					<li><a href="loc.do">지역별 전시 보기</a></li>
 					<li><a href="reservation.do">예약하기</a></li>
-					<li><a href="list.do">게시판</a></li>
+					<li><a href="board.do">게시판</a></li>
 
 				</ul>
 			</div>

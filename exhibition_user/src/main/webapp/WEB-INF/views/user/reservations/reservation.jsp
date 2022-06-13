@@ -77,16 +77,14 @@
                             <ul style="color:#FFFFFF">
                             <c:forEach var="exInfo" items="${exInfo}">
                                 <li><strong><c:out value="${exInfo.ex_name}"/></strong></li>
-                                <li><img src="http://localhost/exhibition_user/img/${exInfo.exhibition_poster}" style="width: 40%; align-content: c"/></li>
+                                <li><img src="${exInfo.exhibition_poster}" style="width: 40%; align-content: c"/></li>
                                 <li class="txt_line">
 	                                <c:out value="${exInfo.ex_info}"/>
                                 </li>
                             </c:forEach>
                             </ul>
-                            </div>				  
-
-                 
-
+                            </div>		
+                            		  
                         </div> 
 
                         <!-- /.signup form -->

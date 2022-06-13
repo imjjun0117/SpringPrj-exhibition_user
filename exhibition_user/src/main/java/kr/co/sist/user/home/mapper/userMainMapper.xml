@@ -26,7 +26,7 @@
 	</select>
 	
 	<select id="viewGraph" resultType="ue">
-		select ex_num,ex_name,exhibition_poster,watch_count,total_count
+		select ex_num,ex_name,exhibition_poster,watch_count,total_count,ex_hall_num
 		from exhibition
 		where ex_status like 'p'
 		order by watch_count desc

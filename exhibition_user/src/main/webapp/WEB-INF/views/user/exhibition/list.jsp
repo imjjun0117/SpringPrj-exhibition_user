@@ -86,8 +86,7 @@
 					<li><a href="list.do">전체 전시 보기</a></li>
 					<li><a href="loc.do">지역별 전시 보기</a></li>
 					<li><a href="reservation.do">예약하기</a></li>
-					<li><a href="list.do">게시판</a></li>
-
+					<li><a href="board.do">게시판</a></li>
 				</ul>
 			</div>
 		</div>
@@ -131,7 +130,7 @@
 											<strong>${ exListView.ex_name }</strong><br/>${ exListView.ex_intro }
 										</div>
 										<a href="exhibition_detail.do?ex_num=${ exListView.ex_num }&ex_hall_num=${ exListView.ex_hall_num }">
-										<img src="http://localhost/exhibition_user/img/${ exListView.exhibition_poster }" style="width: 300px"/></a>
+										<img src="${ exListView.exhibition_poster }" style="width: 300px"/></a>
 											 
 									</figure>
 								</div>
@@ -153,9 +152,9 @@
 			
 
 
-    <li class="page-item"><a href="list.do?pageNum=${1}&ex_hall_num=${ ex_hall_num }"><c:out value="${1 }"/></a></li>
+    <li class="page-item"><a href="list.do?pageNum=${1}"><c:out value="${1 }"/></a></li>
   	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
-    	<li class="page-item"><a href="list.do?pageNum=${i+1}&ex_hall_num=${ex_hall_num}"><c:out value="${i+1 }"/></a></li>
+    	<li class="page-item"><a href="list.do?pageNum=${i+1}"><c:out value="${i+1 }"/></a></li>
     </c:forEach> 
 			</ul>
 		</nav>
