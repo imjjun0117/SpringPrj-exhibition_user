@@ -117,7 +117,7 @@
                             <figure >
                                 <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong>${ exhibitionView.ex_num }. ${ exhibitionView.ex_name}</strong><br/>${ exhibitionView.ex_intro }</div>
                                 <img src="${ exhibitionView.exhibition_poster }" style="width:300px"/>
-                             <a href="list.do"><input type="button"  value="예약" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px ;margin-left: 500px"></a> 
+                             <a href="reservation.do?ex_num=${ exhibitionView.ex_num }"><input type="button"  value="예약" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px ;margin-left: 500px"></a> 
                                <%--  <a href="catBoard.do?cat_num=${ exhibitionView.cat_num }"> --%>
                                <a href="catBoard.do?pageNum=1&cat_num=${ exhibitionView.cat_num }"><input type="button"   value="후기" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
                             

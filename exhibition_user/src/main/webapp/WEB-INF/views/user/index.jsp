@@ -79,7 +79,7 @@
 
 								<!-- /.main title -->
 								<h1 class="wow fadeInLeft">
-									<a href="user_index.do" style="background-color: rgba(255,255, 255, 0.7) ">Exhibition</a>
+									<a href="index.do" style="background-color: rgba(255,255, 255, 0.7) ">Exhibition</a>
 								</h1>
 
 								<!-- /.header paragraph -->
