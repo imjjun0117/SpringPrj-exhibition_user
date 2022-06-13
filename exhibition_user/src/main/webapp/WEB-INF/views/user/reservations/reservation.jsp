@@ -31,7 +31,21 @@
 
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
-
+		<style type="text/css">
+		.txt_line {
+			  display: -webkit-box;
+      display: -ms-flexbox;
+      display: box;
+      margin-top:1px;
+      max-height:80px;
+      overflow:hidden;
+      vertical-align:top;
+      text-overflow: ellipsis;
+      word-break:break-all;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:3
+		}
+		</style>
     </head>
  
     <body data-spy="scroll" data-target="#navbar-scroll">
@@ -40,7 +54,7 @@
         <div id="top"></div>
 
         <!-- /.parallax full screen background image -->
-        <div class="fullscreen landing parallax" >
+        <div class="fullscreen landing parallax"  >
 
             <div class="overlay">
                 <div class="container" >
@@ -49,7 +63,7 @@
 
                             <!-- /.logo -->
                             <div class="logo wow fadeInDown">
-                                <a href="index.do">Exhibition</a>
+                                <a href="index.do" style="font-size: xx-large;">Exhibition</a>
                             </div>
 
                             <!-- /.main title -->
@@ -64,7 +78,9 @@
                             <c:forEach var="exInfo" items="${exInfo}">
                                 <li><strong><c:out value="${exInfo.ex_name}"/></strong></li>
                                 <li><img src="http://localhost/exhibition_user/img/${exInfo.exhibition_poster}" style="width: 40%; align-content: c"/></li>
-                                <li><c:out value="${exInfo.ex_info}"/></li>
+                                <li class="txt_line">
+	                                <c:out value="${exInfo.ex_info}"/>
+                                </li>
                             </c:forEach>
                             </ul>
                             </div>				  
@@ -134,15 +150,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.do">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                             <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="reservation.jsp">예약하기</a></li>
-                                    <li><a href="board.jsp">게시판</a></li>
+                             <li><a href="list.do">전체 전시 보기</a></li>
+                            <li><a href="loc.do">지역별 전시 보기</a></li>
+                            <li><a href="reservation.do">예약하기</a></li>
+                                    <li><a href="board.do">게시판</a></li>
                         
                         </ul>
                     </div>

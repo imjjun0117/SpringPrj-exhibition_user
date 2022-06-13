@@ -48,7 +48,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.jsp">Exhibition</a>
+                            <a href="index.do">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
@@ -75,10 +75,10 @@
                         <div class="title-line wow fadeInRight"></div>
                     <div class="row sign-in">
 
-                        <form action="my-account.jsp" method="post">
+                        <form action="my-account.do" method="post">
                             <div class="text-center">
-                              <a href="index.jsp"><input type="button" id="find_main" class="btn btn-warning" value="메인으로 돌아가기"></a> 
-                            <a href="login.jsp"><input type="button" id="find_login" class="btn btn-warning" value="로그인하기"></a>   
+                              <a href="index.do"><input type="button" id="find_main" class="btn btn-warning" value="메인으로 돌아가기"></a> 
+                            <a href="login.do"><input type="button" id="find_login" class="btn btn-warning" value="로그인하기"></a>   
                             </div>
                         </form>
 

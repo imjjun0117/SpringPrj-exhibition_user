@@ -52,7 +52,7 @@
 
 					<!-- /.logo -->
 					<div class="logo wow fadeInDown" style="margin-top: 50px">
-						<a href="index.jsp">Exhibition</a>
+						<a href="index.do">Exhibition</a>
 					</div>
 
 

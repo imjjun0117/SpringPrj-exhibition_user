@@ -80,7 +80,7 @@
                             <li><a href="http://localhost/exhibition_user/list.do">전체 전시 보기</a></li>
                             <li><a href="http://localhost/exhibition_user/loc.do">지역별 전시 보기</a></li>
                             <li><a href="http://localhost/exhibition_user/reservation.do">예약으로 돌아가기</a></li>
-                                    <li><a href="http://localhost/exhibition_user/board.jsp">게시판</a></li>
+                                    <li><a href="http://localhost/exhibition_user/board.do">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="my-account.jsp" method="post">
+                        <form action="my-account.do" method="post">
                             
                             <div class="text-center">
                               <a href="http://localhost/exhibition_user/index.do"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>  

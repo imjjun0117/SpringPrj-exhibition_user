@@ -121,7 +121,7 @@
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
                             <h2 style="padding-bottom: 17px;">예약 상황</h2>
 
-								<form action="my-account_rez_child.jsp" name="frm" id="frm">
+								<form action="my-account_rez_child.do" name="frm" id="frm">
                             <table id="mybooking-list" class="table booking-list stacktable large-only">
                                 <tbody>
                                     <tr>

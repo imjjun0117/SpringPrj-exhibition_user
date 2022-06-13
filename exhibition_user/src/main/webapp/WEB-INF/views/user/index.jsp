@@ -51,23 +51,24 @@
 	<c:forEach var="exView" items="${ exView }">
 		<div class="fullscreen landing parallax" data-img-width="2000"
 			data-img-height="1333" data-diff="100">
-			<div class="overlay"
-				style="background-image:url('http://localhost/exhibition_user/img/${ exView.exhibition_poster }')">
-
+			
+			<div style="background-image: url('http://localhost/exhibition_user/img/${ exView.exhibition_poster }')">
 				<div class="container">
+				
 					<div class="row">
-
+					
 						<div class="col-md-7">
-
+						
 							<!-- /.logo -->
+							
 							<div class="logo wow fadeInDown">
-								<a href="user_index.do">Exhibition</a>
+								
 							</div>
 							<div class="head-btn wow fadeInLeft" style="width: 1300px;">
 								
 								<c:if test="${empty sessionScope.id}">
 								<a href="login.do" class="btn btn-default" id="login_btn"
-									style="float: right;">로그인/회원가입</a>
+									style="float: right; background-color: white;">로그인/회원가입</a>
 								</c:if>
 								<c:if test="${not empty sessionScope.id}">
 								<a href="my_account_pass.do" class="btn btn-primary"
@@ -78,15 +79,11 @@
 
 								<!-- /.main title -->
 								<h1 class="wow fadeInLeft">
-									<span class="color"><a
-										href="exhibition_detail.do?ex_num=${ exView.ex_num }&ex_hall_num=${ exView.ex_hall_num}">${ exView.ex_num }.
-											${ exView.ex_name} </a></span>
+									<a href="user_index.do" style="background-color: rgba(255,255, 255, 0.7) ">Exhibition</a>
 								</h1>
 
 								<!-- /.header paragraph -->
-								<div class="landing-text wow fadeInUp">
-									<p>${ exView.ex_intro }</p>
-								</div>
+
 
 							</div>
 						</div>
@@ -95,10 +92,13 @@
 
 			</div>
 		</div>
+			<div class="landing-text" style="margin-left: 90%">
+				<a href="exhibition_detail.do?ex_num=${ exView.ex_num }&ex_hall_num=${ exView.ex_hall_num}" style="color: black;">
+					전시명:	${ exView.ex_name} </a>
+			</div>
 	</c:forEach>
 
-
-
+	
 	<!-- NAVIGATION -->
 	<div id="menu">
 		<div class="container">

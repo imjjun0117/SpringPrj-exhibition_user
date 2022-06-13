@@ -135,7 +135,7 @@ $(function(){
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.do">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
