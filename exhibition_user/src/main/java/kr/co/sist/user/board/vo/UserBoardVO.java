@@ -1,12 +1,17 @@
 package kr.co.sist.user.board.vo;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserBoardVO {
 	private String title, userid, input_date, cat_name, reply_input_date,img_file,
 	reply_userid, description, reply_description, reply_id, isdeleted,field,keyword;
-	private int bd_id, cat_num, recommend, board_views,  rownum, totalCnt,pageScale,currentPage,pageCnt,startNum,endNum , cnt;
+	private int bd_id, cat_num, recommend, board_views,  rownum, totalCnt,pageScale,currentPage,pageCnt,startNum,endNum , cnt, fieldNum;
+	public int getFieldNum() {
+		return fieldNum;
+	}
+	public void setFieldNum(int fieldNum) {
+		this.fieldNum = fieldNum;
+	}
 	private MultipartFile img_s3;//s3용 파일
 	public String getTitle() {
 		return title;
@@ -173,7 +178,7 @@ public class UserBoardVO {
 				+ ", bd_id=" + bd_id + ", cat_num=" + cat_num + ", recommend=" + recommend + ", board_views="
 				+ board_views + ", rownum=" + rownum + ", totalCnt=" + totalCnt + ", pageScale=" + pageScale
 				+ ", currentPage=" + currentPage + ", pageCnt=" + pageCnt + ", startNum=" + startNum + ", endNum="
-				+ endNum + ", cnt=" + cnt + ", img_s3=" + img_s3 + "]";
+				+ endNum + ", cnt=" + cnt + ", fieldNum=" + fieldNum + ", img_s3=" + img_s3 + "]";
 	}
 	
 }

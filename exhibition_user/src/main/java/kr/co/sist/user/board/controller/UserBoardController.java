@@ -30,19 +30,32 @@ public class UserBoardController {
 		int cat_num= request.getParameter("cat_num")==null?0:Integer.parseInt(request.getParameter("cat_num"));
 		int currentNum = request.getParameter("pageNum")==null?1:Integer.parseInt(request.getParameter("pageNum"));
 		String userid = (String)session.getAttribute("id");
+		
 		if(userid != null && !"".equals(userid)) {
 			session.setAttribute("mgr",ubs.findMgr(userid));
 		}
+		
+		ubs.setKeyword(ubVO);
 		ubVO.setStartNum(ubs.startNum(currentNum));
 		ubVO.setEndNum(ubs.endNum(currentNum));
+		ubVO.setKeyword(request.getParameter("keyword"));
+		
+		
 		model.addAttribute("catList",ubs.category());
-		model.addAttribute("totalCnt", ubs.searchTotalCount(cat_num));
+		model.addAttribute("totalCnt", ubs.searchTotalCount(ubVO));
 		model.addAttribute("pageScale", ubs.pageScale() );
-		model.addAttribute("pageCnt", ubs.pageCnt(cat_num) );
+		model.addAttribute("pageCnt", ubs.pageCnt(ubVO) );
 		model.addAttribute("startNum", ubs.startNum(currentNum)); 
 		model.addAttribute("endNum", ubs.endNum(currentNum)); 
-		model.addAttribute("endPage", ubs.endPage(cat_num) );
+		model.addAttribute("endPage", ubs.endPage(ubVO) );
+		model.addAttribute("prev", ubs.prev(currentNum, currentNum));
+		model.addAttribute("next", ubs.next(ubVO));
+		model.addAttribute("prevNum", ubs.prevNum(currentNum, currentNum));
+		model.addAttribute("nextNum", ubs.nextNum(currentNum, currentNum));
+		
+		
 		model.addAttribute("boardList",ubs.searchBoard(ubVO));
+		
 		return "user/board/board";
 	  }//searchBoard
 	

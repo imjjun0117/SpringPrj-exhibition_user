@@ -7,6 +7,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kr.co.exhibitionThreeAdmin.search.vo.BHSearchVO;
 import kr.co.sist.user.board.dao.UserBoardDAO;
 import kr.co.sist.user.board.domain.UserBoardDomain;
 import kr.co.sist.user.board.vo.ReplyVO;
@@ -42,11 +43,11 @@ public class UserBoardService {
 	 * @param cat_num 移댄뀒怨좊━ 踰덊샇
 	 * @return �쟾泥� 寃뚯떆湲� �닔
 	 */
-	public int searchTotalCount(int cat_num) {
+	public int searchTotalCount(UserBoardVO ubVO) {
 		int cnt=0;
 		
 		try {
-			cnt=ubDAO.selectTotalCount( cat_num );
+			cnt=ubDAO.selectTotalCount(ubVO);
 		}catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch	
@@ -69,9 +70,9 @@ public class UserBoardService {
 	 * @param pageScale 10媛�
 	 * @return �븘�슂�븳 �럹�씠吏� �닔
 	 */
-	public int pageCnt(int cat_num) {
+	public int pageCnt(UserBoardVO ubVO) {
 		int pageCnt=0;
-		pageCnt=(int)Math.ceil((double)searchTotalCount(cat_num)/pageScale());
+		pageCnt=(int)Math.ceil((double)searchTotalCount(ubVO)/pageScale());
 		return pageCnt;
 	}//end pageCnt
 	
@@ -103,13 +104,60 @@ public class UserBoardService {
 		return endNum;
 	}//endNum
 	
+	/**
+	 * 페이지블럭 시작 번호
+	 * @param currentPage
+	 * @param pageScale
+	 * @return
+	 */
+	public int startPage(int currentPage, int pageScale) {
+		int startPage=0;
+		startPage = ((currentPage-1)/pageScale)*pageScale+1;
+		return startPage;
+	}
 	
-	public int endPage(int cat_num) {
-		int endPage = searchTotalCount(cat_num) / pageScale();
-		if(searchTotalCount(cat_num) % pageScale()!=0) {
+	public int endPage(UserBoardVO ubVO) {
+		int endPage = searchTotalCount(ubVO) / pageScale();
+		if(searchTotalCount(ubVO) % pageScale()!=0) {
 			endPage +=1;
 		}
 		return endPage;
+	}
+	
+	/**
+	 * 이전 페이지 존재 유무
+	 * @param currentPage
+	 * @param pageScale
+	 * @return
+	 */
+	public boolean prev(int currentPage, int pageScale) {
+		boolean prevFlag = startPage(currentPage,pageScale) == 1?false : true;
+		return prevFlag;
+	}
+	
+	/**
+	 * 다음 페이지 존재 유무
+	 * @param sVO
+	 * @param startPage
+	 * @param pageScale
+	 * @return
+	 */
+	public boolean next(UserBoardVO ubVO) {
+		boolean nextFlag = endPage(ubVO) >= pageCnt(ubVO)?false : true;
+		return nextFlag;
+	}
+	
+	
+	//이전 페이지 시작 번호
+	public int prevNum(int currentPage, int pageScale) {
+		int prevNum = startPage(currentPage, pageScale) - pageScale();
+		return prevNum;
+	}
+	
+	//다음페이지 시작번호
+	public int nextNum(int currentPage, int pageScale) {
+		int nextNum = startPage(currentPage, pageScale) + pageScale();
+		return nextNum;
 	}
 	
 	
@@ -202,6 +250,23 @@ public class UserBoardService {
 		}//end catch	
 		return cnt;
 	}//modifyView
+	
+	
+	/**
+	 * 검색 키워드와 옵션 비교
+	 * @param sVO
+	 */
+	public void setKeyword(UserBoardVO ubVO) {
+		if(!"".equals(ubVO.getKeyword())) {
+			String field="";
+			int num = ubVO.getFieldNum();
+			switch (num) {
+				case 2: field="userid";break;
+				default: field="title";
+			}
+			ubVO.setField(field);
+		}
+	}
 	
 	/**
 	 *  댓글 select

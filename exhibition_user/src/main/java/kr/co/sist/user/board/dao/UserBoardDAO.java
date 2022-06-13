@@ -38,10 +38,10 @@ public class UserBoardDAO {
 	 * @param cat_num
 	 * @return
 	 */
-	public int selectTotalCount( int cat_num ) {
+	public int selectTotalCount( UserBoardVO ubVO ) {
 		int totalCnt=0;
 		SqlSession ss=MyBatisFramework.getInstance().getMyBatisHandler();
-		totalCnt=ss.selectOne("kr.co.sist.user.board.totalBoardCnt", cat_num);
+		totalCnt=ss.selectOne("kr.co.sist.user.board.totalBoardCnt", ubVO);
 		if( ss !=null ) { ss.close(); }
 		return totalCnt;
 	}//selectTotalCount

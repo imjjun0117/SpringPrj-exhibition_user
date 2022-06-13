@@ -14,32 +14,15 @@
 		<result column="ROWNUM" property="rownum"/>
 	</resultMap>
 	
-	<!-- 카테고리에 따라 전체 게시글 리스트 보여주기 , 검색이 있다면 처리, 페이징 처리 
-		<where>
-			rnum between #{startNum} and #{endNum}
-			
-				  <where>
-				  (b.bd_id=r.bd_id(+)) and b.cat_num=#{cat_num}
-				  <choose>
-					  <when test="userid != null and userid !=''">
-					  	and	userid=#{userid} 
-					  </when>
-					   <when test="title != null and title !='' ">
-					  	and	title=#{title}
-					  </when>
-				  </choose>
-			  </where>
-		</where>
-		
-		parameterType="kr.co.sist.user.board.vo.UserBoardVO"-->
+	<!-- 카테고리에 따라 전체 게시글 리스트 보여주기 , 검색이 있다면 처리, 페이징 처리 -->
 	<select id="selectBoard" resultType="kr.co.sist.user.board.domain.UserBoardDomain" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
-	  	    select rnum, title, board_views, input_date, userid, cnt, bd_id ,cat_num
-      from (select row_number() over(order by b.input_date desc) rnum,
+  	    select rnum, title, board_views, input_date, userid, cnt, bd_id ,cat_num
+      		from (select row_number() over(order by b.input_date desc) rnum,
                b.cat_num,   b.bd_id, b.title, b.board_views, b.input_date, b.userid, count(r.reply_id) cnt
               from board b, REPLY r
               where b.bd_id=r.bd_id(+) and isdeleted='n' 
               <if test="keyword != null and keyword != ''">
-              and ${field}=#{keyword}
+              and ${field} like '%'||#{keyword}||'%'
               </if>
               group by b.bd_id, b.title, b.board_views, b.input_date, b.userid,b.cat_num)
        where   rnum between #{startNum} and #{endNum}
@@ -48,15 +31,33 @@
        </if>
 	</select>
 	
-<!--  페이징을 위한 게시글 전체 건수 조회 -->
-   <select id="totalBoardCnt" resultType="int" parameterType="int">
-	   	select	count(*) bd_id
-	   	from board
+<!--  페이징을 위한 게시글 전체 건수 조회
+select	count(*) bd_id
+	   	from (select row_number() over(order by b.input_date desc) rnum,
+               b.cat_num,   b.bd_id, b.title, b.board_views, b.input_date, b.userid, count(r.reply_id) cnt
+              from board b, REPLY r
+              where b.bd_id=r.bd_id(+) and isdeleted='n' 
+              <if test="keyword != null and keyword != ''">
+              and ${field} like '%'||#{keyword}||'%'
+              </if>
+              group by b.bd_id, b.title, b.board_views, b.input_date, b.userid,b.cat_num)
 	   	<if test="cat_num!=0">
 	   	<where>
 	   	 	cat_num=#{cat_num}
-	   	</where>
-   		</if>
+   	 	</where>
+   		</if> -->
+   <select id="totalBoardCnt" resultType="int" parameterType="kr.co.sist.user.board.vo.UserBoardVO">
+   		 select	count(*) 
+	   	 from (select bd_id, cat_num
+              from board
+              where isdeleted='n'
+              <if test="keyword != null and keyword != ''">
+                and ${field} like '%'||#{keyword}||'%'
+              </if>
+              <if test="cat_num!=0">
+	   	 		and cat_num=#{cat_num}
+   			  </if>
+              )
    </select>
    
    <!-- 게시글 추가 -->

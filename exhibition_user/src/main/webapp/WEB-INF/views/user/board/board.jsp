@@ -109,11 +109,11 @@ $(function(){
                     <div class="title-line wow fadeInRight"></div>
                 </div>
 			      <form class="d-flex" id="search" name="search" action="catBoard.do" method="get">
-                	<%-- <div class="input-group mb-3" style="width:350px;float:right;">
-					<select class="form-select" style="height:48px;" name="field" >
+                	<div class="input-group mb-3" style="width:350px;float:right;">
+					<select class="form-select" style="height:48px;" name="fieldNum" >
 						<option ${(param.dataSearchItem=="1")?"selected":""} value="1">제목</option>
 						<option ${(param.dataSearchItem=="2")?"selected":""} value="2">작성자</option>
-					</select> --%>
+					</select> 
 			        <input class="btn btn-outline-success" type="button" style="float: right; height: 35px" 
 			        	value="검색" id="searchBtn"/>
 			        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" 
@@ -149,7 +149,7 @@ $(function(){
                     <div class="col-sm-9 account-data padding-b-50 padding-t-50">
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
                             <br/><br/>
-                            <a href="boardForm.do">
+                            <a href="${not empty sessionScope.id? boardForm.do:login.do}">
                             	<input type="button"  class="btn btn-warning btn-block btn-lg" value="글 작성" style="width: 100px; float: right;">
                             </a> 
                             <br/><br/><br/><br/>
@@ -173,7 +173,6 @@ $(function(){
                                      	<td style="text-align: center;">	
                                      		<a href="boardDetail.do?bd_id=${boardList.bd_id }&board_views=${boardList.board_views}" > 
                                     			<c:out value="${boardList.title }"/>
-                                    			<c:out value="${boardList.bd_id }"/>
                                    			</a>
                                			</td>
                                         <td><c:out value="${boardList.userid }"/></td>
@@ -187,12 +186,27 @@ $(function(){
                                 </tbody>
                             </table>
 						<div class="text-center">
+							<%
+								String fieldNum = request.getParameter("fieldNum");
+								String keyword = request.getParameter("keyword");
+							%>
 							<nav aria-label="Page navigation example">
 							  <ul class="pagination">
-							    <li class="page-item"><a href="board.do?pageNum=${1}&Exhibition=${cat_num}"><c:out value="${1 }"/></a></li>
+							  <c:if test="${prev }">
+								 	<li><a href="board.do?pageNum=${prevNum}&Exhibition=${cat_num}<%=!"".equals(keyword) && keyword!=null?"&fieldNum="+fieldNum+"&keyword="+keyword:""%>">
+											<c:out value="이전"/>
+									</a></li>
+							 	</c:if>
 							  	 <c:forEach var="i" begin="1" end="${endPage }" step="1">
-							    	<li class="page-item"><a href="board.do?pageNum=${i+1}&Exhibition=${cat_num}"><c:out value="${i+1 }"/></a></li>
+							    	<li class="page-item"><a href="board.do?pageNum=${i}&Exhibition=${cat_num}<%=!"".equals(keyword) && keyword!=null?"&fieldNum="+fieldNum+"&keyword="+keyword:""%>">
+							    		<c:out value="${i}"></c:out>
+							    	</a></li>
 							    </c:forEach> 
+							    <c:if test="${next }">
+								 	<li><a href="board.do?pageNum=${nextNum}&Exhibition=${cat_num}<%=!"".equals(keyword) && keyword!=null?"&fieldNum="+fieldNum+"&keyword="+keyword:""%>">
+											<c:out value="다음"/>
+									</a></li>
+							 	</c:if>
 							  </ul>
 							</nav>
                         </div>
@@ -201,7 +215,6 @@ $(function(){
             </div>
         </div>
 
- </div>     
         
      <!-- /.footer -->
         <footer id="footer">
