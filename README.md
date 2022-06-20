@@ -14,14 +14,22 @@
 
 
 -------------------
-## 메인
+# 메인
 <img src="https://user-images.githubusercontent.com/93374409/174593330-26141790-09ae-42a6-88e1-290fc897e8ec.png" width="300" height=auto/>
 
 ## 로그인, 회원 가입
-<img src="https://user-images.githubusercontent.com/93374409/174593749-dfaa069b-67f4-45e7-a31b-42a2b040396a.png" width="500" height=auto/>
-<img src= "https://user-images.githubusercontent.com/93374409/174594167-fed48dfb-251c-467c-83ab-6102c71d472f.PNG" width="500" height=auto/>
+<img src="https://user-images.githubusercontent.com/93374409/174593749-dfaa069b-67f4-45e7-a31b-42a2b040396a.png"/>
+<img src= "https://user-images.githubusercontent.com/93374409/174594167-fed48dfb-251c-467c-83ab-6102c71d472f.PNG"/>
 
 * Spring Security를 사용하여 처리
+
+-------------------
+## 내 정보
+<img src="https://user-images.githubusercontent.com/93374409/174602796-ee4adf42-dd4c-45cd-91f4-b5ca810a5272.png"/>
+* 비밀번호 입력 후 일치하면 내 정보 중 예약상황 볼 수 있음
+ 
+-------------------
+
 
 -------------------
 ### 로그인
