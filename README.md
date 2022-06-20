@@ -18,8 +18,8 @@
 <img src="https://user-images.githubusercontent.com/93374409/174593330-26141790-09ae-42a6-88e1-290fc897e8ec.png" width="300" height=auto/>
 
 ## 로그인, 회원 가입
-<img src="https://user-images.githubusercontent.com/93374409/174593749-dfaa069b-67f4-45e7-a31b-42a2b040396a.png" width="300" height=auto/>
-<img src= "https://user-images.githubusercontent.com/93374409/174594167-fed48dfb-251c-467c-83ab-6102c71d472f.PNG" width="300" height=auto/>
+<img src="https://user-images.githubusercontent.com/93374409/174593749-dfaa069b-67f4-45e7-a31b-42a2b040396a.png" width="500" height=auto/>
+<img src= "https://user-images.githubusercontent.com/93374409/174594167-fed48dfb-251c-467c-83ab-6102c71d472f.PNG" width="500" height=auto/>
 
 * Spring Security를 사용하여 처리
 
