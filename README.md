@@ -25,6 +25,7 @@
 
 <br/>
 ### 로그인, 회원 가입
+
 <img src="https://user-images.githubusercontent.com/93374409/174593749-dfaa069b-67f4-45e7-a31b-42a2b040396a.png"/>
 <img src= "https://user-images.githubusercontent.com/93374409/174594167-fed48dfb-251c-467c-83ab-6102c71d472f.PNG"/>
 
@@ -34,6 +35,7 @@
 <br/>
 
 ### 내 정보
+
 <img src="https://user-images.githubusercontent.com/93374409/174602796-ee4adf42-dd4c-45cd-91f4-b5ca810a5272.png"/>
 * 비밀번호 입력 후 일치하면 내 정보 중 예약상황 볼 수 있음
  
@@ -41,6 +43,7 @@
 <br/>
 
 ### 전시 예약
+
 <img src="https://user-images.githubusercontent.com/93374409/174603758-2e8b3710-7025-4b35-8b4e-654ea2a643a4.png"/>
 
 * 현재 진행 전시 중 선택 시 위치 자동 변경 
@@ -50,6 +53,7 @@
 <br/>
 
 ### 게시판
+
 <img src="https://user-images.githubusercontent.com/93374409/174604115-9a2fc06f-b227-421e-be11-d87b3ed5e705.png"/>
 * 게시글 선택, 카테고리 선택 가능
 * 게시글을 작성 후 조회 가능
@@ -62,6 +66,7 @@
 -------------------
 <br/>
 ### 로그인
+
 <img src="https://user-images.githubusercontent.com/93374409/163676765-9d10f7df-4c16-4e24-bc09-054ce2aad4ef.PNG" width="300" height=auto/>
 
 * Login 성공
@@ -79,6 +84,7 @@
 -------------------
 <br/>
 ### 회원관리, 예약관리, 게시판 관리
+
 <img src="https://user-images.githubusercontent.com/93374409/174604460-d9ced6e3-47e7-4f95-987e-2d7d41aa0e25.jpg"/>
 * DB호출 후 회원, 예약, 게시판 관리 가능
 * 클릭시 상세정보로 이동
@@ -91,6 +97,7 @@
 -------------------
 <br/>
 ### 이메일 보내기
+
 <img src="https://user-images.githubusercontent.com/93374409/174604970-015db130-ddae-4e39-94fb-742ec4fd6f57.jpg"/>
 
 * 회원의 이메일(아이디)를 통해 이메일 보내기 기능 추가
@@ -99,4 +106,5 @@
 ----------------
 <br/><br/>
 ## AWS를 통한 서버 올리기
+
 <img src="https://user-images.githubusercontent.com/93374409/174606585-d102d63b-891d-400c-96ea-6d03e990d2b5.png"/>
