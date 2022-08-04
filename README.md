@@ -1,4 +1,5 @@
 # 3조 exhibition 홈페이지 제작
+
 * 사용 언어: Spring, AWS, JSP, Oracle DB, Jquery..
 * 제작기간: (2022.05.20~)
 * 링크: http://exhibition.sist.co.kr
@@ -10,6 +11,7 @@
 미술관을 찾아헤매는 사람들을 위한 웹사이트
 
 <br/>
+
 ## ClassDiagram
 
 <img src="https://user-images.githubusercontent.com/93374409/163676590-f85c0068-d2ae-4eca-92a7-9328433905c1.png"/>
@@ -26,6 +28,7 @@
 -------------------
 
 <br/>
+
 ### 로그인, 회원 가입
 
 <img src="https://user-images.githubusercontent.com/93374409/174593749-dfaa069b-67f4-45e7-a31b-42a2b040396a.png"/>
@@ -57,6 +60,7 @@
 ### 게시판
 
 <img src="https://user-images.githubusercontent.com/93374409/174604115-9a2fc06f-b227-421e-be11-d87b3ed5e705.png"/>
+
 - 게시글 선택, 카테고리 선택 가능
 - 게시글을 작성 후 조회 가능
 
